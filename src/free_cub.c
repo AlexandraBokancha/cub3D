@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 12:48:36 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:27:08 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,19 @@ void	free_cub(t_data *data)
 		ft_free_char_tab(&data->map);
 	free(data);
 	return ;
+}
+
+/**
+ * @brief Free cub3D ressources and exit
+ *
+ * Free the cub3d ressources and exit with status code 0
+ *
+ * @param	data The cub3D data structure
+ * @return	0
+ */
+int	exit_cub(t_data *data)
+{
+	free_cub(data);
+	exit(0);
+	return (0);
 }

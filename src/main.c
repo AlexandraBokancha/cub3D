@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 20:00:42 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/13 22:08:45 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,16 @@ int	main()
 	data = init_cub();
 	if (!data)
 		return (1);
-	data->player_pos.x = 1.5;
-	data->player_pos.y = 1.5;
+	data->player_pos.x = 8.5;
+	data->player_pos.y = 8.5;
 	data->direction.x = -1;
 	data->direction.y = 0;
 	data->camera_plane.x = 0;
 	data->camera_plane.y = 0.66;
 	data->map = copy_map();
-	mlx_loop_hook(data->mlx, render, data);
+	mlx_key_hook(data->window, &key_hook, data);
+	mlx_hook(data->window, 17, 0, &exit_cub, data);
+	mlx_loop_hook(data->mlx, &render, data);
 	mlx_loop(data->mlx);
 	free_cub(data);
 	return (0);

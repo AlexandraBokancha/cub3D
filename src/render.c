@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 20:03:48 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/13 22:13:04 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	t_raycast	ray;
 
 	ray.x = screen_x;
-	ray.cam_x = 2.0 * screen_x / data->w_width - 1;
+	ray.cam_x = 2.0 * screen_x / (double)data->w_width - 1.0;
 	ray.ray_dir = init_vec(data->direction.x + data->camera_plane.x * ray.cam_x,
 			data->direction.y + data->camera_plane.y * ray.cam_x);
 	ray.imap = init_vec((int)data->player_pos.x, (int)data->player_pos.y);
@@ -69,8 +69,8 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	if (ray.ray_dir.y != 0)
 		ray.delta_dist.y = fabs(1.0 / ray.ray_dir.y);
 	ray.step = init_vec(-1, -1);
-	ray.side_dist = init_vec((data->player_pos.x - ray.imap.x)
-		* ray.delta_dist.x, (data->player_pos.y - ray.imap.y) * ray.delta_dist.y);
+	ray.side_dist = init_vec((data->player_pos.x - ray.imap.x) * ray.delta_dist.x,
+		(data->player_pos.y - ray.imap.y) * ray.delta_dist.y);
 	if (ray.ray_dir.x >= 0)
 		ray.step.x = 1.0;
 	if (ray.ray_dir.x >= 0)
@@ -130,17 +130,21 @@ static void	draw_column(t_data *data, t_raycast ray)
 	int	wall_orientation;
 	int	column_size;
 	int	draw_start;
+	int	draw_end;
 	int	color;
 	int	i;
 
 	wall_orientation = get_wall_orientation(ray);
 	color = get_color(wall_orientation);
-	column_size = data->w_height / ray.perp_wall_dist;
+	column_size = (data->w_height / ray.perp_wall_dist);
 	draw_start = (-column_size / 2) + data->w_height / 2;
 	if (draw_start < 0)
 		draw_start = 0;
+	draw_end = column_size / 2 + data->w_height / 2;
+	if (draw_end >= data->w_height)
+		draw_end = data->w_height - 1;
 	i = draw_start;
-	while (i < column_size)
+	while (i < draw_end)
 	{
 		ft_mlx_pixel_put(&data->img, ray.x, i, color);
 		i++;
@@ -167,7 +171,7 @@ static t_raycast	raycast(t_data	*data, int x)
 	{
 		if (ray.side_dist.x < ray.side_dist.y)
 		{
-			ray.side_dist.x = ray.delta_dist.x;
+			ray.side_dist.x += ray.delta_dist.x;
 			ray.imap.x += ray.step.x;
 			ray.side = 0;
 		}
@@ -179,10 +183,28 @@ static t_raycast	raycast(t_data	*data, int x)
 		}
 		hit = (data->map[(int)ray.imap.x][(int)ray.imap.y] == '1');
 	}
-	ray.perp_wall_dist = ray.side_dist.y = ray.delta_dist.y; 
-	if (!ray.side)
-		ray.perp_wall_dist = ray.side_dist.x = ray.delta_dist.x; 
+	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y; 
+	if (ray.side == 0)
+		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x; 
 	return (ray);
+}
+
+void draw_black(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < data->w_width)
+	{
+		j = 0;
+		while (j < data->w_height)
+		{
+			ft_mlx_pixel_put(&data->img, i, j, 0x00000000);
+			j++;
+		}
+		i++;
+	}
 }
 
 /**
@@ -208,6 +230,9 @@ int	render(void *param)
 
 	data = (t_data *)param;
 	x = 0;
+	// ft_bzero(data->img.addr,
+	// 	data->img.bits_per_pixel / 8 * data->w_height * data->w_width);
+	draw_black(data);
 	while (x < data->w_width)
 	{
 		ray = raycast(data, x);

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 19:42:38 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/13 22:06:55 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,36 @@
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
 
+/*
+ * WINDOW SIZE
+ */
 # define DEFAULT_WIN_WIDTH 1920
 # define DEFAULT_WIN_HEIGHT 1080
 
+/*
+ * WALL ORIENTATION
+ */
 # define NORTH 1
 # define EAST 2
 # define SOUTH 3
 # define WEST 4
+
+/*
+ * KEYMAPPING
+ */
+# define ESC 0xFF1B
+# define W 0x0077
+# define A 0x0061
+# define S 0x0073
+# define D 0x0064
+# define ARROW_LEFT 0xFF51
+# define ARROW_RIGHT 0xFF53
+
+/*
+ * DEFAULT CONFIGURATION
+ */
+# define MOVE_SPEED 0.05
+# define ROTATION_SPEED 3.0
 
 /**
  * @struct s_vec
@@ -193,11 +216,14 @@ void    print_error(const char *func, int error_nbr);
 
 // free_cub.c
 void	free_cub(t_data *data);
+int		exit_cub(t_data *data);
 
 // init_cub.c
 t_vec	init_vec(double x, double y);
 t_data	*init_cub(void);
 
+// mlx_hook
+int		key_hook(int keycode, void *param);
 //render.c
 int		render(void *param);
 
