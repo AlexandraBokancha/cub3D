@@ -1,19 +1,23 @@
 ### COMPILATION ###
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 ### INCLUDES ###
 PROJECT = cub3D
 PROJECT_DIR = ./
 
 SRC_DIR = src
-SRC_FILE = 
+SRC_FILE = $(SRC_DIR)/print_error.c \
+		   $(SRC_DIR)/ft_mlx_pixel_put.c \
+		   $(SRC_DIR)/free_cub.c \
+		   $(SRC_DIR)/init_cub.c \
+		   $(SRC_DIR)/render.c \
 			$(SRC_DIR)/main.c
 			   
 ### HEADER FILE ###
 HEADER_DIR = includes
 
-# MNIILIBX
+# MINILIBX
 MLX_DIR = mlx
 MLX_FLAG = -L$(MLX_DIR) -lmlx -lXext -lX11
 
@@ -27,7 +31,7 @@ FT_FLAG = -L$(FT_DIR) -l$(FT)
 
 ## OBJECT FILE ###
 OBJ_DIR = .obj
-OBJ_SRC = $(addprefix $(SRC_DIR)/, $(addprefix $(OBJ_DIR)/, $(notdir $(SRC_FILE:.c=.o))))
+OBJ_SRC = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC_FILE:.c=.o)))
 
 .PHONY = bonus, all, clean, fclean
 
@@ -42,7 +46,7 @@ $(PROJECT) : $(OBJ_SRC) $(OBJ_TOOLS)
 	make -C $(FT_DIR)
 	$(CC) $(CFLAGS) $(OBJ_SRC) -o $(PROJECT) $(FT_FLAG) $(MLX_FLAG) $(MATH_FLAG)
 
-$(SRC_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
@@ -52,10 +56,10 @@ fclean : clean
 
 #Suppresion des fichiers objet
 clean :
-	rm -f $(SRC_DIR)/$(OBJ_DIR)/*.o
-	@rm -df $(SRC_DIR)/$(OBJ_DIR)/
-	rm -f $(BONUS_DIR)/$(OBJ_DIR)/*.o
-	@rm -df $(BONUS_DIR)/$(OBJ_DIR)/
+	rm -f $(OBJ_DIR)/*.o
+	@rm -df $(OBJ_DIR)/
+	# rm -f $(BONUS_DIR)/$(OBJ_DIR)/*.o
+	# @rm -df $(BONUS_DIR)/$(OBJ_DIR)/
 	make clean -C $(FT_DIR)
 	make clean -C $(MLX_DIR)
 
