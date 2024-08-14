@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 17:47:44 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:14:19 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	main()
 	data = init_cub();
 	if (!data)
 		return (1);
-	data->player_pos.x = 1.9;
-	data->player_pos.y = 1.9;
+	data->player.x = 1.9;
+	data->player.y = 1.9;
 	data->direction.x = 0.5;
 	data->direction.y = 0.5;
 	data->camera_plane.x = 0.66 * data->direction.y;

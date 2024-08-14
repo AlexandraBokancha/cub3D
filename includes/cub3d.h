@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 19:03:21 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:17:15 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ typedef struct s_vec
  * @var s_raycast::delta_dist
  * A vector describing the distance between two walls (given a certain ray)
  *
- * @var s_raycast::imap
- * A pair containing the actual ray position in the map (imap = int player_pos)
+ * @var s_raycast::map
+ * A pair containing the actual ray position in the map (map = int player_pos)
  *
  * @var s_raycast::step
  * A pair of int defining in witch direction we should check walls.
@@ -131,7 +131,7 @@ typedef struct s_raycast
 	t_vec	ray_dir;
 	t_vec	side_dist;
 	t_vec	delta_dist;
-	t_vec	imap;
+	t_vec	map;
 	t_vec	step;
 	double	perp_wall_dist;
 	int		side;
@@ -197,7 +197,7 @@ typedef struct s_img
  * @var s_data::map
  * Game map
  *
- * @var s_data::player_pos
+ * @var s_data::player
  * Player position in the map
  *
  * @var s_data::direction
@@ -215,7 +215,7 @@ typedef struct s_data
 	t_img	img;
 	void	*texture[4];
 	char	**map;
-	t_vec	player_pos;
+	t_vec	player;
 	t_vec	direction;
 	t_vec	camera_plane;
 }				t_data;

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 17:47:31 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:14:04 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	move(int key, t_data *data)
 	t_vec	pos;
 	t_vec	move;
 
-	pos = init_vec(data->player_pos.x, data->player_pos.y);
+	pos = init_vec(data->player.x, data->player.y);
 	move = init_vec(data->direction.x * MOVE_SPEED,
 			data->direction.y * MOVE_SPEED);
 	if (key == S && data->map[(int)(pos.x - move.x * 1.1)][(int)pos.y] != '1')
@@ -43,8 +43,8 @@ static void	move(int key, t_data *data)
 		move.x = data->direction.y * MOVE_SPEED;
 	if (key == D && data->map[(int)pos.x][(int)(pos.y - move.x * 1.1)] != '1')
 		move.y = -(data->direction.x * MOVE_SPEED);
-	data->player_pos.x += move.x;
-	data->player_pos.y += move.y;
+	data->player.x += move.x;
+	data->player.y += move.y;
 }
 
 /**

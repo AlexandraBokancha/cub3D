@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 19:03:34 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:20:43 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,23 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	ray.cam_x = (2.0 * (double)screen_x) / (double)data->w_width - 1.0;
 	ray.ray_dir = init_vec(data->direction.x + data->camera_plane.x * ray.cam_x,
 			data->direction.y + data->camera_plane.y * ray.cam_x);
-	ray.imap = init_vec((int)data->player_pos.x, (int)data->player_pos.y);
+	ray.map = init_vec((int)data->player.x, (int)data->player.y);
 	ray.delta_dist = init_vec(0x1E30, 0x1E30);
 	if (ray.ray_dir.x != 0)
 		ray.delta_dist.x = fabs(1.0 / ray.ray_dir.x);
 	if (ray.ray_dir.y != 0)
 		ray.delta_dist.y = fabs(1.0 / ray.ray_dir.y);
 	ray.step = init_vec(-1, -1);
-	ray.side_dist = init_vec((data->player_pos.x - ray.imap.x) * ray.delta_dist.x,
-		(data->player_pos.y - ray.imap.y) * ray.delta_dist.y);
+	ray.side_dist = init_vec((data->player.x - ray.map.x) * ray.delta_dist.x,
+			(data->player.y - ray.map.y) * ray.delta_dist.y);
 	if (ray.ray_dir.x >= 0)
 		ray.step.x = 1;
 	if (ray.ray_dir.x >= 0)
-		ray.side_dist.x = (ray.imap.x + 1.0 - data->player_pos.x) * ray.delta_dist.x;
+		ray.side_dist.x = (ray.map.x + 1.0 - data->player.x) * ray.delta_dist.x;
 	if (ray.ray_dir.y >= 0)
 		ray.step.y = 1.0;
 	if (ray.ray_dir.y >= 0)
-		ray.side_dist.y = (ray.imap.y + 1.0 - data->player_pos.y) * ray.delta_dist.y;
+		ray.side_dist.y = (ray.map.y + 1.0 - data->player.y) * ray.delta_dist.y;
 	return (ray);
 }
 
@@ -102,24 +102,24 @@ static t_raycast	raycast(t_data	*data, int x)
 		if (ray.side_dist.x < ray.side_dist.y)
 		{
 			ray.side_dist.x += ray.delta_dist.x;
-			ray.imap.x += ray.step.x;
+			ray.map.x += ray.step.x;
 			ray.side = 0;
 		}
 		else
 		{
 			ray.side_dist.y += ray.delta_dist.y;
-			ray.imap.y += ray.step.y;
+			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		hit = (data->map[(int)ray.imap.x][(int)ray.imap.y] == '1');
+		hit = (data->map[(int)ray.map.x][(int)ray.map.y] == '1');
 	}
-	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y; 
+	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	if (ray.side == 0)
-		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x; 
+		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;
 	return (ray);
 }
 
-void draw_black(t_data *data)
+void	draw_black(t_data *data)
 {
 	int	i;
 	int	j;
@@ -156,7 +156,7 @@ int	render(void *param)
 {
 	t_data		*data;
 	t_raycast	ray;
-	int		x;
+	int			x;
 
 	data = (t_data *)param;
 	x = 0;
@@ -168,7 +168,7 @@ int	render(void *param)
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
-	printf("Player (%5f, %5f)\n", data->player_pos.x, data->player_pos.y);
+	printf("Player (%5f, %5f)\n", data->player.x, data->player.y);
 	printf("Direction (%5f :%5f)\n", data->direction.x, data->direction.y);
 	printf("Plane (%5f :%5f)\n", data->camera_plane.x, data->camera_plane.y);
 	return (0);
