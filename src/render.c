@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 12:01:03 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:01:52 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,10 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	t_raycast	ray;
 
 	ray.x = screen_x;
-	ray.cam_x = 2.0 * (double)screen_x / (double)data->w_width - 1.0;
+	ray.cam_x = (2.0 * (double)screen_x) / (double)data->w_width - 1.0;
 	ray.ray_dir = init_vec(data->direction.x + data->camera_plane.x * ray.cam_x,
 			data->direction.y + data->camera_plane.y * ray.cam_x);
 	ray.imap = init_vec((int)data->player_pos.x, (int)data->player_pos.y);
-	// ray.map_x = (int)data->player_pos.x;
-	// ray.map_y = (int)data->player_pos.x;
 	ray.delta_dist = init_vec(0x1E30, 0x1E30);
 	if (ray.ray_dir.x != 0)
 		ray.delta_dist.x = fabs(1.0 / ray.ray_dir.x);
@@ -74,13 +72,13 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	ray.side_dist = init_vec((data->player_pos.x - ray.imap.x) * ray.delta_dist.x,
 		(data->player_pos.y - ray.imap.y) * ray.delta_dist.y);
 	if (ray.ray_dir.x >= 0)
-		ray.step.x = 1.0;
+		ray.step.x = 1;
 	if (ray.ray_dir.x >= 0)
-		ray.ray_dir.x = (ray.imap.x + 1.0 - data->player_pos.x) * ray.delta_dist.x;
+		ray.side_dist.x = (ray.imap.x + 1.0 - data->player_pos.x) * ray.delta_dist.x;
 	if (ray.ray_dir.y >= 0)
 		ray.step.y = 1.0;
 	if (ray.ray_dir.y >= 0)
-		ray.ray_dir.y = (ray.imap.y + 1.0 - data->player_pos.y) * ray.delta_dist.y;
+		ray.side_dist.y = (ray.imap.y + 1.0 - data->player_pos.y) * ray.delta_dist.y;
 	return (ray);
 }
 
@@ -232,8 +230,6 @@ int	render(void *param)
 
 	data = (t_data *)param;
 	x = 0;
-	// ft_bzero(data->img.addr,
-	// 	data->img.bits_per_pixel / 8 * data->w_height * data->w_width);
 	draw_black(data);
 	while (x < data->w_width)
 	{

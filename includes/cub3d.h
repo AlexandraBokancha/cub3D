@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 12:01:09 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:01:44 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,6 @@ typedef struct s_raycast
 	t_vec	side_dist;
 	t_vec	delta_dist;
 	t_vec	imap;
-	// int		map_x;
-	// int		map_y;
 	t_vec	step;
 	double	perp_wall_dist;
 	int		side;
