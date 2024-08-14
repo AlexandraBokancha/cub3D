@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 19:17:15 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 23:13:54 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@
 /*
  * DEFAULT CONFIGURATION
  */
+# define TEXTURE_WIDTH 64.0
+# define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.03
-# define DELTA 0.25
+# define DELTA 1.1
 
 /**
  * @struct s_vec
@@ -98,7 +100,7 @@ typedef struct s_vec
  * A raycast compatible conversion of the column to cam_x position,
  * convert value from [1;screen_width] to value in [-1;1], 0 being the center
  *
- * @var s_raycast::ray_dir
+ * @var s_raycast::dir
  * A vector describing the direction of the casted ray
  *
  * @var s_raycast:side_dist
@@ -128,7 +130,7 @@ typedef struct s_raycast
 {
 	int		x;
 	double	cam_x;
-	t_vec	ray_dir;
+	t_vec	dir;
 	t_vec	side_dist;
 	t_vec	delta_dist;
 	t_vec	map;
@@ -213,7 +215,7 @@ typedef struct s_data
 	int		w_height;
 	int		w_width;
 	t_img	img;
-	void	*texture[4];
+	t_img	texture[4];
 	char	**map;
 	t_vec	player;
 	t_vec	direction;

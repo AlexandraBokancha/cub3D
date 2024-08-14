@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 19:14:04 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 23:10:32 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,21 @@ static void	move(int key, t_data *data)
 	pos = init_vec(data->player.x, data->player.y);
 	move = init_vec(data->direction.x * MOVE_SPEED,
 			data->direction.y * MOVE_SPEED);
-	if (key == S && data->map[(int)(pos.x - move.x * 1.1)][(int)pos.y] != '1')
+	if (key == W && data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] == '1')
+		move.x = 0;
+	if (key == W && data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] == '1')
+		move.y = 0;
+	if (key == S && data->map[(int)(pos.x - move.x * DELTA)][(int)pos.y] != '1')
 		move.x = -move.x;
-	if (key == S && data->map[(int)pos.x][(int)(pos.y - move.y * 1.1)] != '1')
+	if (key == S && data->map[(int)pos.x][(int)(pos.y - move.y * DELTA)] != '1')
 		move.y = -move.y;
-	if (key == A && data->map[(int)(pos.x - move.y * 1.1)][(int)pos.y] != '1')
+	if (key == A && data->map[(int)(pos.x - move.y * DELTA)][(int)pos.y] != '1')
 		move.x = -(data->direction.y * MOVE_SPEED);
-	if (key == A && data->map[(int)pos.x][(int)(pos.y + move.x * 1.1)] != '1')
+	if (key == A && data->map[(int)pos.x][(int)(pos.y + move.x * DELTA)] != '1')
 		move.y = data->direction.x * MOVE_SPEED;
-	if (key == D && data->map[(int)(pos.x + move.y * 1.1)][(int)pos.y] != '1')
+	if (key == D && data->map[(int)(pos.x + move.y * DELTA)][(int)pos.y] != '1')
 		move.x = data->direction.y * MOVE_SPEED;
-	if (key == D && data->map[(int)pos.x][(int)(pos.y - move.x * 1.1)] != '1')
+	if (key == D && data->map[(int)pos.x][(int)(pos.y - move.x * DELTA)] != '1')
 		move.y = -(data->direction.x * MOVE_SPEED);
 	data->player.x += move.x;
 	data->player.y += move.y;
