@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 15:04:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:03:21 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
  */
 # define DEFAULT_WIN_WIDTH 1920
 # define DEFAULT_WIN_HEIGHT 1080
+
+/*
+ * MLX EVENTS
+ */
+# define ON_MOUSEMOVE 6
+# define ON_DESTROY 17
 
 /*
  * WALL ORIENTATION
@@ -185,6 +191,9 @@ typedef struct s_img
  * @var s_data::img
  * mlx window image
  *
+ * @var s_data::texture
+ * The buffer containing pointer to the different textures
+ *
  * @var s_data::map
  * Game map
  *
@@ -204,6 +213,7 @@ typedef struct s_data
 	int		w_height;
 	int		w_width;
 	t_img	img;
+	void	*texture[4];
 	char	**map;
 	t_vec	player_pos;
 	t_vec	direction;
@@ -226,6 +236,11 @@ t_data	*init_cub(void);
 
 // mlx_hook
 int		key_hook(int keycode, void *param);
+int		camera_move(int x, int y, void *param);
+
+// draw_column.c
+void	draw_column(t_data *data, t_raycast ray);
+
 //render.c
 int		render(void *param);
 

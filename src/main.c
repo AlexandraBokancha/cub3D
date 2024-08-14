@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 14:48:48 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:47:44 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	main()
 	data->camera_plane.y = 0.66 * (-data->direction.x);
 	data->map = copy_map();
 	mlx_key_hook(data->window, &key_hook, data);
-	mlx_hook(data->window, 17, 0, &exit_cub, data);
+	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);
+	// mlx_hook(data->window, ON_MOUSEMOVE, (1L<<6), &camera_move, data); // Mouse movment detection
 	mlx_loop_hook(data->mlx, &render, data);
 	mlx_loop(data->mlx);
 	free_cub(data);
