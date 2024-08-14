@@ -6,50 +6,45 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 16:35:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:52:40 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include <math.h>
 
-static void	move(int keycode, t_data *data)
+/**
+ * @brief Move player position based on pressed key
+ *
+ * This function move the player position based on the pressed key
+ * W : Forward | S : Backward | A : Left | D : Right
+ * THe function if messy to be 42nrorm compliant
+ *
+ * @param	key		Keycode of the pressed key
+ * @param	data	The cub3D global data structure
+ */
+static void	move(int key, t_data *data)
 {
-	t_vec	new_pos;
+	t_vec	pos;
 	t_vec	move;
 
-	new_pos = init_vec(data->player_pos.x, data->player_pos.y);
+	pos = init_vec(data->player_pos.x, data->player_pos.y);
 	move = init_vec(data->direction.x * MOVE_SPEED,
-		data->direction.y * MOVE_SPEED);
-	if (keycode == W)
-	{
-		if (data->map[(int)(new_pos.x + move.x * 1.1)][(int)new_pos.y] != '1')
-			data->player_pos.x += move.x;
-		if (data->map[(int)new_pos.x][(int)(new_pos.y + move.y * 1.1)] != '1')
-			data->player_pos.y += move.y;
-	}
-	if (keycode == S)
-	{
-		if (data->map[(int)(new_pos.x - move.x * 1.1)][(int)new_pos.y] != '1')
-			data->player_pos.x -= move.x;
-		if (data->map[(int)new_pos.x][(int)(new_pos.y - move.y * 1.1)] != '1')
-			data->player_pos.y -= move.y;
-	}
-	if (keycode == A)
-	{
-		if (data->map[(int)(new_pos.x - move.y * 1.1)][(int)new_pos.y] != '1')
-			data->player_pos.x -= move.y;
-		if (data->map[(int)new_pos.x][(int)(new_pos.y + move.x * 1.1)] != '1')
-			data->player_pos.y += move.x;
-	}
-	if (keycode == D)
-	{
-		if (data->map[(int)(new_pos.x + move.y * 1.1)][(int)new_pos.y] != '1')
-			data->player_pos.x += move.y;
-		if (data->map[(int)new_pos.x][(int)(new_pos.y - move.x * 1.1)] != '1')
-			data->player_pos.y -= move.x;
-		printf("D\n");
-	}
+			data->direction.y * MOVE_SPEED);
+	if (key == S && data->map[(int)(pos.x - move.x * 1.1)][(int)pos.y] != '1')
+		move.x = -move.x;
+	if (key == S && data->map[(int)pos.x][(int)(pos.y - move.y * 1.1)] != '1')
+		move.y = -move.y;
+	if (key == A && data->map[(int)(pos.x - move.y * 1.1)][(int)pos.y] != '1')
+		move.x = -(data->direction.y * MOVE_SPEED);
+	if (key == A && data->map[(int)pos.x][(int)(pos.y + move.x * 1.1)] != '1')
+		move.y = data->direction.x * MOVE_SPEED;
+	if (key == D && data->map[(int)(pos.x + move.y * 1.1)][(int)pos.y] != '1')
+		move.x = data->direction.y * MOVE_SPEED;
+	if (key == D && data->map[(int)pos.x][(int)(pos.y - move.x * 1.1)] != '1')
+		move.y = -(data->direction.x * MOVE_SPEED);
+	data->player_pos.x += move.x;
+	data->player_pos.y += move.y;
 }
 
 /**
