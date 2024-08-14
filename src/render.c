@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 20:54:44 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 00:53:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@
  *
  * This function init a t_raycast variable based on the data from data
  * and the screen column we're working with
- *
  * @param data The cub3D global data pointer
  * @param screen_x The screen column we deal with
  *
@@ -119,24 +118,6 @@ static t_raycast	raycast(t_data	*data, int x)
 	return (ray);
 }
 
-void	draw_black(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < data->w_width)
-	{
-		j = 0;
-		while (j < data->w_height)
-		{
-			ft_mlx_pixel_put(&data->img, i, j, 0x00000000);
-			j++;
-		}
-		i++;
-	}
-}
-
 /**
  * @brief Create a new MLX img and render iterate
  *
@@ -160,7 +141,7 @@ int	render(void *param)
 
 	data = (t_data *)param;
 	x = 0;
-	draw_black(data);
+	draw_floor_and_ceiling(data);
 	while (x < data->w_width)
 	{
 		ray = raycast(data, x);

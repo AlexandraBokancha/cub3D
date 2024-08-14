@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 23:17:56 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 00:54:52 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	main()
 	if (!data)
 		return (1);
 	// PLAYER AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
+	data->ceiling_color = 0x00645832;
+	data->floor_color = 0x00474747;
 	data->player.x = 1.9;
 	data->player.y = 1.9;
 	data->direction.x = 0.5;

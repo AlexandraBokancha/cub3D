@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 23:13:54 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 00:51:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,48 @@ typedef struct s_raycast
 }				t_raycast;
 
 /**
+ * @struct s_draw
+ * @brief Wall draw data structure
+ *
+ * This structure contain all necessary data to render textured wall
+ *
+ * @var s_draw::column_size
+ * Size of the column to be drawn (in pixel)
+ *
+ * @var s_draw::start
+ * The drawing starting height/line
+ * 
+ * @var s_draw::end
+ * The drawing ending height/line
+ *
+ * @var s_draw::wall_orientation
+ * An integer representing the wall orientation Nort/West/East/South
+ *
+ * @var s_draw::tex_x
+ * The wall X hit position converted to texture
+ *
+ * @var s_draw::wall_x
+ * The wall X hit position
+ *
+ * @var s_draw::step
+ * The step from one pixel to another converted to texture size
+ *
+ * @var s_draw::tex_start
+ * The texture Y position start
+ */
+typedef struct s_draw
+{
+	int		column_size;
+	int		start;
+	int		end;
+	int		wall_orientation;
+	int		tex_x;
+	double	wall_x;
+	double	step;
+	double	tex_start;
+}				t_draw;
+
+/**
  * @struct s_img
  * @brief MLX image data type
  * 
@@ -196,6 +238,12 @@ typedef struct s_img
  * @var s_data::texture
  * The buffer containing pointer to the different textures
  *
+ * @var s_data::floor_color
+ * TRGB floor color
+ *
+ * @var s_data::ceiling_color
+ * TRGB ceiling color
+ *
  * @var s_data::map
  * Game map
  *
@@ -216,6 +264,8 @@ typedef struct s_data
 	int		w_width;
 	t_img	img;
 	t_img	texture[4];
+	int		floor_color;
+	int		ceiling_color;
 	char	**map;
 	t_vec	player;
 	t_vec	direction;
@@ -242,6 +292,9 @@ int		camera_move(int x, int y, void *param);
 
 // draw_column.c
 void	draw_column(t_data *data, t_raycast ray);
+
+// draw_floor_and_ceiling
+void	draw_floor_and_ceiling(t_data *data);
 
 //render.c
 int		render(void *param);

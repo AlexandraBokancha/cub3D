@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:01:52 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 23:01:35 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 00:56:19 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,47 +36,14 @@ static int	get_wall_orientation(t_raycast ray)
 }
 
 /**
- * @struct s_draw
- * @brief Wall draw data structure
+ * @brief Create a new t_draw object based on data and ray
  *
- * This structure contain all necessary data to render textured wall
+ * Create a new t_draw object with all necessary information for wall drawing
  *
- * @var s_draw::column_size
- * Size of the column to be drawn (in pixel)
- *
- * @var s_draw::start
- * The drawing starting height/line
- * 
- * @var s_draw::end
- * The drawing ending height/line
- *
- * @var s_draw::wall_orientation
- * An integer representing the wall orientation Nort/West/East/South
- *
- * @var s_draw::tex_x
- * The wall X hit position converted to texture
- *
- * @var s_draw::wall_x
- * The wall X hit position
- *
- * @var s_draw::step
- * The step from one pixel to another converted to texture size
- *
- * @var s_draw::tex_start
- * The texture Y position start
+ * @param	data	The cub3D global data structure
+ * @param	ray		The t_raycast we're actualy working with
+ * @return  A new T_draw object  
  */
-typedef struct s_draw
-{
-	int		column_size;
-	int		start;
-	int		end;
-	int		wall_orientation;
-	int		tex_x;
-	double	wall_x;
-	double	step;
-	double	tex_start;
-}				t_draw;
-
 static t_draw	init_draw(t_data *data, const t_raycast *ray)
 {
 	t_draw	draw;
@@ -100,19 +67,38 @@ static t_draw	init_draw(t_data *data, const t_raycast *ray)
 		draw.tex_x = TEXTURE_WIDTH - draw.tex_x - 1;
 	draw.step = 1.0 * TEXTURE_HEIGHT / draw.column_size;
 	draw.tex_start = (draw.start - (double)data->w_height / 2
-		+ (double)draw.column_size / 2) * draw.step;
+			+ (double)draw.column_size / 2) * draw.step;
 	return (draw);
 }
 
+/**
+ * @brief Get texture color on position x, y
+ *
+ * Get texture color on position x, y
+ * CARREFUL the function is not protected against invalid x and y
+ *
+ * @param	texture	The t_img texture
+ * @param	x		X position
+ * @param	y		Y position
+ * @return  An unsigned int color
+ */
 static int	get_texture_color(t_img texture, int x, int y)
 {
 	char	*c;
 
 	c = texture.addr + (x * (texture.bits_per_pixel / 8)
-		+ y * texture.line_length);
+			+ y * texture.line_length);
 	return ((int)*c);
 }
 
+/**
+ * @brief Draw column to MLX image
+ *
+ * Draw a wall column in the MLX img based
+ *
+ * @param data The cub3D global data
+ * @param ray The t_raycast we're working with
+ */
 void	draw_column(t_data *data, t_raycast ray)
 {
 	t_draw	draw;
@@ -133,36 +119,3 @@ void	draw_column(t_data *data, t_raycast ray)
 	}
 	return ;
 }
-
-/**
- * @brief Draw column to MLX image
- *
- * Draw a wall column in the MLX img based
- *
- * @param data The cub3D global data
- * @param ray The t_raycast we're working with
- */
-// void	draw_column(t_data *data, t_raycast ray)
-// {
-// 	int	column_size;
-// 	int	draw_start;
-// 	int	draw_end;
-// 	int	color;
-// 	int	i;
-//
-// 	color = get_color(get_wall_orientation(ray));
-// 	column_size = (data->w_height / ray.perp_wall_dist);
-// 	draw_start = (-column_size / 2) + data->w_height / 2;
-// 	if (draw_start < 0)
-// 		draw_start = 0;
-// 	draw_end = column_size / 2 + data->w_height / 2;
-// 	if (draw_end >= data->w_height)
-// 		draw_end = data->w_height - 1;
-// 	i = draw_start;
-// 	while (i < draw_end)
-// 	{
-// 		ft_mlx_pixel_put(&data->img, ray.x, i, color);
-// 		i++;
-// 	}
-// 	return ;
-// }

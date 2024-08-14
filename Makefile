@@ -14,6 +14,7 @@ SRC_FILE = $(SRC_DIR)/print_error.c \
 		   $(SRC_DIR)/render.c \
 		   $(SRC_DIR)/mlx_hook.c \
 		   $(SRC_DIR)/draw_column.c \
+		   $(SRC_DIR)/draw_floor_and_ceiling.c \
 			$(SRC_DIR)/main.c
 			   
 ### HEADER FILE ###
