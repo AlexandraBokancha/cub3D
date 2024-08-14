@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 19:19:41 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 20:10:45 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:05:35 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dest;
 
-	dest = img->addr +
-		(y * img->line_length + x * (img->bits_per_pixel / 8));
+	dest = img->addr
+		+ (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dest = color;
 }

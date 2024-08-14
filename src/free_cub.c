@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 21:27:08 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:07:19 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /**
  * @brief Free the cub3d data structure and its associated resources.
  *
- * This function is responsible for freeing the resources associated with the cub3d data structure.
+ * This function is responsible for freeing the resources associated with
+ * the cub3d data structure.
  * It frees the MLX instance, the window instance, the image, and the map.
  * If any of these resources are NULL, they are not freed.
  *

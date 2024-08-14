@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 20:08:54 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:08:17 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static t_data	*init_screen(t_data *data)
 	if (!data->img.img)
 		return (print_error("malloc", errno), free_cub(data), NULL);
 	data->img.addr = mlx_get_data_addr(data->img.img,
-		&data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
+			&data->img.bits_per_pixel, &data->img.line_length,
+			&data->img.endian);
 	return (data);
 }
 
@@ -84,4 +85,3 @@ t_data	*init_cub(void)
 		return (NULL);
 	return (data);
 }
-

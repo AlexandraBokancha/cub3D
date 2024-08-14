@@ -6,12 +6,12 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 15:01:44 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:04:53 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBD3D
-# define CUBD3D
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -197,7 +197,8 @@ typedef struct s_img
  * @var s_data::camera_plane
  * Camera Y plane
  * */
-typedef struct s_data {
+typedef struct s_data
+{
 	void	*mlx;
 	void	*window;
 	int		w_height;
@@ -213,7 +214,7 @@ typedef struct s_data {
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // Print error.h
-void    print_error(const char *func, int error_nbr);
+void	print_error(const char *func, int error_nbr);
 
 // free_cub.c
 void	free_cub(t_data *data);
@@ -228,4 +229,4 @@ int		key_hook(int keycode, void *param);
 //render.c
 int		render(void *param);
 
-#endif // !CUBD3D
+#endif // !CUB3D_H

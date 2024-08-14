@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:30:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 12:52:11 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:06:04 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param func The function that raised the error
  * @param error_nbr Error code (errno)
  * */
-void    print_error(const char *func, int error_nbr)
+void	print_error(const char *func, int error_nbr)
 {
 	int		msg_len;
 	char	*error_msg;
