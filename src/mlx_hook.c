@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 10:42:37 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:35:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,21 @@ static void	move(int keycode, t_data *data)
 		if (data->map[(int)new_pos.x][(int)(new_pos.y - move.y * 1.1)] != '1')
 			data->player_pos.y -= move.y;
 	}
-	// if (keycode == A)
-	// {
-	// 	if (data->map[(int)(new_pos.x - move.y - 0.05)][(int)new_pos.y] != '1')
-	// 		data->player_pos.x -= move.y;
-	// 	if (data->map[(int)new_pos.x][(int)(new_pos.y - move.x - 0.05)] != '1')
-	// 		data->player_pos.y -= move.x;
-	// }
-	// if (keycode == W)
-	// {
-	// 	if (data->map[(int)(new_pos.x + move.x + 0.1)][(int)new_pos.y] != '1')
-	// 		data->player_pos.x += move.x;
-	// 	if (data->map[(int)new_pos.x][(int)(new_pos.y + move.y + 0.1)] != '1')
-	// 		data->player_pos.y += move.y;
-	// }
+	if (keycode == A)
+	{
+		if (data->map[(int)(new_pos.x - move.y * 1.1)][(int)new_pos.y] != '1')
+			data->player_pos.x -= move.y;
+		if (data->map[(int)new_pos.x][(int)(new_pos.y + move.x * 1.1)] != '1')
+			data->player_pos.y += move.x;
+	}
+	if (keycode == D)
+	{
+		if (data->map[(int)(new_pos.x + move.y * 1.1)][(int)new_pos.y] != '1')
+			data->player_pos.x += move.y;
+		if (data->map[(int)new_pos.x][(int)(new_pos.y - move.x * 1.1)] != '1')
+			data->player_pos.y -= move.x;
+		printf("D\n");
+	}
 }
 
 /**
@@ -106,7 +107,7 @@ int	key_hook(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == ESC)
 		exit_cub(data);
-	if (keycode == W || keycode == S || keycode == A)
+	if (keycode == W || keycode == S || keycode == A || keycode == D)
 		move(keycode, data);
 	if (keycode == ARROW_LEFT || keycode == ARROW_RIGHT)
 		rotate(keycode, data);
