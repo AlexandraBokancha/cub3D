@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 09:59:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:42:37 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ static void	move(int keycode, t_data *data)
 		data->direction.y * MOVE_SPEED);
 	if (keycode == W)
 	{
-		if (data->map[(int)(new_pos.x + move.x)][(int)new_pos.y] != '1')
+		if (data->map[(int)(new_pos.x + move.x * 1.1)][(int)new_pos.y] != '1')
 			data->player_pos.x += move.x;
-		if (data->map[(int)new_pos.x][(int)(new_pos.y + move.y + 0.05)] != '1')
+		if (data->map[(int)new_pos.x][(int)(new_pos.y + move.y * 1.1)] != '1')
 			data->player_pos.y += move.y;
 	}
 	if (keycode == S)
 	{
-		if (data->map[(int)(new_pos.x - move.x)][(int)new_pos.y] != '1')
+		if (data->map[(int)(new_pos.x - move.x * 1.1)][(int)new_pos.y] != '1')
 			data->player_pos.x -= move.x;
-		if (data->map[(int)new_pos.x][(int)(new_pos.y - move.y - 0.05)] != '1')
+		if (data->map[(int)new_pos.x][(int)(new_pos.y - move.y * 1.1)] != '1')
 			data->player_pos.y -= move.y;
 	}
 	// if (keycode == A)

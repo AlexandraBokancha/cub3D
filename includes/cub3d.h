@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 09:59:34 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:01:09 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
  */
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.03
+# define DELTA 0.25
 
 /**
  * @struct s_vec
@@ -125,6 +126,8 @@ typedef struct s_raycast
 	t_vec	side_dist;
 	t_vec	delta_dist;
 	t_vec	imap;
+	// int		map_x;
+	// int		map_y;
 	t_vec	step;
 	double	perp_wall_dist;
 	int		side;

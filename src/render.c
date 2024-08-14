@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 22:13:04 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:01:03 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	t_raycast	ray;
 
 	ray.x = screen_x;
-	ray.cam_x = 2.0 * screen_x / (double)data->w_width - 1.0;
+	ray.cam_x = 2.0 * (double)screen_x / (double)data->w_width - 1.0;
 	ray.ray_dir = init_vec(data->direction.x + data->camera_plane.x * ray.cam_x,
 			data->direction.y + data->camera_plane.y * ray.cam_x);
 	ray.imap = init_vec((int)data->player_pos.x, (int)data->player_pos.y);
+	// ray.map_x = (int)data->player_pos.x;
+	// ray.map_y = (int)data->player_pos.x;
 	ray.delta_dist = init_vec(0x1E30, 0x1E30);
 	if (ray.ray_dir.x != 0)
 		ray.delta_dist.x = fabs(1.0 / ray.ray_dir.x);
@@ -106,7 +108,7 @@ static int	get_color(int wall_orientation)
  */
 int	get_wall_orientation(t_raycast ray)
 {
-	if (ray.side == 1)
+	if (ray.side == 0)
 	{
 		if (ray.ray_dir.x < 0)
 			return (WEST);
@@ -240,5 +242,8 @@ int	render(void *param)
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
+	printf("Player (%5f, %5f)\n", data->player_pos.x, data->player_pos.y);
+	printf("Direction (%5f :%5f)\n", data->direction.x, data->direction.y);
+	printf("Plane (%5f :%5f)\n", data->camera_plane.x, data->camera_plane.y);
 	return (0);
 }
