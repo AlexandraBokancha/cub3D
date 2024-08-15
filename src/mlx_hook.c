@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 23:10:32 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:32:13 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include <math.h>
 
 /**
- * @brief Move player position based on pressed key
+ * @brief Move player position forward or backward based on pressed key
  *
  * This function move the player position based on the pressed key
- * W : Forward | S : Backward | A : Left | D : Right
+ * W : Forward | S : Backward
  * THe function if messy to be 42nrorm compliant
  *
  * @param	key		Keycode of the pressed key
  * @param	data	The cub3D global data structure
  */
-static void	move(int key, t_data *data)
+static void	move_forward_backward(int key, t_data *data)
 {
 	t_vec	pos;
 	t_vec	move;
@@ -31,24 +31,54 @@ static void	move(int key, t_data *data)
 	pos = init_vec(data->player.x, data->player.y);
 	move = init_vec(data->direction.x * MOVE_SPEED,
 			data->direction.y * MOVE_SPEED);
-	if (key == W && data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] == '1')
-		move.x = 0;
-	if (key == W && data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] == '1')
-		move.y = 0;
-	if (key == S && data->map[(int)(pos.x - move.x * DELTA)][(int)pos.y] != '1')
-		move.x = -move.x;
-	if (key == S && data->map[(int)pos.x][(int)(pos.y - move.y * DELTA)] != '1')
-		move.y = -move.y;
-	if (key == A && data->map[(int)(pos.x - move.y * DELTA)][(int)pos.y] != '1')
-		move.x = -(data->direction.y * MOVE_SPEED);
-	if (key == A && data->map[(int)pos.x][(int)(pos.y + move.x * DELTA)] != '1')
-		move.y = data->direction.x * MOVE_SPEED;
-	if (key == D && data->map[(int)(pos.x + move.y * DELTA)][(int)pos.y] != '1')
-		move.x = data->direction.y * MOVE_SPEED;
-	if (key == D && data->map[(int)pos.x][(int)(pos.y - move.x * DELTA)] != '1')
-		move.y = -(data->direction.x * MOVE_SPEED);
-	data->player.x += move.x;
-	data->player.y += move.y;
+	if (key == W)
+	{
+		if (data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
+			data->player.x += move.x;
+		if (data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
+			data->player.y += move.y;
+	}
+	if (key == S)
+	{
+		if (data->map[(int)(pos.x - move.x * DELTA)][(int)pos.y] != '1')
+			move.x = -move.x;
+		if (data->map[(int)pos.x][(int)(pos.y - move.y * DELTA)] != '1')
+			data->player.y -= move.y;
+	}
+}
+
+/**
+ * @brief Move player position to the left or right based on pressed key
+ *
+ * This function move the player position based on the pressed key
+ * A : Left | D : Right
+ * THe function if messy to be 42nrorm compliant
+ *
+ * @param	key		Keycode of the pressed key
+ * @param	data	The cub3D global data structure
+ */
+static void	move_sideway(int key, t_data *data)
+{
+	t_vec	pos;
+	t_vec	move;
+
+	pos = init_vec(data->player.x, data->player.y);
+	move = init_vec(data->direction.x * MOVE_SPEED,
+			data->direction.y * MOVE_SPEED);
+	if (key == A)
+	{
+		if (data->map[(int)(pos.x - move.y * DELTA)][(int)pos.y] != '1')
+			data->player.x -= move.y;
+		if (data->map[(int)pos.x][(int)(pos.y + move.x * DELTA)] != '1')
+			data->player.y += move.x;
+	}
+	if (key == D)
+	{
+		if (data->map[(int)(pos.x + move.y * DELTA)][(int)pos.y] != '1')
+			data->player.x += move.y;
+		if (data->map[(int)pos.x][(int)(pos.y - move.x * DELTA)] != '1')
+			data->player.y -= move.x;
+	}
 }
 
 /**
@@ -94,6 +124,7 @@ static void	rotate(int keycode, t_data *data)
  * @brief Key handler
  *
  * This function will choose what to execute based on the pressed key
+ * It will either move or rotate the camera
  *
  * @param	keycode The code of the pressed key
  * @param	param	The t_data * cub3D structure
@@ -106,8 +137,10 @@ int	key_hook(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == ESC)
 		exit_cub(data);
-	if (keycode == W || keycode == S || keycode == A || keycode == D)
-		move(keycode, data);
+	if (keycode == W || keycode == S)
+		move_forward_backward(keycode, data);
+	if (keycode == A || keycode == D)
+		move_sideway(keycode, data);
 	if (keycode == ARROW_LEFT || keycode == ARROW_RIGHT)
 		rotate(keycode, data);
 	return (0);

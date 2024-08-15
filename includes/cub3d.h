@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 00:51:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:20:18 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.03
-# define DELTA 1.1
+# define DELTA 3.0
 
 /**
  * @struct s_vec
