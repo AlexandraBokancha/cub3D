@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 11:01:43 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:16:25 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	main()
 	// mlx_hook(data->window, ON_MOUSEMOVE, (1L<<6), &camera_move, data); // Mouse movment detection
 	mlx_loop_hook(data->mlx, &render, data);
 	mlx_loop(data->mlx);
+	mlx_do_sync(data->mlx);
 
 	// EXIT
 	free_cub(data);

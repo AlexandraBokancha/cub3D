@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 10:54:42 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:21:04 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 # define TEXTURE_WIDTH 64.0
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
-# define ROTATION_SPEED 0.03
+# define ROTATION_SPEED 0.06
 # define DELTA 1.9
 
 /**
