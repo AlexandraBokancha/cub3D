@@ -6,13 +6,26 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 14:50:50 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:57:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include <math.h>
 
+/**
+ * @brief Check if an obstacle is in front of the player
+ *
+ * This check just a bit next to where the player is looking
+ * It intend to resolve a bug where you could see throught walls by being
+ * perfectly aligned whith them and walking following the border
+ * It also give you're player more of a corpulence body feeling when being 
+ * near walls
+ *
+ * @param	data	The cub3D global data structure
+ * @param	move	The move the player want to do
+ * @return  0 if no obstacle is found, 1 when the move is not possible 
+ */
 static int	obstacle(t_data *data, t_vec move)
 {
 	t_vec	pos;
