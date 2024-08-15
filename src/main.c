@@ -6,12 +6,15 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 10:56:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:01:43 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/* ************************************************************************** */
+/*                          FOR TESTING PURPOSE ONLY                          */
+/* ************************************************************************** */
 char	test_map[10][10] =
 {
 	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
@@ -52,6 +55,9 @@ char	**copy_map(void)
 	map[10] = NULL;
 	return (map);
 }
+/* ************************************************************************** */
+/*                           END OF TESTING FUNCTION                          */
+/* ************************************************************************** */
 
 int	load_texture(t_data *data, char **texture_name)
 {
@@ -79,24 +85,14 @@ int	main()
 	data = init_cub();
 	if (!data)
 		return (1);
-	// PLAYER AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
+	// PLAYER, COLOR AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
 	data->map = copy_map();
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;
 	init_player(data);
-	// data->player.x = 1.9;
-	// data->player.y = 1.9;
-	// data->direction.x = 0.5;
-	// data->direction.y = 0.5;
-	// data->camera_plane.x = 0.66 * data->direction.y;
-	// data->camera_plane.y = 0.66 * (-data->direction.x);
 
 	// LOAD TEXTURE
 	load_texture(data, texture);
-	// int *a = (int *)malloc(sizeof(int));
-	// int *b = (int *)malloc(sizeof(int));
-	// data->texture[0].img = mlx_new_image(data->mlx, 64, 64);
-	// data->texture[0].img = mlx_xpm_file_to_image(data->mlx, "./assets/tile065.xpm", a, b);
 
 	// HOOK EVERYTHING
 	// mlx_key_hook(data->window, &key_hook, data);
