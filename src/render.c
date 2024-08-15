@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 01:03:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:21:52 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 
 	ray.x = screen_x;
 	ray.cam_x = (2.0 * (double)screen_x) / (double)data->w_width - 1.0;
-	ray.dir = init_vec(data->direction.x + data->camera_plane.x * ray.cam_x,
+	ray.dir = init_dvec(data->direction.x + data->camera_plane.x * ray.cam_x,
 			data->direction.y + data->camera_plane.y * ray.cam_x);
-	ray.map = init_vec((int)data->player.x, (int)data->player.y);
-	ray.delta_dist = init_vec(0x1E30, 0x1E30);
+	ray.map = init_dvec((int)data->player.x, (int)data->player.y);
+	ray.delta_dist = init_dvec(0x1E30, 0x1E30);
 	if (ray.dir.x != 0)
 		ray.delta_dist.x = fabs(1.0 / ray.dir.x);
 	if (ray.dir.y != 0)
 		ray.delta_dist.y = fabs(1.0 / ray.dir.y);
-	ray.step = init_vec(-1, -1);
-	ray.side_dist = init_vec((data->player.x - ray.map.x) * ray.delta_dist.x,
+	ray.step = init_dvec(-1, -1);
+	ray.side_dist = init_dvec((data->player.x - ray.map.x) * ray.delta_dist.x,
 			(data->player.y - ray.map.y) * ray.delta_dist.y);
 	if (ray.dir.x >= 0)
 		ray.step.x = 1;

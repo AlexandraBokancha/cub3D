@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 12:21:04 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:24:06 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,39 @@
 # define DELTA 1.9
 
 /**
- * @struct s_vec
- * @brief 2D vector structure
+ * @struct s_ivec
+ * @brief 2D (int) vector structure
  *
- * This structure can represent 2D vector or coordinate
+ * This structure can represent 2D (int) vector or coordinate
  *
- * @var s_vec::x
+ * @var s_ivec::x
  * X coordinate
  *
- * @var s_vec::y
+ * @var s_ivec::y
  * Y coordinate
  */
-typedef struct s_vec
+typedef struct s_ivec
+{
+	int	x;
+	int	y;
+}				t_ivec;
+/**
+ * @struct s_dvec
+ * @brief 2D (double) vector structure
+ *
+ * This structure can represent 2D (double) vector or coordinate
+ *
+ * @var s_dvec::x
+ * X coordinate
+ *
+ * @var s_dvec::y
+ * Y coordinate
+ */
+typedef struct s_dvec
 {
 	double	x;
 	double	y;
-}				t_vec;
+}				t_dvec;
 
 /**
  * @struct s_raycast
@@ -130,11 +147,11 @@ typedef struct s_raycast
 {
 	int		x;
 	double	cam_x;
-	t_vec	dir;
-	t_vec	side_dist;
-	t_vec	delta_dist;
-	t_vec	map;
-	t_vec	step;
+	t_dvec	dir;
+	t_dvec	side_dist;
+	t_dvec	delta_dist;
+	t_dvec	map;
+	t_dvec	step;
 	double	perp_wall_dist;
 	int		side;
 }				t_raycast;
@@ -267,9 +284,9 @@ typedef struct s_data
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
-	t_vec	player;
-	t_vec	direction;
-	t_vec	camera_plane;
+	t_dvec	player;
+	t_dvec	direction;
+	t_dvec	camera_plane;
 }				t_data;
 
 // ft_mlx_pixel_put.c
@@ -283,7 +300,7 @@ void	free_cub(t_data *data);
 int		exit_cub(t_data *data);
 
 // init_cub.c
-t_vec	init_vec(double x, double y);
+t_dvec	init_dvec(double x, double y);
 void	init_player(t_data *data);
 t_data	*init_cub(void);
 

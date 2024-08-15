@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 14:57:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:22:10 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
  * @param	move	The move the player want to do
  * @return  0 if no obstacle is found, 1 when the move is not possible 
  */
-static int	obstacle(t_data *data, t_vec move)
+static int	obstacle(t_data *data, t_dvec move)
 {
-	t_vec	pos;
+	t_dvec	pos;
 
-	pos = init_vec(data->player.x, data->player.y);
+	pos = init_dvec(data->player.x, data->player.y);
 	if (data->map[(int)(pos.x + move.x * DELTA - 0.001)]
 		[(int)(pos.y + move.y * DELTA - 0.001)] == '1')
 		return (1);
@@ -58,11 +58,11 @@ static int	obstacle(t_data *data, t_vec move)
  */
 static void	move_forward_backward(int key, t_data *data)
 {
-	t_vec	pos;
-	t_vec	move;
+	t_dvec	pos;
+	t_dvec	move;
 
-	pos = init_vec(data->player.x, data->player.y);
-	move = init_vec(data->direction.x * MOVE_SPEED,
+	pos = init_dvec(data->player.x, data->player.y);
+	move = init_dvec(data->direction.x * MOVE_SPEED,
 			data->direction.y * MOVE_SPEED);
 	if (key == W)
 	{
@@ -97,11 +97,11 @@ static void	move_forward_backward(int key, t_data *data)
  */
 static void	move_sideway(int key, t_data *data)
 {
-	t_vec	pos;
-	t_vec	move;
+	t_dvec	pos;
+	t_dvec	move;
 
-	pos = init_vec(data->player.x, data->player.y);
-	move = init_vec(-data->direction.y * MOVE_SPEED,
+	pos = init_dvec(data->player.x, data->player.y);
+	move = init_dvec(-data->direction.y * MOVE_SPEED,
 			data->direction.x * MOVE_SPEED);
 	if (key == A)
 	{
