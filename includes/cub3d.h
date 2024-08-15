@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 16:31:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:34:04 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_dvec
  * @var s_raycast::delta_dist
  * A vector describing the distance between two walls (given a certain ray)
  *
- * @var s_raycast::map
+ * @var s_raycast::map_pos
  * A pair containing the actual ray position in the map (map = int player_pos)
  *
  * @var s_raycast::step
@@ -150,8 +150,8 @@ typedef struct s_raycast
 	t_dvec	dir;
 	t_dvec	side_dist;
 	t_dvec	delta_dist;
-	t_ivec	map;
 	t_ivec	step;
+	t_ivec	map;
 	double	perp_wall_dist;
 	int		side;
 }				t_raycast;
