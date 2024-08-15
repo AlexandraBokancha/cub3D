@@ -10,6 +10,7 @@ SRC_DIR = src
 SRC_FILE = $(SRC_DIR)/print_error.c \
 		   $(SRC_DIR)/ft_mlx_pixel_put.c \
 		   $(SRC_DIR)/free_cub.c \
+		   $(SRC_DIR)/init_vec.c \
 		   $(SRC_DIR)/init_cub.c \
 		   $(SRC_DIR)/render.c \
 		   $(SRC_DIR)/mlx_hook.c \

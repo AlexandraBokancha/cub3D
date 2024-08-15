@@ -6,27 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 16:22:01 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:27:35 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-/**
- * @brief Make a vector from X and Y value
- *
- * @param x X value
- * @param y Y value
- * @return The new vector (x,y)
- */
-t_dvec	init_dvec(double x, double y)
-{
-	t_dvec	res;
-
-	res.x = x;
-	res.y = y;
-	return (res);
-}
 
 /**
  * @brief Initializes the screen for the cub3d program.

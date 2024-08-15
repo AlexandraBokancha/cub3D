@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 16:24:06 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:31:22 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,8 @@ typedef struct s_raycast
 	t_dvec	dir;
 	t_dvec	side_dist;
 	t_dvec	delta_dist;
-	t_dvec	map;
-	t_dvec	step;
+	t_ivec	map;
+	t_ivec	step;
 	double	perp_wall_dist;
 	int		side;
 }				t_raycast;
@@ -299,8 +299,11 @@ void	print_error(const char *func, int error_nbr);
 void	free_cub(t_data *data);
 int		exit_cub(t_data *data);
 
-// init_cub.c
+// init_vec.c
+t_ivec	init_ivec(int x, int y);
 t_dvec	init_dvec(double x, double y);
+
+// init_cub.c
 void	init_player(t_data *data);
 t_data	*init_cub(void);
 
