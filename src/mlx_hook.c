@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 10:32:13 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:57:15 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	move_forward_backward(int key, t_data *data)
 	if (key == S)
 	{
 		if (data->map[(int)(pos.x - move.x * DELTA)][(int)pos.y] != '1')
-			move.x = -move.x;
+			data->player.x -= move.x;
 		if (data->map[(int)pos.x][(int)(pos.y - move.y * DELTA)] != '1')
 			data->player.y -= move.y;
 	}

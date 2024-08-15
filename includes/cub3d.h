@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 10:20:18 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:54:42 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.03
-# define DELTA 3.0
+# define DELTA 1.9
 
 /**
  * @struct s_vec
@@ -284,6 +284,7 @@ int		exit_cub(t_data *data);
 
 // init_cub.c
 t_vec	init_vec(double x, double y);
+void	init_player(t_data *data);
 t_data	*init_cub(void);
 
 // mlx_hook

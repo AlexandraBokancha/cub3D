@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 00:54:52 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:56:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	test_map[10][10] =
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
 	{'1', '0', '0', '1', '0', '1', '1', '0', '0', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+	{'1', '0', '0', '0', 'E', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '1', '0', '1', '0', '0', '0', '1'},
 	{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
@@ -80,15 +80,16 @@ int	main()
 	if (!data)
 		return (1);
 	// PLAYER AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
+	data->map = copy_map();
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;
-	data->player.x = 1.9;
-	data->player.y = 1.9;
-	data->direction.x = 0.5;
-	data->direction.y = 0.5;
-	data->camera_plane.x = 0.66 * data->direction.y;
-	data->camera_plane.y = 0.66 * (-data->direction.x);
-	data->map = copy_map();
+	init_player(data);
+	// data->player.x = 1.9;
+	// data->player.y = 1.9;
+	// data->direction.x = 0.5;
+	// data->direction.y = 0.5;
+	// data->camera_plane.x = 0.66 * data->direction.y;
+	// data->camera_plane.y = 0.66 * (-data->direction.x);
 
 	// LOAD TEXTURE
 	load_texture(data, texture);
