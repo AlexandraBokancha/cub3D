@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 15:08:17 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:01:04 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
  * @param y Y value
  * @return The new vector (x,y)
  */
+
 t_vec	init_vec(double x, double y)
 {
 	t_vec	res;
@@ -26,34 +27,6 @@ t_vec	init_vec(double x, double y)
 	res.x = x;
 	res.y = y;
 	return (res);
-}
-
-/**
- * @brief Initializes the screen for the cub3d program.
- *
- * Initializes the MLX connetion, the MLX window and the MLX image.
- * If any of these initializations fail, it frees the cub3d data structure
- * and returns NULL.
- *
- * @param data A pointer to the cub3d data structure.
- * @return A pointer to the initialized cub3d data structure, or NULL on error.
- */
-static t_data	*init_screen(t_data *data)
-{
-	data->mlx = mlx_init();
-	if (!data->mlx)
-		return (print_error("malloc", errno), free_cub(data), NULL);
-	data->window = mlx_new_window(data->mlx, data->w_width, data->w_height,
-			"cub3D");
-	if (!data->window)
-		return (print_error("malloc", errno), free_cub(data), NULL);
-	data->img.img = mlx_new_image(data->mlx, data->w_width, data->w_height);
-	if (!data->img.img)
-		return (print_error("malloc", errno), free_cub(data), NULL);
-	data->img.addr = mlx_get_data_addr(data->img.img,
-			&data->img.bits_per_pixel, &data->img.line_length,
-			&data->img.endian);
-	return (data);
 }
 
 /**
@@ -67,6 +40,7 @@ static t_data	*init_screen(t_data *data)
  *
  * @return A pointer to the initialized cub3d data structure, or NULL on error
  */
+
 t_data	*init_cub(void)
 {
 	t_data	*data;
@@ -80,8 +54,8 @@ t_data	*init_cub(void)
 	data->map = NULL;
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
-	data = init_screen(data);
-	if (!data)
-		return (NULL);
+	// data = init_screen(data);
+	// if (!data)
+	// 	return (NULL);
 	return (data);
 }

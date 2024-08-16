@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 15:07:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:17:23 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@
  *
  * @param data A pointer to the cub3d data structure.
  */
+
+void	ft_free_tab(char **tab, int height)
+{
+	int	i;
+
+	i = 0;
+	while (i < height)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
 void	free_cub(t_data *data)
 {
 	if (!data)
@@ -37,7 +51,7 @@ void	free_cub(t_data *data)
 		free(data->mlx);
 	}
 	if (data->map)
-		ft_free_char_tab(&data->map);
+		ft_free_tab(data->map, data->m_height);
 	free(data);
 	return ;
 }

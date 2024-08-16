@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/14 15:04:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:01:48 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ typedef struct s_img
  * 
  * This structure contain all necessary program data such as:
  * MLX, window instance, window dimensions, the map, player info
- * camera info ...
+ * camera info, textures and colors
  *
  * @var s_data::mlx
  * mlx connection 
@@ -181,6 +181,12 @@ typedef struct s_img
  *
  * @var s_data::w_width
  * Window width
+ *
+ * @var s_data::m_height
+ * Map height
+ *
+ * @var s_data::m_width
+ * Map width
  * 
  * @var s_data::img
  * mlx window image
@@ -196,6 +202,9 @@ typedef struct s_img
  *
  * @var s_data::camera_plane
  * Camera Y plane
+ * 
+ * @var s_data::textures
+ * North, South, West, East texture
  * */
 typedef struct s_data
 {
@@ -203,11 +212,14 @@ typedef struct s_data
 	void	*window;
 	int		w_height;
 	int		w_width;
+	int		m_height;
+	int		m_width;
 	t_img	img;
 	char	**map;
 	t_vec	player_pos;
 	t_vec	direction;
 	t_vec	camera_plane;
+	t_texture	textures[4];
 }				t_data;
 
 // ft_mlx_pixel_put.c
@@ -218,6 +230,7 @@ void	print_error(const char *func, int error_nbr);
 
 // free_cub.c
 void	free_cub(t_data *data);
+void	ft_free_tab(char **tab, int height);
 int		exit_cub(t_data *data);
 
 // init_cub.c
@@ -228,5 +241,8 @@ t_data	*init_cub(void);
 int		key_hook(int keycode, void *param);
 //render.c
 int		render(void *param);
+
+// parser.c
+t_data	*init_map(t_data *data, char  *file_name);
 
 #endif // !CUB3D_H
