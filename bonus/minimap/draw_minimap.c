@@ -6,11 +6,12 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 14:45:11 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:53:40 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+#include <math.h>
 
 /**
  * @brief Set the t_minimap.map_pos vector
@@ -122,12 +123,79 @@ static void	put_minimap_pixel(t_data *data, t_minimap *minimap,
 			minimap->floor_color);
 }
 
-// void	draw_player_dir(t_data data)
-// {
-// 	int	len;
-//
-// 	len = 2;
-// }
+void	draw_player_dir(t_data *data)
+{
+	int		player_size;
+	t_dvec	player_direction_start_drawing;
+	t_dvec	player_direction_end_drawing;
+
+	t_dvec	texture_pos;
+	double	step;
+
+	player_size = data->minimap.draw_size.x / 10.0;
+	player_direction_start_drawing = init_dvec(data->minimap.map_screen_pos.x
+			- player_size, data->minimap.map_screen_pos.y - player_size);
+	player_direction_end_drawing = init_dvec(data->minimap.map_screen_pos.x
+			+ player_size, data->minimap.map_screen_pos.y + player_size);
+
+	// step = player_size / 64.0;
+	step = 64.0 / player_size;
+	texture_pos = init_dvec(-step * player_size,
+		-step * player_size);
+	if (texture_pos.x < -32.0)
+		texture_pos.x = -32.0;
+	if (texture_pos.y < -32.0)
+		texture_pos.y = -32.0;
+
+	int	x;
+	int	y;
+	unsigned int	color;
+	double	angle;
+	double	angle_cos;
+	double	angle_sin;
+	t_img	player;
+	t_dvec	new_tex_pos;
+
+	player = data->texture[4];
+	// x = player_direction_start_drawing.x;
+	x = player_direction_end_drawing.x;
+	// while (x < player_direction_end_drawing.x)
+	while (x >= player_direction_start_drawing.x)
+	{
+		y = player_direction_start_drawing.y;
+		// y = player_direction_end_drawing.y;
+		texture_pos.y = -32.0;
+		while (y < player_direction_end_drawing.y)
+		// while (y >= player_direction_start_drawing.y)
+		{
+			// GET COLOR AFTER ROTATION
+			angle = atan2(-data->direction.y, data->direction.x);
+			angle_cos = cosf(angle);
+			angle_sin = sinf(angle);
+			new_tex_pos = init_dvec(texture_pos.x * angle_cos - (texture_pos.y + 10) * angle_sin,
+					texture_pos.x * angle_sin + (texture_pos.y + 10) * angle_cos);
+			new_tex_pos.x = floorf(new_tex_pos.x) + 32.0;
+			if (new_tex_pos.x < 0)
+				new_tex_pos.x = 0;
+			new_tex_pos.y = floorf(new_tex_pos.y) + 32.0;
+			if (new_tex_pos.y < 0)
+				new_tex_pos.y = 0;
+			printf("new_tex_pos : %f %f\n", new_tex_pos.x, new_tex_pos.y);
+			color = (unsigned int)*(player.addr + (int)new_tex_pos.x * player.bits_per_pixel / 8
+				+ (int)new_tex_pos.y * player.line_length);
+			if (color == 0xFF000000)
+				color = 0x00000000;
+			ft_mlx_pixel_put(&data->img, x, y, color);
+			texture_pos.y++;
+			y++;
+			// y--;
+		}
+		texture_pos.x++;
+		// x++;
+		x--;
+	}
+// DRAW THE PLAYER DIRECTION
+}
 
 /**
  * @brief Draw the minimap on screen
@@ -158,4 +226,5 @@ void	draw_minimap(t_data *data)
 		map_pos.x += data->minimap.step;
 		draw_pos.x++;
 	}
+	draw_player_dir(data);
 }
