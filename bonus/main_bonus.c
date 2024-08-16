@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 10:07:15 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:29:23 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cub3d_bonus.h"
+#include "../includes/cub3d.h"
 
 /* ************************************************************************** */
 /*                          FOR TESTING PURPOSE ONLY                          */
@@ -79,6 +79,35 @@ int	load_texture(t_data *data, char **texture_name)
 	return (0);
 }
 
+/**
+ * @brief Return the map size
+ *
+ * This function create a new t_ivec an store the map size
+ * max X and Max Y
+ *
+ * @param	map	The map
+ * @return  A vector containing the map size 
+ */
+t_ivec	get_map_size(const char **map)
+{
+	t_ivec	map_block;
+	int		x;
+	int		y;
+
+	map_block = init_ivec(0, 0);
+	x = 0;
+	while (map[x])
+	{
+		while (map[x][y])
+			y++;
+		if (y > map_block.y)
+			map_block.y = y;
+		x++;
+	}
+	map_block.x = x;
+	return (map_block);
+}
+
 int	main()
 {
 	t_data	*data;
@@ -88,6 +117,7 @@ int	main()
 		return (1);
 	// PLAYER, COLOR AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
 	data->map = copy_map();
+	data->map_size = get_map_size((const char **)data->map);
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;
 	init_player(data);

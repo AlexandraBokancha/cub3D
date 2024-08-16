@@ -110,7 +110,8 @@ endef
 
 define BONUS_MINIMAP_FILE :=
 	$(addprefix $(BONUS_DIR)/$(MINIMAP_DIR)/, \
-		minimap_bonus.c
+		init_minimap_bonus.c \
+		draw_minimap.c
 	)
 endef
 
@@ -210,27 +211,45 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/%.c
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
 # *************************************************************************** #
+#                         MANDATORY COMPILE OBJECT                            #
+# *************************************************************************** #
+# ### Compiling MANDATORY_SRC_FILE ###
+# $(OBJ_DIR)/%.o : $(SRC_DIR)/$(SRC_DIR)/%.c
+# 	@mkdir -p $(@D)
+# 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+#
+# ### Compiling MANDATORY_INIT_FILE ###
+# $(OBJ_DIR)/%.o : $(SRC_DIR)/$(INIT_DIR)/%.c
+# 	@mkdir -p $(@D)
+# 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+#
+# ### Compiling MANDATORY_RENDER_FILE ###
+# $(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/%.c
+# 	@mkdir -p $(@D)
+# 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+# *************************************************************************** #
 #                           BONUS COMPILE OBJECT                              #
 # *************************************************************************** #
 ### Compiling BONUS_SRC_FILE ###
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I ./$(BONUS_DIR)/$(HEADER_DIR)  -c $< -o $@
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
 ### Compiling BONUS_INIT_FILE ###
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(INIT_DIR)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I ./$(BONUS_DIR)/$(HEADER_DIR)  -c $< -o $@
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
 ### Compiling BONUS_RENDER_FILE ###
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(RENDER_DIR)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I ./$(BONUS_DIR)/$(HEADER_DIR)  -c $< -o $@
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
 ### Compiling BONUS_MINIMAP_FILE ###
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MINIMAP_DIR)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I ./$(BONUS_DIR)/$(HEADER_DIR)  -c $< -o $@
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
 # *************************************************************************** #
 #                             CLEAN, FCLEAN, RE                               # 

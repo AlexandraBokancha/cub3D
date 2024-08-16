@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 10:21:58 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:45:38 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,6 @@ typedef struct s_dvec
  * @var s_minimap::draw_end
  * Where the minimap drawing should end on screen
  *
- * @var s_minimap::map_size
- * The vector represent the map size (in block)
- *
  * @var s_minimap::block
  * The number of block that are rendered on the minimap
  *
@@ -158,7 +155,6 @@ typedef struct s_minimap
 	t_ivec	map_screen_pos;
 	t_ivec	draw_start;
 	t_ivec	draw_end;
-	t_ivec	map_size;
 	t_ivec	block;
 	t_dvec	map_pos;
 	double	step;
@@ -329,6 +325,9 @@ typedef struct s_img
  * @var s_data::map
  * Game map
  *
+ * @var s_data::map_size
+ * The vector represent the map size (in block)
+ *
  * @var s_data::player
  * Player position in the map
  *
@@ -349,6 +348,7 @@ typedef struct s_data
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
+	t_ivec		map_size;
 	t_dvec		player;
 	t_dvec		direction;
 	t_dvec		camera_plane;
@@ -356,38 +356,39 @@ typedef struct s_data
 }				t_data;
 
 // ft_mlx_pixel_put.c
-void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // Print error.c
-void	print_error(const char *func, int error_nbr);
+void		print_error(const char *func, int error_nbr);
 
 // free_cub.c
-void	free_cub(t_data *data);
-int		exit_cub(t_data *data);
+void		free_cub(t_data *data);
+int			exit_cub(t_data *data);
 
 // init_vec.c
-t_ivec	init_ivec(int x, int y);
-t_dvec	init_dvec(double x, double y);
+t_ivec		init_ivec(int x, int y);
+t_dvec		init_dvec(double x, double y);
 
 // init_cub.c
-void	init_player(t_data *data);
-t_data	*init_cub(void);
+void		init_player(t_data *data);
+t_data		*init_cub(void);
 
 // mlx_hook
-int		key_hook(int keycode, void *param);
-int		camera_move(int x, int y, void *param);
+int			key_hook(int keycode, void *param);
+int			camera_move(int x, int y, void *param);
 
 // draw_column.c
-void	draw_column(t_data *data, t_raycast ray);
+void		draw_column(t_data *data, t_raycast ray);
 
 // draw_floor_and_ceiling
-void	draw_floor_and_ceiling(t_data *data);
+void		draw_floor_and_ceiling(t_data *data);
 
 //render.c
-int		render(void *param);
+int			render(void *param);
 
-// minimap_bonus.c
+// init_minimap.c
 t_minimap	init_minimap(t_data *data);
-void	draw_minimap(t_data *data);
+// draw_minimap.c
+void		draw_minimap(t_data *data);
 
 #endif // !CUB3D_H

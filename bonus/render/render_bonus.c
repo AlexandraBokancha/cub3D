@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 21:18:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:21:59 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
  * Then it draw the image
  */
 
-#include "../includes/cub3d_bonus.h"
+#include "../../includes/cub3d.h"
 
 /**
  * @brief Init a t_raycast variable
