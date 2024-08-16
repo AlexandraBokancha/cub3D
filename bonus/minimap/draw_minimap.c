@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 12:45:24 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:45:11 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,25 @@
  * @param	minimap	the t_minimap object we're working on
  * @return  The same t_minimap object with updated map_pos param 
  */
-static t_minimap	set_minimap_val(t_data *data, t_minimap minimap)
-{
-	minimap.map_pos = init_dvec(data->player.x, data->player.y);
-	if (fabs(data->map_size.x - data->player.x) < minimap.block.x / 2.0)
-	{
-		if (minimap.map_pos.x < minimap.block.x / 2.0)
-			minimap.map_pos.x = minimap.block.x / 2.0;
-		else
-			minimap.map_pos.x = data->map_size.x - minimap.block.x / 2.0;
-	}
-	if (fabs(data->map_size.y - data->player.y) < minimap.block.y / 2.0)
-	{
-		if (minimap.map_pos.y < minimap.block.y / 2.0)
-			minimap.map_pos.y = minimap.block.y / 2.0;
-		else
-			minimap.map_pos.y = data->map_size.y - minimap.block.y / 2.0;
-	}
-	return (minimap);
-}
+// static t_minimap	set_minimap_val(t_data *data, t_minimap minimap)
+// {
+// 	minimap.map_pos = init_dvec(data->player.x, data->player.y);
+// 	// if (fabs(data->map_size.x - data->player.x) < minimap.block.x / 2.0)
+// 	// {
+// 	// 	if (minimap.map_pos.x < minimap.block.x / 2.0)
+// 	// 		minimap.map_pos.x = minimap.block.x / 2.0;
+// 	// 	else
+// 	// 		minimap.map_pos.x = data->map_size.x - minimap.block.x / 2.0;
+// 	// }
+// 	// if (fabs(data->map_size.y - data->player.y) < minimap.block.y / 2.0)
+// 	// {
+// 	// 	if (minimap.map_pos.y < minimap.block.y / 2.0)
+// 	// 		minimap.map_pos.y = minimap.block.y / 2.0;
+// 	// 	else
+// 	// 		minimap.map_pos.y = data->map_size.y - minimap.block.y / 2.0;
+// 	// }
+// 	return (minimap);
+// }
 
 /**
  * @brief Check if if the player has to be drawn on minimap
@@ -122,6 +122,13 @@ static void	put_minimap_pixel(t_data *data, t_minimap *minimap,
 			minimap->floor_color);
 }
 
+// void	draw_player_dir(t_data data)
+// {
+// 	int	len;
+//
+// 	len = 2;
+// }
+
 /**
  * @brief Draw the minimap on screen
  *
@@ -134,16 +141,15 @@ void	draw_minimap(t_data *data)
 	t_ivec	draw_pos;
 	t_dvec	map_pos;
 
-	data->minimap = set_minimap_val(data, data->minimap);
 	draw_pos = init_ivec(data->minimap.draw_start.x,
 			data->minimap.draw_start.y);
-	map_pos = init_dvec(data->minimap.map_pos.x - 5.0,
-			data->minimap.map_pos.y - 5.0);
+	map_pos = init_dvec(data->player.x - data->minimap.block.x / 2.0,
+			data->minimap.map_pos.y + data->minimap.block.y / 2.0);
 	while (draw_pos.x < data->minimap.draw_end.x)
 	{
 		draw_pos.y = data->minimap.draw_end.y - 1;
-		map_pos.y = 0;
-		while (draw_pos.y > data->minimap.draw_start.y)
+		map_pos.y = data->player.y - data->minimap.block.y / 2.0;
+		while (draw_pos.y >= data->minimap.draw_start.y)
 		{
 			put_minimap_pixel(data, &data->minimap, map_pos, draw_pos);
 			map_pos.y += data->minimap.step;

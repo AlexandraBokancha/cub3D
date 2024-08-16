@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 12:29:23 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:44:09 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,28 @@
 /*                          FOR TESTING PURPOSE ONLY                          */
 /* ************************************************************************** */
 
-char	test_map[10][10] =
+
+char	*test_map_001[4] =
 {
-	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-	{'1', '0', '0', '1', '0', '1', '1', '0', '0', '1'},
-	{'1', '0', '0', '0', 'N', '0', '0', '0', '0', '1'},
-	{'1', '0', '0', '1', '0', '1', '0', '0', '0', '1'},
-	{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
+	"111",
+	"1N1",
+	"111",
+	NULL
+};
+
+char	*test_map_002[11] =
+{
+	"1111111111",
+	"1000000001",
+	"1000000001",
+	"1010000101",
+	"1001011001",
+	"1000N00001",
+	"1001010001",
+	"1010000101",
+	"1000000001",
+	"1111111111",
+	NULL
 };
 
 char	*texture[5] = 
@@ -39,21 +49,23 @@ char	*texture[5] =
 	NULL
 };
 
-char	**copy_map(void)
+char	**copy_map(char *test_map[])
 {
-	char **map;
+	char	**map;
 	int		i;
+	int		tab_size;
 
-	map = (char **)malloc(sizeof(char *) * 11);
+	tab_size = ft_tab_size((char **)test_map);
+	map = (char **)malloc(sizeof(char *) * (tab_size + 1));
 	if (!map)
 		return (print_error("malloc", errno), NULL);
 	i = 0;
-	while (i < 10)
+	while (i < tab_size)
 	{
-		map[i] = ft_strndup(test_map[i], 10);
+		map[i] = ft_strndup(test_map[i], ft_strlen(test_map[i]));
 		i++;
 	}
-	map[10] = NULL;
+	map[tab_size] = NULL;
 	return (map);
 }
 /* ************************************************************************** */
@@ -76,6 +88,11 @@ int	load_texture(t_data *data, char **texture_name)
 			&data->texture[i].endian);
 		i++;
 	}
+	data->texture[i].img = mlx_xpm_file_to_image(data->mlx,
+		PLAYER_TEXTURE, &x, &y);
+	data->texture[i].addr = mlx_get_data_addr(data->texture[i].img,
+		&data->texture[i].bits_per_pixel, &data->texture[i].line_length,
+		&data->texture[i].endian);
 	return (0);
 }
 
@@ -116,7 +133,7 @@ int	main()
 	if (!data)
 		return (1);
 	// PLAYER, COLOR AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
-	data->map = copy_map();
+	data->map = copy_map(test_map_002);
 	data->map_size = get_map_size((const char **)data->map);
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;

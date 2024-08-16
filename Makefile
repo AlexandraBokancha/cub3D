@@ -156,8 +156,8 @@ OBJ_MANDATORY_INIT := $(addprefix $(OBJ_DIR)/, \
 					$(notdir $(MANDATORY_INIT_FILE:.c=.o)))
 OBJ_MANDATORY_RENDER := $(addprefix $(OBJ_DIR)/, \
 					$(notdir $(MANDATORY_RENDER_FILE:.c=.o)))
-OBJ_MANDATORY := $(OBJ) $(OBJ_MANDATORY_SRC) $(OBJ_INIT) \
-				$(OBJ_RENDER_MANDATORY)
+OBJ_MANDATORY := $(OBJ) $(OBJ_MANDATORY_SRC) $(OBJ_MANDATORY_INIT) \
+				$(OBJ_MANDATORY_RENDER)
 
 #                       +------------------------------+                      #
 #                       +           BONUS              +                      #
@@ -213,20 +213,20 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/%.c
 # *************************************************************************** #
 #                         MANDATORY COMPILE OBJECT                            #
 # *************************************************************************** #
-# ### Compiling MANDATORY_SRC_FILE ###
-# $(OBJ_DIR)/%.o : $(SRC_DIR)/$(SRC_DIR)/%.c
-# 	@mkdir -p $(@D)
-# 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
-#
-# ### Compiling MANDATORY_INIT_FILE ###
-# $(OBJ_DIR)/%.o : $(SRC_DIR)/$(INIT_DIR)/%.c
-# 	@mkdir -p $(@D)
-# 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
-#
-# ### Compiling MANDATORY_RENDER_FILE ###
-# $(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/%.c
-# 	@mkdir -p $(@D)
-# 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+### Compiling MANDATORY_SRC_FILE ###
+$(OBJ_DIR)/%.o : $(SRC_DIR)/$(MANDATORY_SRC_FILE)
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling MANDATORY_INIT_FILE ###
+$(OBJ_DIR)/%.o : $(SRC_DIR)/$(INIT_DIR)/$(MANDATORY_INIT_FILE)
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling MANDATORY_RENDER_FILE ###
+$(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/$(MANDATORY_RENDER_FILE)
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
 # *************************************************************************** #
 #                           BONUS COMPILE OBJECT                              #

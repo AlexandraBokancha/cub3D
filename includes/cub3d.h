@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 12:44:28 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:43:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@
 /*
  * DEFAULT CONFIGURATION
  */
+# define PLAYER_TEXTURE "./assets/player.xpm"
 # define TEXTURE_WIDTH 64.0
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
@@ -347,7 +348,7 @@ typedef struct s_data
 	int			w_height;
 	int			w_width;
 	t_img		img;
-	t_img		texture[4];
+	t_img		texture[5];
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;

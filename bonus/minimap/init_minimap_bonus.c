@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:27:47 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 12:32:07 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:22:53 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,7 @@ t_minimap	init_minimap(t_data *data)
 			mmap.map_screen_pos.y - mmap.draw_size.y / 2);
 	mmap.draw_end = init_ivec(mmap.map_screen_pos.x + mmap.draw_size.x / 2,
 			mmap.map_screen_pos.y + mmap.draw_size.y / 2);
-	mmap.block = init_ivec(data->map_size.x, data->map_size.y);
-	if (mmap.block.x > data->w_width / 100)
-		mmap.block.x = data->w_width / 100;
-	if (mmap.block.y > data->w_height / 100)
-		mmap.block.y = data->w_height / 100;
+	mmap.block = init_ivec(data->w_width / 100, data->w_height / 100);
 	mmap.step = (double)mmap.block.x / mmap.draw_size.x;
 	if ((double)mmap.block.y / mmap.draw_size.y)
 		mmap.step = (double)mmap.block.y / mmap.draw_size.y;
