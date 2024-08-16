@@ -213,20 +213,6 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/%.c
 # *************************************************************************** #
 #                         MANDATORY COMPILE OBJECT                            #
 # *************************************************************************** #
-### Compiling MANDATORY_SRC_FILE ###
-$(OBJ_DIR)/%.o : $(SRC_DIR)/$(MANDATORY_SRC_FILE)
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
-
-### Compiling MANDATORY_INIT_FILE ###
-$(OBJ_DIR)/%.o : $(SRC_DIR)/$(INIT_DIR)/$(MANDATORY_INIT_FILE)
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
-
-### Compiling MANDATORY_RENDER_FILE ###
-$(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/$(MANDATORY_RENDER_FILE)
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
 # *************************************************************************** #
 #                           BONUS COMPILE OBJECT                              #
