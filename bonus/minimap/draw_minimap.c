@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 19:28:38 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 21:45:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,12 +220,12 @@ void	draw_minimap(t_data *data)
 
 	draw_pos = init_ivec(data->minimap.draw_start.x,
 			data->minimap.draw_start.y);
-	map_pos = init_dvec(data->player.x - data->minimap.block.x / 2.0,
+	map_pos = init_dvec(data->player.x - data->minimap.block.x / 2.0 + 0.5,
 			data->minimap.map_pos.y + data->minimap.block.y / 2.0);
 	while (draw_pos.x < data->minimap.draw_end.x)
 	{
 		draw_pos.y = data->minimap.draw_end.y - 1;
-		map_pos.y = data->player.y - data->minimap.block.y / 2.0;
+		map_pos.y = data->player.y - data->minimap.block.y / 2.0 + 0.5;
 		while (draw_pos.y >= data->minimap.draw_start.y)
 		{
 			put_minimap_pixel(data, &data->minimap, map_pos, draw_pos);
