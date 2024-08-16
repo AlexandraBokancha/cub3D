@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 10:12:01 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:19:10 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_minimap	init_minimap(t_data *data)
 	t_minimap	mmap;
 	int			y;
 
-	mmap.draw_size = init_ivec(data->w_width / 9, data->w_height / 9);
+	mmap.draw_size = init_ivec(data->w_width / 8, data->w_height / 8);
 	mmap.map_screen_pos = init_ivec((mmap.draw_size.x / 2.0) * 1.05,
 		(mmap.draw_size.y / 2.0) * 1.1);
 	mmap.draw_start = init_ivec(mmap.map_screen_pos.x - mmap.draw_size.x / 2,
@@ -74,10 +74,10 @@ t_minimap	init_minimap(t_data *data)
 		mmap.map_size.x++;
 	}
 	mmap.block = init_ivec(mmap.map_size.x, mmap.map_size.y);
-	if (mmap.block.x > 10)
-		mmap.block.x = 10;
-	if (mmap.block.y > 10)
-		mmap.block.y = 10;
+	if (mmap.block.x > data->w_width / 100)
+		mmap.block.x = data->w_width / 100;
+	if (mmap.block.y > data->w_height / 100)
+		mmap.block.y = data->w_height / 100;
 	mmap.step = (double)mmap.block.x / mmap.draw_size.x;
 	if ((double)mmap.block.y / mmap.draw_size.y)
 		mmap.step = (double)mmap.block.y / mmap.draw_size.y;
