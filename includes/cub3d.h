@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 18:14:20 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 22:32:58 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 /*
  * DEFAULT CONFIGURATION
  */
-# define PLAYER_TEXTURE "./assets/white_arrow.xpm"
+# define PLAYER_TEXTURE "./assets/green_arrow.xpm"
 # define TEXTURE_WIDTH 64.0
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
@@ -149,8 +149,23 @@ typedef struct s_dvec
  * @var s_minimap::block_color
  * TRGB block color on minimap
  *
- * @var s_minimap::player_color
- * TRGB player color on the minimap
+ * @var s_minimap::player_size
+ * The size of the player on the minimap (in pixel)
+ *
+ * @var s_minimap::player_draw_start
+ * The position on the screen the player drawing should start
+ *
+ * @var s_minimap::player_draw_end
+ * The position on the screen the player drawing should end
+ *
+ * @var s_minimap::player_tex_pos
+ * The position of the player texture pixel
+ *
+ * @var s_minimap::dir_angle
+ * The angle of the direction the player is looking to
+ *
+ * @var s_minimap::player_step
+ * The step to parcour the player texture
  */
 typedef struct s_minimap
 {
@@ -164,7 +179,13 @@ typedef struct s_minimap
 	int		outbound_color;
 	int		floor_color;
 	int		block_color;
-	int		player_color;
+
+	int		player_size;
+	t_dvec	player_draw_start;
+	t_dvec	player_draw_end;
+	t_dvec	player_tex_pos;
+	double	dir_angle;
+	double	player_step;
 }				t_minimap;
 
 /**

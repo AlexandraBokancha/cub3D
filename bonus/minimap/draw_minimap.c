@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 21:45:14 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 23:11:18 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,6 @@
 // 	// }
 // 	return (minimap);
 // }
-
-/**
- * @brief Check if if the player has to be drawn on minimap
- *
- * This function check if the part of the map we're drawing is the player
- *
- * @param	data	The cub3D global data structure
- * @param	minimap	The t_minimap object we're working with
- * @param	map_pos	The map_position we're rendering on the minimap
- * @return  1 Draw player, 0 draw floor
- */
-static int	is_player(t_data *data, t_minimap *minimap, t_dvec map_pos)
-{
-	t_dvec	player_delta;
-
-	player_delta = init_dvec(minimap->draw_size.y / 750.0,
-			minimap->draw_size.y / 750.0);
-	if (fabs(data->player.x - map_pos.x) < player_delta.x
-		&& fabs(data->player.y - map_pos.y) < player_delta.y)
-		return (1);
-	return (0);
-}
 
 /**
  * @brief Check if the map_position is inside the map
@@ -112,9 +90,6 @@ static void	put_minimap_pixel(t_data *data, t_minimap *minimap,
 	if (is_not_int_map(data, map_pos))
 		ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
 			minimap->outbound_color);
-	else if (is_player(data, minimap, map_pos))
-		ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
-			minimap->player_color);
 	else if (data->map[(int)map_pos.x][(int)map_pos.y] == '1')
 		ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
 			minimap->block_color);
@@ -123,87 +98,73 @@ static void	put_minimap_pixel(t_data *data, t_minimap *minimap,
 			minimap->floor_color);
 }
 
-void	draw_player_dir(t_data *data)
+/**
+ * @brief Get the right pixel color when drawing the minimap player
+ *
+ * This function perform the rotation of player texture
+ * and return the right pixel color after rotation
+ *
+ * @param	data	The cub3D global structure
+ * @param	tex_pos	The texture pixel position
+ * @param	cos_dir	The direction angle cosinus
+ * @param	sin_dir	The direction angle sinus
+ * @return  The color TRGB value
+ */
+static int	get_color(t_data *data, t_dvec tex_pos, double cos_dir,
+	double sin_dir)
 {
-	int		player_size;
-	t_dvec	player_direction_start_drawing;
-	t_dvec	player_direction_end_drawing;
+	t_dvec	rotate_tex_pos;
+	int		color;
 
+	rotate_tex_pos = init_dvec(tex_pos.x * cos_dir
+			- (tex_pos.y - 7) * sin_dir,
+			tex_pos.x * sin_dir + (tex_pos.y - 7) * cos_dir);
+	rotate_tex_pos.x = floorf(rotate_tex_pos.x) + 32.0;
+	if (rotate_tex_pos.x < 0)
+		rotate_tex_pos.x = 0;
+	rotate_tex_pos.y = floorf(rotate_tex_pos.y) + 28.0;
+	if (rotate_tex_pos.y < 0)
+		rotate_tex_pos.y = 0;
+	color = (unsigned int)*(data->texture[4].addr
+			+ (int)rotate_tex_pos.x * data->texture[4].bits_per_pixel / 8
+			+ (int)rotate_tex_pos.y * data->texture[4].line_length);
+	return (color);
+}
+
+/**
+ * @brief Draw player on the minimap
+ *
+ * Draw the player + orientation on the minimap
+ *
+ * @param	data	The cub3D global data structure
+ */
+void	draw_player(t_data *data)
+{
+	t_ivec	pos;
 	t_dvec	texture_pos;
-	double	step;
+	int		color;
+	double	angle_cos;
+	double	angle_sin;
 
-	player_size = data->minimap.draw_size.x / 10.0;
-	player_direction_start_drawing = init_dvec(data->minimap.map_screen_pos.x
-			- player_size, data->minimap.map_screen_pos.y - player_size);
-	player_direction_end_drawing = init_dvec(data->minimap.map_screen_pos.x
-			+ player_size, data->minimap.map_screen_pos.y + player_size);
-
-	// step = player_size / 64.0;
-	step = 64.0 / (player_size * 2);
-	(void) step;
-	// texture_pos = init_dvec(-step * player_size,
-	// 	-step * player_size);
-	// if (texture_pos.x < -32.0)
-	// 	texture_pos.x = -32.0;
-	// if (texture_pos.y < -32.0)
-	// 	texture_pos.y = -32.0;
-	//
+	pos = init_ivec(data->minimap.player_draw_end.x, 0);
+	angle_cos = cosf(-atan2(-data->direction.x, data->direction.y));
+	angle_sin = sinf(-atan2(-data->direction.x, data->direction.y));
 	texture_pos = init_dvec(-32, -32);
-
-
-
-	int	x;
-	int	y;
-	int	color;
-	// double	angle;
-	// double	angle_cos;
-	// double	angle_sin;
-	t_img	player;
-	t_dvec	new_tex_pos;
-
-	player = data->texture[4];
-	// x = player_direction_start_drawing.x;
-	x = player_direction_end_drawing.x;
-	// while (x < player_direction_end_drawing.x)
-	while (x >= player_direction_start_drawing.x)
+	while (pos.x >= data->minimap.player_draw_start.x)
 	{
-		y = player_direction_start_drawing.y;
-		// y = player_direction_end_drawing.y;
+		pos.y = data->minimap.player_draw_start.y;
 		texture_pos.y = -32.0;
-		while (y < player_direction_end_drawing.y)
-		// while (y >= player_direction_start_drawing.y)
+		while (pos.y < data->minimap.player_draw_end.y)
 		{
-			// GET COLOR AFTER ROTATION
-			// angle = atan2(-data->direction.y, data->direction.x);
-			// angle_cos = cosf(angle);
-			// angle_sin = sinf(angle);
-			// new_tex_pos = init_dvec(texture_pos.x * angle_cos - (texture_pos.y + 10) * angle_sin,
-			// 		texture_pos.x * angle_sin + (texture_pos.y + 10) * angle_cos);
-			// new_tex_pos.x = floorf(new_tex_pos.x) + 25.0;
-			// if (new_tex_pos.x < 0)
-			// 	new_tex_pos.x = 0;
-			// new_tex_pos.y = floorf(new_tex_pos.y) + 25.0;
-			// if (new_tex_pos.y < 0)
-			// 	new_tex_pos.y = 0;
-			// printf("new_tex_pos : %f %f\n", new_tex_pos.x, new_tex_pos.y);
-			new_tex_pos.x = texture_pos.x + 32.0;
-			new_tex_pos.y = texture_pos.y + 32.0;
-			color = (unsigned int)*(player.addr + (int)new_tex_pos.x * player.bits_per_pixel / 8
-				+ (int)new_tex_pos.y * player.line_length);
+			color = get_color(data, texture_pos, angle_cos, angle_sin);
 			if (color != 0)
-				ft_mlx_pixel_put(&data->img, x, y, color);
-				
-			// texture_pos.y++;
-			texture_pos.y += step;
-			y++;
-			// y--;
+				ft_mlx_pixel_put(&data->img, pos.x, pos.y, color);
+			texture_pos.y += data->minimap.player_step;
+			pos.y++;
 		}
-		// texture_pos.x++;
-		texture_pos.x += step;
-		// x++;
-		x--;
+		texture_pos.x += data->minimap.player_step;
+		pos.x--;
 	}
-// DRAW THE PLAYER DIRECTION
 }
 
 /**
@@ -235,5 +196,5 @@ void	draw_minimap(t_data *data)
 		map_pos.x += data->minimap.step;
 		draw_pos.x++;
 	}
-	draw_player_dir(data);
+	draw_player(data);
 }

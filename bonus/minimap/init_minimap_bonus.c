@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:27:47 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 14:22:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 23:10:50 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,14 @@ t_minimap	init_minimap(t_data *data)
 		mmap.step = (double)mmap.block.y / mmap.draw_size.y;
 	mmap.block_color = MINIMAP_BLOCK_COLOR;
 	mmap.floor_color = MINIMAP_FLOOR_COLOR;
-	mmap.player_color = MINIMAP_PLAYER_COLOR;
 	mmap.outbound_color = MINIMAP_OUTBOUND_COLOR;
+	mmap.player_size = mmap.draw_size.x / 10.0;
+	mmap.player_draw_start = init_dvec(mmap.map_screen_pos.x
+			- mmap.player_size, mmap.map_screen_pos.y
+			- mmap.player_size);
+	mmap.player_draw_end = init_dvec(mmap.map_screen_pos.x
+			+ mmap.player_size, mmap.map_screen_pos.y
+			+ mmap.player_size);
+	mmap.player_step = 64.0 / (mmap.player_size * 2);
 	return (mmap);
 }
