@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/16 20:14:16 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/16 20:50:27 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_data *init_map(t_data *data, char  *file_name)
     if (!data->m_height)
         return (free(data), NULL);
     data->map = open_map(file_name, data->m_height);
-    check_textures(data->map, data);
+    parse_map(data->map, data);
     // char **ptr = data->map;
     // while (*ptr != NULL)
     // {

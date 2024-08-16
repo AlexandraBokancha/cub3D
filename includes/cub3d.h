@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 15:01:48 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/16 21:18:08 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <errno.h>
 
 # include "../libft/includes/libft.h"
-# include "../mlx/mlx.h"
+//# include "../mlx/mlx.h"
 
 /*
  * WINDOW SIZE
@@ -163,6 +163,68 @@ typedef struct s_img
 }				t_img;
 
 /**
+ * @struct t_map_info
+ * @brief Structure holding map2d data
+ * 
+ * This structure contains data for a map such as:
+ * start position of a player and start orientation (N, S, E or W)
+ *
+ * @var t_map_info:map2d
+ * An array containing map info
+ * 
+ * @var t_map_info::start_x, start_y
+ * Start position of a player
+ * 
+ * @var t_map_info::start_o;
+ * Start orientation of a player
+ */
+typedef	struct	s_map_info
+{
+	char **map2d;
+	int	start_x;
+	int	start_y;
+	int	start_o;
+}				t_map_info;
+
+/**
+ * @struct t_texture
+ * @brief Structure holding texture data
+ * 
+ * This structure contains data for a texture such as:
+ * texture identifier, path to the structure
+ *
+ * @var t_texture::direction
+ * Identifier : NO, SO, WE and EA
+ * 
+ * @var t_texture::path
+ * Path to the texture file
+ */
+typedef struct s_texture
+{
+	char	*direction;
+	char	*path;
+}				t_texture;
+
+/**
+ * @struct t_colors
+ * @brief Structure holding colors data
+ * 
+ * This structure contains data for a color such as:
+ * color of a ceiling and a floor
+ *
+ * @var t_colors::f_color
+ * Floor color
+ * 
+ * @var t_colors::c_color
+ * Ceiling color
+ */
+typedef	struct	s_colors
+{
+	char *f_color;
+	char *c_color;
+}				t_colors;
+
+/**
  * @struct s_data
  * @brief cub3D holding all program data
  * 
@@ -206,6 +268,7 @@ typedef struct s_img
  * @var s_data::textures
  * North, South, West, East texture
  * */
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -220,6 +283,8 @@ typedef struct s_data
 	t_vec	direction;
 	t_vec	camera_plane;
 	t_texture	textures[4];
+	t_map_info	map_info;
+	t_colors	colors;
 }				t_data;
 
 // ft_mlx_pixel_put.c
@@ -244,5 +309,6 @@ int		render(void *param);
 
 // parser.c
 t_data	*init_map(t_data *data, char  *file_name);
+int     parse_map(char **map, t_data *data);
 
 #endif // !CUB3D_H

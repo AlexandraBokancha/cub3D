@@ -11,14 +11,15 @@ SRC_FILE = $(SRC_DIR)/print_error.c \
 		   $(SRC_DIR)/parser.c \
 		   $(SRC_DIR)/init_cub.c \
 		   $(SRC_DIR)/free_cub.c \
+		   $(SRC_DIR)/textures.c \
 			$(SRC_DIR)/main.c
 			   
 ### HEADER FILE ###
 HEADER_DIR = includes
 
 # MINILIBX
-MLX_DIR = mlx
-MLX_FLAG = -L$(MLX_DIR) -lmlx -lXext -lX11
+##MLX_DIR = mlx
+##MLX_FLAG = -L$(MLX_DIR) -lmlx -lXext -lX11
 
 # MATH
 MATH_FLAG = -lm
@@ -40,10 +41,11 @@ all : $(PROJECT)
 # bonus : all
 
 $(PROJECT) : $(OBJ_SRC) $(OBJ_TOOLS)
-	@git submodule init
-	make -C $(MLX_DIR)
+##	@git submodule init
+##	make -C $(MLX_DIR)
 	make -C $(FT_DIR)
-	$(CC) $(CFLAGS) $(OBJ_SRC) -o $(PROJECT) $(FT_FLAG) $(MLX_FLAG) $(MATH_FLAG)
+	$(CC) $(CFLAGS) $(OBJ_SRC) -o $(PROJECT) $(FT_FLAG)
+##  $(MLX_FLAG) $(MATH_FLAG)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
@@ -60,7 +62,7 @@ clean :
 	# rm -f $(BONUS_DIR)/$(OBJ_DIR)/*.o
 	# @rm -df $(BONUS_DIR)/$(OBJ_DIR)/
 	make clean -C $(FT_DIR)
-	make clean -C $(MLX_DIR)
+##	make clean -C $(MLX_DIR)
 
 re : fclean all
 

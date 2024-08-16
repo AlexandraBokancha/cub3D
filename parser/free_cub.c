@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 14:17:23 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/16 15:38:58 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ void	free_cub(t_data *data)
 {
 	if (!data)
 		return ;
-	if (data->mlx)
-	{
-		if (data->img.img)
-			mlx_destroy_image(data->mlx, data->img.img);
-		if (data->window)
-			mlx_destroy_window(data->mlx, data->window);
-		if (data->mlx)
-			mlx_destroy_display(data->mlx);
-		free(data->mlx);
-	}
+	// if (data->mlx)
+	// {
+	// 	if (data->img.img)
+	// 		mlx_destroy_image(data->mlx, data->img.img);
+	// 	if (data->window)
+	// 		mlx_destroy_window(data->mlx, data->window);
+	// 	if (data->mlx)
+	// 		mlx_destroy_display(data->mlx);
+	// 	free(data->mlx);
+	// }
 	if (data->map)
 		ft_free_tab(data->map, data->m_height);
 	free(data);
