@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 17:53:40 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:28:38 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,20 +139,25 @@ void	draw_player_dir(t_data *data)
 			+ player_size, data->minimap.map_screen_pos.y + player_size);
 
 	// step = player_size / 64.0;
-	step = 64.0 / player_size;
-	texture_pos = init_dvec(-step * player_size,
-		-step * player_size);
-	if (texture_pos.x < -32.0)
-		texture_pos.x = -32.0;
-	if (texture_pos.y < -32.0)
-		texture_pos.y = -32.0;
+	step = 64.0 / (player_size * 2);
+	(void) step;
+	// texture_pos = init_dvec(-step * player_size,
+	// 	-step * player_size);
+	// if (texture_pos.x < -32.0)
+	// 	texture_pos.x = -32.0;
+	// if (texture_pos.y < -32.0)
+	// 	texture_pos.y = -32.0;
+	//
+	texture_pos = init_dvec(-32, -32);
+
+
 
 	int	x;
 	int	y;
-	unsigned int	color;
-	double	angle;
-	double	angle_cos;
-	double	angle_sin;
+	int	color;
+	// double	angle;
+	// double	angle_cos;
+	// double	angle_sin;
 	t_img	player;
 	t_dvec	new_tex_pos;
 
@@ -169,28 +174,32 @@ void	draw_player_dir(t_data *data)
 		// while (y >= player_direction_start_drawing.y)
 		{
 			// GET COLOR AFTER ROTATION
-			angle = atan2(-data->direction.y, data->direction.x);
-			angle_cos = cosf(angle);
-			angle_sin = sinf(angle);
-			new_tex_pos = init_dvec(texture_pos.x * angle_cos - (texture_pos.y + 10) * angle_sin,
-					texture_pos.x * angle_sin + (texture_pos.y + 10) * angle_cos);
-			new_tex_pos.x = floorf(new_tex_pos.x) + 32.0;
-			if (new_tex_pos.x < 0)
-				new_tex_pos.x = 0;
-			new_tex_pos.y = floorf(new_tex_pos.y) + 32.0;
-			if (new_tex_pos.y < 0)
-				new_tex_pos.y = 0;
-			printf("new_tex_pos : %f %f\n", new_tex_pos.x, new_tex_pos.y);
+			// angle = atan2(-data->direction.y, data->direction.x);
+			// angle_cos = cosf(angle);
+			// angle_sin = sinf(angle);
+			// new_tex_pos = init_dvec(texture_pos.x * angle_cos - (texture_pos.y + 10) * angle_sin,
+			// 		texture_pos.x * angle_sin + (texture_pos.y + 10) * angle_cos);
+			// new_tex_pos.x = floorf(new_tex_pos.x) + 25.0;
+			// if (new_tex_pos.x < 0)
+			// 	new_tex_pos.x = 0;
+			// new_tex_pos.y = floorf(new_tex_pos.y) + 25.0;
+			// if (new_tex_pos.y < 0)
+			// 	new_tex_pos.y = 0;
+			// printf("new_tex_pos : %f %f\n", new_tex_pos.x, new_tex_pos.y);
+			new_tex_pos.x = texture_pos.x + 32.0;
+			new_tex_pos.y = texture_pos.y + 32.0;
 			color = (unsigned int)*(player.addr + (int)new_tex_pos.x * player.bits_per_pixel / 8
 				+ (int)new_tex_pos.y * player.line_length);
-			if (color == 0xFF000000)
-				color = 0x00000000;
-			ft_mlx_pixel_put(&data->img, x, y, color);
-			texture_pos.y++;
+			if (color != 0)
+				ft_mlx_pixel_put(&data->img, x, y, color);
+				
+			// texture_pos.y++;
+			texture_pos.y += step;
 			y++;
 			// y--;
 		}
-		texture_pos.x++;
+		// texture_pos.x++;
+		texture_pos.x += step;
 		// x++;
 		x--;
 	}

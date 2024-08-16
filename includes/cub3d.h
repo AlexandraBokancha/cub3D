@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 14:43:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:14:20 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 /*
  * DEFAULT CONFIGURATION
  */
-# define PLAYER_TEXTURE "./assets/player.xpm"
+# define PLAYER_TEXTURE "./assets/white_arrow.xpm"
 # define TEXTURE_WIDTH 64.0
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
