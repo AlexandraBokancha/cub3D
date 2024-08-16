@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 23:11:18 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 23:13:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void	draw_player(t_data *data)
 		{
 			color = get_color(data, texture_pos, angle_cos, angle_sin);
 			if (color != 0)
-				ft_mlx_pixel_put(&data->img, pos.x, pos.y, color);
+				ft_mlx_pixel_put(&data->img, pos.x, pos.y, 0x0052FF6F);
 			texture_pos.y += data->minimap.player_step;
 			pos.y++;
 		}
