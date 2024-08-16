@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 09:08:56 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 09:29:21 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ t_minimap	init_minimap(t_data *data)
 	int			y;
 
 	mmap.draw_size = init_ivec(data->w_width / 10, data->w_height / 10);
-	mmap.draw_pos = init_ivec((mmap.draw_size.x / 2.0) * 1.05,
+	mmap.map_screen_pos = init_ivec((mmap.draw_size.x / 2.0) * 1.05,
 		(mmap.draw_size.y / 2.0) * 1.1);
-	mmap.draw_start = init_ivec(mmap.draw_pos.x - mmap.draw_size.x / 2,
-			mmap.draw_pos.y - mmap.draw_size.y / 2); 
-	mmap.draw_end = init_ivec(mmap.draw_pos.x + mmap.draw_size.x / 2,
-			mmap.draw_pos.y + mmap.draw_size.y / 2); 
+	mmap.draw_start = init_ivec(mmap.map_screen_pos.x - mmap.draw_size.x / 2,
+			mmap.map_screen_pos.y - mmap.draw_size.y / 2); 
+	mmap.draw_end = init_ivec(mmap.map_screen_pos.x + mmap.draw_size.x / 2,
+			mmap.map_screen_pos.y + mmap.draw_size.y / 2); 
 	// GET MAP SIZE
 	mmap.map_size = init_ivec(0, 0);
 	while (data->map[mmap.map_size.x])
@@ -90,21 +90,35 @@ t_minimap	init_minimap(t_data *data)
 
 t_minimap	set_minimap_val(t_data *data, t_minimap minimap)
 {
+
+	minimap.map_pos = init_ivec((int)data->player.x, (int)data->player.y);
 	if (fabs(minimap.map_size.x - data->player.x) < minimap.block.x / 2.0)
 	{
 		if (minimap.map_pos.x < minimap.block.x / 2.0)
 			minimap.map_pos.x = minimap.block.x / 2.0;
 		else
-		 minimap.map_pos.x = minimap.map_size.x - minimap.block.x / 2.0;
+			minimap.map_pos.x = minimap.map_size.x - minimap.block.x / 2.0;
 	}
 	if (fabs(minimap.map_size.y - data->player.y) < minimap.block.y / 2.0)
 	{
 		if (minimap.map_pos.y < minimap.block.y / 2.0)
 			minimap.map_pos.y = minimap.block.y / 2.0;
 		else
-		minimap.map_pos.y = minimap.map_size.y - minimap.block.y / 2.0;
+			minimap.map_pos.y = minimap.map_size.y - minimap.block.y / 2.0;
 	}
 	return (minimap);
+}
+
+int	is_player(t_data *data, t_minimap *minimap, t_dvec map_pos)
+{
+	t_dvec	player_delta;
+
+	player_delta = init_dvec(minimap->draw_size.y / 750.0,
+			minimap->draw_size.y / 750.0);
+	if (fabs(data->player.x - map_pos.x) < player_delta.x
+			&& fabs(data->player.y - map_pos.y) < player_delta.y)
+		return (1);
+	return (0);
 }
 
 void	draw_map(t_data *data, t_minimap *minimap)
@@ -122,7 +136,10 @@ void	draw_map(t_data *data, t_minimap *minimap)
 		map_pos.y = 0;
 		while (draw_pos.y < minimap->draw_end.y)
 		{
-			if (data->map[(int)map_pos.x][(int)map_pos.y] == '1')
+			if (is_player(data, minimap, map_pos))
+				ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
+					minimap->player_color);
+			else if (data->map[(int)map_pos.x][(int)map_pos.y] == '1')
 				ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
 					minimap->block_color);
 			else
@@ -131,9 +148,11 @@ void	draw_map(t_data *data, t_minimap *minimap)
 			map_pos.y += minimap->step.y;
 			draw_pos.y++;
 		}
+		map_pos.x += minimap->step.x;
 		draw_pos.x++;
 	}
 }
+
 /**
  * @brief Draw he minimap on screen
  *
@@ -150,5 +169,6 @@ void	draw_minimap(t_data *data)
 	draw_map(data, &data->minimap);
 
 	// ADD Player on minimap
+	// draw_player(data, &data->minimap);
 
 }

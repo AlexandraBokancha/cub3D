@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 08:59:02 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 09:15:29 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef struct s_dvec
  * @var s_minimap::map_size
  * The vector represent the map size (in block)
  *
- * @var s_minimap::draw_pos
+ * @var s_minimap::map_screen_pos
  * The vector representing the minimap position on the screen
  * CARREFUL vector point in the middle of the minimap
  *
@@ -156,7 +156,7 @@ typedef struct s_minimap
 {
 	t_ivec	draw_size;
 	t_ivec	map_size;
-	t_ivec	draw_pos;
+	t_ivec	map_screen_pos;
 	t_ivec	draw_start;
 	t_ivec	draw_end;
 	t_ivec	block;
