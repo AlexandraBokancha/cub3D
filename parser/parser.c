@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/16 14:50:47 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/16 20:14:16 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,16 @@ int map_h(char *file_name)
 
 t_data *init_map(t_data *data, char  *file_name)
 {
+    t_texture *textures;
+
+    textures = malloc(sizeof(struct s_texture));
+    if (!textures)
+        return (print_error("Error. Malloc.", errno), NULL);
     data->m_height = map_h(file_name);
-    if (!data->m_height || data->m_height > DEFAULT_WIN_HEIGHT)
+    if (!data->m_height)
         return (free(data), NULL);
     data->map = open_map(file_name, data->m_height);
-    
+    check_textures(data->map, data);
     // char **ptr = data->map;
     // while (*ptr != NULL)
     // {
