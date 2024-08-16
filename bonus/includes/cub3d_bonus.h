@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 10:20:33 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:21:58 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ typedef struct s_minimap
 	t_ivec	draw_end;
 	t_ivec	map_size;
 	t_ivec	block;
-	t_ivec	map_pos;
+	t_dvec	map_pos;
 	double	step;
 	int		floor_color;
 	int		block_color;

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 10:19:10 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:22:21 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_minimap	init_minimap(t_data *data)
 t_minimap	set_minimap_val(t_data *data, t_minimap minimap)
 {
 
-	minimap.map_pos = init_ivec((int)data->player.x, (int)data->player.y);
+	minimap.map_pos = init_dvec(data->player.x, data->player.y);
 	if (fabs(minimap.map_size.x - data->player.x) < minimap.block.x / 2.0)
 	{
 		if (minimap.map_pos.x < minimap.block.x / 2.0)
