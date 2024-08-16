@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 09:15:29 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 09:57:43 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,6 @@ typedef struct s_dvec
  * @var s_minimap::draw_size
  * The vector representing the minimap size on the screen (in pixel)
  *
- * @var s_minimap::map_size
- * The vector represent the map size (in block)
- *
  * @var s_minimap::map_screen_pos
  * The vector representing the minimap position on the screen
  * CARREFUL vector point in the middle of the minimap
@@ -133,6 +130,9 @@ typedef struct s_dvec
  *
  * @var s_minimap::draw_end
  * Where the minimap drawing should end on screen
+ *
+ * @var s_minimap::map_size
+ * The vector represent the map size (in block)
  *
  * @var s_minimap::block
  * The number of block that are rendered on the minimap
@@ -155,13 +155,13 @@ typedef struct s_dvec
 typedef struct s_minimap
 {
 	t_ivec	draw_size;
-	t_ivec	map_size;
 	t_ivec	map_screen_pos;
 	t_ivec	draw_start;
 	t_ivec	draw_end;
+	t_ivec	map_size;
 	t_ivec	block;
 	t_ivec	map_pos;
-	t_dvec	step;
+	double	step;
 	int		floor_color;
 	int		block_color;
 	int		player_color;

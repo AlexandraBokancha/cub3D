@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 09:29:21 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:12:01 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ t_ivec	get_map_size(const char **map)
 t_minimap	init_minimap(t_data *data)
 {
 	t_minimap	mmap;
-	// int			mmap_half_x;
-	// int			mmap_half_y;
 	int			y;
 
-	mmap.draw_size = init_ivec(data->w_width / 10, data->w_height / 10);
+	mmap.draw_size = init_ivec(data->w_width / 9, data->w_height / 9);
 	mmap.map_screen_pos = init_ivec((mmap.draw_size.x / 2.0) * 1.05,
 		(mmap.draw_size.y / 2.0) * 1.1);
 	mmap.draw_start = init_ivec(mmap.map_screen_pos.x - mmap.draw_size.x / 2,
@@ -80,8 +78,9 @@ t_minimap	init_minimap(t_data *data)
 		mmap.block.x = 10;
 	if (mmap.block.y > 10)
 		mmap.block.y = 10;
-	mmap.step = init_dvec((double)mmap.block.x / mmap.draw_size.x,
-			(double)mmap.block.y / mmap.draw_size.y);
+	mmap.step = (double)mmap.block.x / mmap.draw_size.x;
+	if ((double)mmap.block.y / mmap.draw_size.y)
+		mmap.step = (double)mmap.block.y / mmap.draw_size.y;
 	mmap.block_color = MINIMAP_BLOCK_COLOR;
 	mmap.floor_color = MINIMAP_FLOOR_COLOR;
 	mmap.player_color = MINIMAP_PLAYER_COLOR;
@@ -121,22 +120,41 @@ int	is_player(t_data *data, t_minimap *minimap, t_dvec map_pos)
 	return (0);
 }
 
+int		is_not_int_map(t_data *data, t_dvec map_pos)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (data->map[x] && x < (int)map_pos.x)
+		x++;
+	if (x != (int)map_pos.x || !data->map[x])
+		return (1);
+	y = 0;
+	while (data->map[x][y] && y < (int)map_pos.y)
+		y++;
+	if (y != (int)map_pos.y || !data->map[x][y])
+		return (1);
+	return (0);
+}
+
 void	draw_map(t_data *data, t_minimap *minimap)
 {
 	t_ivec	draw_pos;
 	t_dvec	map_pos;
-	// t_dvec	map_i;
 
 	draw_pos = init_ivec(minimap->draw_start.x, minimap->draw_start.y);
-	// map_i = init_dvec(minimap->map_pos.x - 5.0, minimap->map_pos.y - 5);
 	map_pos = init_dvec(minimap->map_pos.x - 5.0, minimap->map_pos.y - 5.0);
 	while (draw_pos.x < minimap->draw_end.x)
 	{
-		draw_pos.y = minimap->draw_start.y;
+		draw_pos.y = minimap->draw_end.y - 1;
 		map_pos.y = 0;
-		while (draw_pos.y < minimap->draw_end.y)
+		while (draw_pos.y > minimap->draw_start.y)
 		{
-			if (is_player(data, minimap, map_pos))
+			if (is_not_int_map(data, map_pos))
+				ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
+					minimap->block_color);
+			else if (is_player(data, minimap, map_pos))
 				ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
 					minimap->player_color);
 			else if (data->map[(int)map_pos.x][(int)map_pos.y] == '1')
@@ -145,10 +163,10 @@ void	draw_map(t_data *data, t_minimap *minimap)
 			else
 				ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
 					minimap->floor_color);
-			map_pos.y += minimap->step.y;
-			draw_pos.y++;
+			map_pos.y += minimap->step;
+			draw_pos.y--;
 		}
-		map_pos.x += minimap->step.x;
+		map_pos.x += minimap->step;
 		draw_pos.x++;
 	}
 }
