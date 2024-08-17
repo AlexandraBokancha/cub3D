@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 23:13:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:48:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void	draw_player(t_data *data)
 	pos = init_ivec(data->minimap.player_draw_end.x, 0);
 	angle_cos = cosf(-atan2(-data->direction.x, data->direction.y));
 	angle_sin = sinf(-atan2(-data->direction.x, data->direction.y));
-	texture_pos = init_dvec(-32, -32);
+	texture_pos = init_dvec(-31, -31);
 	while (pos.x >= data->minimap.player_draw_start.x)
 	{
 		pos.y = data->minimap.player_draw_start.y;
