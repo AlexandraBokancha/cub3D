@@ -66,7 +66,6 @@ endef
  
 define INIT_FILE :=
 	$(addprefix $(SRC_DIR)/$(INIT_DIR)/, \
-		free_cub.c \
 		init_vec.c
 	)
 endef
@@ -89,6 +88,7 @@ endef
 
 define MANDATORY_INIT_FILE :=
 	$(addprefix $(SRC_DIR)/$(INIT_DIR)/, \
+		free_cub.c \
 		init_cub.c
 	)
 endef
@@ -117,7 +117,8 @@ endef
 
 define BONUS_INIT_FILE :=
 	$(addprefix $(BONUS_DIR)/$(INIT_DIR)/, \
-		init_cub_bonus.c
+		init_cub_bonus.c \
+		free_cub_bonus.c
 	)
 endef
 

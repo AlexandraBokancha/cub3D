@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/17 19:49:38 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:59:25 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	load_texture(t_data *data, char **texture_name)
  * @param	map	The map
  * @return  A vector containing the map size 
  */
-t_ivec	get_map_size(const char **map)
+t_ivec	get_map_size(char *map[])
 {
 	t_ivec	map_block;
 	int		x;
@@ -115,6 +115,7 @@ t_ivec	get_map_size(const char **map)
 	x = 0;
 	while (map[x])
 	{
+		y = 0;
 		while (map[x][y])
 			y++;
 		if (y > map_block.y)
@@ -134,7 +135,7 @@ int	main()
 		return (1);
 	// PLAYER, COLOR AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
 	data->map = copy_map(test_map_001);
-	data->map_size = get_map_size((const char **)data->map);
+	data->map_size = get_map_size(data->map);
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;
 	init_player(data);

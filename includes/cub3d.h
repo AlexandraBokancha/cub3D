@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 22:32:58 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/17 20:02:04 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ typedef struct s_minimap
 	int		outbound_color;
 	int		floor_color;
 	int		block_color;
-
 	int		player_size;
 	t_dvec	player_draw_start;
 	t_dvec	player_draw_end;
