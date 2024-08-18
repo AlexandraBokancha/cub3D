@@ -243,6 +243,7 @@ $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MINIMAP_DIR)/%.c
 # *************************************************************************** #
 fclean : clean
 	rm -f $(PROJECT)
+	rm -f $(BONUS)
 	make fclean -C $(FT_DIR)
 
 #Suppresion des fichiers objet
