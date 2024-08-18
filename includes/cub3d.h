@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 09:46:30 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 11:19:56 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,7 +399,6 @@ t_data		*init_cub(void);
 
 // mlx_hook
 int			key_hook(int keycode, void *param);
-int			camera_move(int x, int y, void *param);
 
 // draw_column.c
 void		draw_column(t_data *data, t_raycast ray);
@@ -414,5 +413,8 @@ int			render(void *param);
 t_minimap	init_minimap(t_data *data);
 // draw_minimap.c
 void		draw_minimap(t_data *data);
+
+// rotate_bonus.c
+int			camera_move(int x, int y, void *param);
 
 #endif // !CUB3D_H
