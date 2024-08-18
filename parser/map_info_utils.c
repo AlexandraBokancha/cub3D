@@ -6,13 +6,13 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/18 17:19:52 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/18 18:22:09 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void    process_info_lines(t_data *data, char *line, int i)
+void    process_info_lines(t_data *data, char *line, int i)
 {
     if (!ft_strncmp(line, "NO ", 3))
     {

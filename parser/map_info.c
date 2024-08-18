@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/18 17:18:33 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/18 18:00:29 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ char    **open_map(char *file_name, int lines)
 
 t_data *init_map(t_data *data, char  *file_name)
 {
+    // check extension of map
     data->m_height = map_h(file_name);
     if (!data->m_height)
         exit_cub(data);
@@ -95,6 +96,8 @@ t_data *init_map(t_data *data, char  *file_name)
     if (!data->map)
         exit_cub(data);
     if (search_map_info(data->map, data))
+        exit_cub(data);
+    if (parsing(data))
         exit_cub(data);
     return (data);
 }

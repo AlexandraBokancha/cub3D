@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 17:16:37 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/18 17:45:27 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,7 @@ int		render(void *param);
 // parser.c
 t_data	*init_map(t_data *data, char  *file_name);
 int		find_map_info(char **map, t_data *data);
+void    process_info_lines(t_data *data, char *line, int i);
 int		map_h(char *file_name);
 int		parsing(t_data *data);
 

@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 17:15:04 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/18 18:00:11 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	main(int ac, char **av)
 	data = init_map(data, av[1]);
 	if (!data)
 		exit_cub(data);
-	parsing(data);
 	free_cub(data);
 	return (0);
 }
