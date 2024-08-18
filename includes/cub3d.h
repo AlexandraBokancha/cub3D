@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 12:21:04 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 09:46:30 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,17 @@
 # define ARROW_RIGHT 0xFF53
 
 /*
+ * MINIMAP
+ */
+# define MINIMAP_FLOOR_COLOR 0x00A4A4A4
+# define MINIMAP_BLOCK_COLOR 0x00011D6C
+# define MINIMAP_OUTBOUND_COLOR 0x00065B25
+# define MINIMAP_PLAYER_COLOR 0x00FF0000
+
+/*
  * DEFAULT CONFIGURATION
  */
+# define PLAYER_TEXTURE "./assets/green_arrow.xpm"
 # define TEXTURE_WIDTH 64.0
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
@@ -68,22 +77,115 @@
 # define DELTA 1.9
 
 /**
- * @struct s_vec
- * @brief 2D vector structure
+ * @struct s_ivec
+ * @brief 2D (int) vector structure
  *
- * This structure can represent 2D vector or coordinate
+ * This structure can represent 2D (int) vector or coordinate
  *
- * @var s_vec::x
+ * @var s_ivec::x
  * X coordinate
  *
- * @var s_vec::y
+ * @var s_ivec::y
  * Y coordinate
  */
-typedef struct s_vec
+typedef struct s_ivec
+{
+	int	x;
+	int	y;
+}				t_ivec;
+/**
+ * @struct s_dvec
+ * @brief 2D (double) vector structure
+ *
+ * This structure can represent 2D (double) vector or coordinate
+ *
+ * @var s_dvec::x
+ * X coordinate
+ *
+ * @var s_dvec::y
+ * Y coordinate
+ */
+typedef struct s_dvec
 {
 	double	x;
 	double	y;
-}				t_vec;
+}				t_dvec;
+
+/**
+ * @struct s_minimap
+ * @brief The structure holding all necessary data for minimap
+ *
+ * This structure contain all the necessary data for minimap rendering
+ * like the size of it, on screen position, color...
+ *
+ * @var s_minimap::draw_size
+ * The vector representing the minimap size on the screen (in pixel)
+ *
+ * @var s_minimap::map_screen_pos
+ * The vector representing the minimap position on the screen
+ * CARREFUL vector point in the middle of the minimap
+ *
+ * @var s_minimap::draw_start
+ * Where the minimap drawing should start on screen
+ *
+ * @var s_minimap::draw_end
+ * Where the minimap drawing should end on screen
+ *
+ * @var s_minimap::block
+ * The number of block that are rendered on the minimap
+ *
+ * @var s_minimap::map_pos
+ * The position on the map the minimap is aiming at
+ *
+ * @var s_minimap::step
+ * The step used to parcours the map when rendering the minimap
+ *
+ * @var s_minimap::outbound_color
+ * TRGB outbound color on minimap
+ *
+ * @var s_minimap::floor_color
+ * TRGB floor color on minimap
+ *
+ * @var s_minimap::block_color
+ * TRGB block color on minimap
+ *
+ * @var s_minimap::player_size
+ * The size of the player on the minimap (in pixel)
+ *
+ * @var s_minimap::player_draw_start
+ * The position on the screen the player drawing should start
+ *
+ * @var s_minimap::player_draw_end
+ * The position on the screen the player drawing should end
+ *
+ * @var s_minimap::player_tex_pos
+ * The position of the player texture pixel
+ *
+ * @var s_minimap::dir_angle
+ * The angle of the direction the player is looking to
+ *
+ * @var s_minimap::player_step
+ * The step to parcour the player texture
+ */
+typedef struct s_minimap
+{
+	t_ivec	draw_size;
+	t_ivec	map_screen_pos;
+	t_ivec	draw_start;
+	t_ivec	draw_end;
+	t_ivec	block;
+	t_dvec	map_pos;
+	double	step;
+	int		outbound_color;
+	int		floor_color;
+	int		block_color;
+	int		player_size;
+	t_dvec	player_draw_start;
+	t_dvec	player_draw_end;
+	t_dvec	player_tex_pos;
+	double	dir_angle;
+	double	player_step;
+}				t_minimap;
 
 /**
  * @struct s_raycast
@@ -110,7 +212,7 @@ typedef struct s_vec
  * @var s_raycast::delta_dist
  * A vector describing the distance between two walls (given a certain ray)
  *
- * @var s_raycast::map
+ * @var s_raycast::map_pos
  * A pair containing the actual ray position in the map (map = int player_pos)
  *
  * @var s_raycast::step
@@ -130,11 +232,11 @@ typedef struct s_raycast
 {
 	int		x;
 	double	cam_x;
-	t_vec	dir;
-	t_vec	side_dist;
-	t_vec	delta_dist;
-	t_vec	map;
-	t_vec	step;
+	t_dvec	dir;
+	t_dvec	side_dist;
+	t_dvec	delta_dist;
+	t_ivec	step;
+	t_ivec	map;
 	double	perp_wall_dist;
 	int		side;
 }				t_raycast;
@@ -247,6 +349,9 @@ typedef struct s_img
  * @var s_data::map
  * Game map
  *
+ * @var s_data::map_size
+ * The vector represent the map size (in block)
+ *
  * @var s_data::player
  * Player position in the map
  *
@@ -258,46 +363,56 @@ typedef struct s_img
  * */
 typedef struct s_data
 {
-	void	*mlx;
-	void	*window;
-	int		w_height;
-	int		w_width;
-	t_img	img;
-	t_img	texture[4];
-	int		floor_color;
-	int		ceiling_color;
-	char	**map;
-	t_vec	player;
-	t_vec	direction;
-	t_vec	camera_plane;
+	void		*mlx;
+	void		*window;
+	int			w_height;
+	int			w_width;
+	t_img		img;
+	t_img		texture[5];
+	int			floor_color;
+	int			ceiling_color;
+	char		**map;
+	t_ivec		map_size;
+	t_dvec		player;
+	t_dvec		direction;
+	t_dvec		camera_plane;
+	t_minimap	minimap;
 }				t_data;
 
 // ft_mlx_pixel_put.c
-void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
-// Print error.h
-void	print_error(const char *func, int error_nbr);
+// Print error.c
+void		print_error(const char *func, int error_nbr);
 
 // free_cub.c
-void	free_cub(t_data *data);
-int		exit_cub(t_data *data);
+void		free_cub(t_data *data);
+int			exit_cub(t_data *data);
+
+// init_vec.c
+t_ivec		init_ivec(int x, int y);
+t_dvec		init_dvec(double x, double y);
 
 // init_cub.c
-t_vec	init_vec(double x, double y);
-void	init_player(t_data *data);
-t_data	*init_cub(void);
+void		init_player(t_data *data);
+t_data		*init_cub(void);
 
 // mlx_hook
-int		key_hook(int keycode, void *param);
-int		camera_move(int x, int y, void *param);
+int			key_hook(int keycode, void *param);
+int			camera_move(int x, int y, void *param);
 
 // draw_column.c
-void	draw_column(t_data *data, t_raycast ray);
+void		draw_column(t_data *data, t_raycast ray);
 
 // draw_floor_and_ceiling
-void	draw_floor_and_ceiling(t_data *data);
+void		draw_floor_and_ceiling(t_data *data);
 
 //render.c
-int		render(void *param);
+int			render(void *param);
+
+// init_minimap.c
+t_minimap	init_minimap(t_data *data);
+// draw_minimap.c
+void		draw_minimap(t_data *data);
 
 #endif // !CUB3D_H
