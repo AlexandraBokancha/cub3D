@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 10:18:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:20:25 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ static int	obstacle(t_data *data, t_dvec move)
 	if (move.x == 0)
 	{
 		if (data->map[(int)(pos.x - 0.001)]
-				[(int)(pos.y + move.y * DELTA)] == '1')
-			return (1);
-		if (data->map[(int)(pos.x + 0.001)]
+				[(int)(pos.y + move.y * DELTA)] == '1'
+				|| data->map[(int)(pos.x + 0.001)]
 				[(int)(pos.y + move.y * DELTA)] == '1')
 			return (1);
 	}
