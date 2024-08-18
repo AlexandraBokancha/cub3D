@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 11:27:58 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 11:45:19 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,14 @@ t_ivec	get_map_size(char *map[])
 	return (map_block);
 }
 
+void	init_mouse(t_data *data)
+{
+	mlx_mouse_hide(data->mlx, data->window);
+	mlx_mouse_move(data->mlx, data->window, data->w_width / 2,
+		data->w_height / 2);
+}
+
+
 int	main()
 {
 	t_data	*data;
@@ -138,8 +146,12 @@ int	main()
 	data->map_size = get_map_size(data->map);
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;
+	// MINIMAP
 	init_player(data);
 	data->minimap = init_minimap(data);
+
+	// ROTATE_BONUS
+	init_mouse(data);
 
 	// LOAD TEXTURE
 	load_texture(data, texture);
