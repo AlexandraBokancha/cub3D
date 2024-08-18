@@ -20,6 +20,7 @@ RENDER_DIR := render
 ### BONUS_DIR ###
 BONUS_DIR := bonus
 MINIMAP_DIR := minimap
+ROTATE_DIR := rotate
 
 # *************************************************************************** #
 #                                 INCLUDES                                    #
@@ -108,10 +109,16 @@ define BONUS_SRC_FILE :=
 	)
 endef
 
+define BONUS_ROTATE_FILE :=
+	$(addprefix $(BONUS_DIR)/$(ROTATE_DIR)/, \
+		rotate_bonus.c		
+	)
+endef
+
 define BONUS_MINIMAP_FILE :=
 	$(addprefix $(BONUS_DIR)/$(MINIMAP_DIR)/, \
 		init_minimap_bonus.c \
-		draw_minimap.c
+		draw_minimap_bonus.c
 	)
 endef
 
@@ -127,13 +134,6 @@ define BONUS_RENDER_FILE :=
 		render_bonus.c
 	)
 endef
-
-# Minimap
-# define MINIMAP_FILE :=
-#
-# MINIMAP_DIR := minimap
-# MINIMAP_FILE := init_minimap.c \
-# 			   draw_minimap.c
 
 # *************************************************************************** #
 #                               OBJECT FILE                                   #
@@ -167,8 +167,9 @@ OBJ_BONUS_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SRC_FILE:.c=.o)))
 OBJ_BONUS_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_INIT_FILE:.c=.o)))
 OBJ_BONUS_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_RENDER_FILE:.c=.o)))
 OBJ_BONUS_MINIMAP := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MINIMAP_FILE:.c=.o)))
+OBJ_BONUS_ROTATE := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_ROTATE_FILE:.c=.o)))
 OBJ_BONUS := $(OBJ) $(OBJ_BONUS_SRC) $(OBJ_BONUS_INIT) $(OBJ_BONUS_RENDER) \
-			 $(OBJ_BONUS_MINIMAP)
+			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_ROTATE)
 
 
 # *************************************************************************** #
@@ -238,11 +239,17 @@ $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MINIMAP_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
+### Compiling BONUS_ROTATE_FILE ###
+$(OBJ_DIR)/%.o : $(BONUS_DIR)/$(ROTATE_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
 # *************************************************************************** #
 #                             CLEAN, FCLEAN, RE                               # 
 # *************************************************************************** #
 fclean : clean
 	rm -f $(PROJECT)
+	rm -f $(BONUS)
 	make fclean -C $(FT_DIR)
 
 #Suppresion des fichiers objet

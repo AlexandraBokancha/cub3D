@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 09:46:30 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 12:06:43 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,6 +377,7 @@ typedef struct s_data
 	t_dvec		direction;
 	t_dvec		camera_plane;
 	t_minimap	minimap;
+	int			mouse_visibility;
 }				t_data;
 
 // ft_mlx_pixel_put.c
@@ -398,8 +399,8 @@ void		init_player(t_data *data);
 t_data		*init_cub(void);
 
 // mlx_hook
+void		rotate(int keycode, t_data *data, double rotation_speed);
 int			key_hook(int keycode, void *param);
-int			camera_move(int x, int y, void *param);
 
 // draw_column.c
 void		draw_column(t_data *data, t_raycast ray);
@@ -414,5 +415,8 @@ int			render(void *param);
 t_minimap	init_minimap(t_data *data);
 // draw_minimap.c
 void		draw_minimap(t_data *data);
+
+// rotate_bonus.c
+int			camera_move(int x, int y, void *param);
 
 #endif // !CUB3D_H
