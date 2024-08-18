@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 21:18:08 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/18 17:16:37 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,9 @@ typedef struct s_img
 typedef	struct	s_map_info
 {
 	char **map2d;
+	int	map2_height;
+	int	start_map;
+	int	map_pos;
 	int	start_x;
 	int	start_y;
 	int	start_o;
@@ -309,6 +312,8 @@ int		render(void *param);
 
 // parser.c
 t_data	*init_map(t_data *data, char  *file_name);
-int     parse_map(char **map, t_data *data);
+int		find_map_info(char **map, t_data *data);
+int		map_h(char *file_name);
+int		parsing(t_data *data);
 
 #endif // !CUB3D_H

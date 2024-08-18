@@ -6,29 +6,38 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 14:14:32 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/18 17:15:04 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// char	**copy_map(void)
-// {
-// 	char **map;
-// 	int		i;
+void	check_all_info(t_data *data)
+{
+	printf("%s\n", "**** my map ***");
+	printf("\n");
+	char **ptr = data->map_info.map2d;
+    while (*ptr != NULL)
+    {
+        printf("%s", *ptr);
+        ptr++;
+    }
+	printf("\n");
+	printf("\n");
+	printf("%s\n", "**** my info ****");
+	int i = 0;
+	printf("\n");
+	while (i < 4)
+	{
+		printf("my orientation : %s\n", data->textures[i].direction);
+		printf("my texture : %s", data->textures[i].path);
+		i++;
+	}
+	printf("\n");
+	printf("my F color : %s\n", data->colors.f_color);
+	printf("my C color : %s\n", data->colors.c_color);
 
-// 	map = (char **)malloc(sizeof(char *) * 11);
-// 	if (!map)
-// 		return (print_error("malloc", errno), NULL);
-// 	i = 0;
-// 	while (i < 10)
-// 	{
-// 		map[i] = ft_strndup(test_map[i], 10);
-// 		i++;
-// 	}
-// 	map[10] = NULL;
-// 	return (map);
-// }
+}
 
 int	main(int ac, char **av)
 {
@@ -40,6 +49,9 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	data = init_map(data, av[1]);
+	if (!data)
+		exit_cub(data);
+	parsing(data);
 	free_cub(data);
 	return (0);
 }
