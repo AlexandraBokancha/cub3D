@@ -260,7 +260,11 @@ re : fclean all
 #                              CUSTOM RULES                                   #
 # *************************************************************************** #
 norminette :
-	norminette $(FT_DIR) $(SRC_DIR) $(HEADER_DIR)
+	norminette $(FT_DIR) $(SRC_DIR) $(HEADER_DIR) $(BONUS_DIR)
+
+recub :
+	rm -rf ./.obj/
+	make
 
 # *************************************************************************** #
 #                               PHONY RULES                                   #
