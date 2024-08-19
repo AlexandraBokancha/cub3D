@@ -10,6 +10,7 @@ SRC_DIR = parser
 SRC_FILE = $(SRC_DIR)/map_info.c \
 		   $(SRC_DIR)/map_info_utils.c \
 		   $(SRC_DIR)/parsing.c \
+		   $(SRC_DIR)/parsing_utils.c \
 			$(SRC_DIR)/print_error.c \
 		   $(SRC_DIR)/init_cub.c \
 		   $(SRC_DIR)/free_cub.c \

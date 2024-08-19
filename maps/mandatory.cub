@@ -1,9 +1,9 @@
-NO /home/alexandra/42/cub3D/texturers/bricks.xpm
+NO textures/bricks.xpm
 SO textures/bricks.xpm
 WE textures/bricks.xpm
 EA textures/bricks.xpm
 
-F 220,100,0
+F 220,100,5
 C 225,30,0
 
 1111111111111111111111111
