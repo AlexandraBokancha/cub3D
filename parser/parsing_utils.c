@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:32:58 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/19 18:26:33 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/21 15:22:41 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,24 @@ void    strip_newline(char *str)
     pos = ft_strchr(str, '\n');
     if (pos != NULL)
         *pos = '\0';
+}
+
+void	fill_spaces(char **map, int height)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < height)
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == ' ')
+				map[i][j] = '1';
+			j++;
+		}
+		i++;
+	}
 }
 

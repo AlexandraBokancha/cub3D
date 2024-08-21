@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 18:00:11 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/21 16:16:54 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,7 @@ void	check_all_info(t_data *data)
 	printf("\n");
 	printf("\n");
 	printf("%s\n", "**** my info ****");
-	int i = 0;
 	printf("\n");
-	while (i < 4)
-	{
-		printf("my orientation : %s\n", data->textures[i].direction);
-		printf("my texture : %s", data->textures[i].path);
-		i++;
-	}
 	printf("\n");
 	printf("my F color : %s\n", data->colors.f_color);
 	printf("my C color : %s\n", data->colors.c_color);

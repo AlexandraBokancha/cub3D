@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 16:55:54 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/21 13:11:57 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_data	*init_cub(void)
 
 	data = (t_data *)malloc(sizeof(struct s_data));
 	if (!data)
-		return (print_error("malloc", errno), NULL);
+		return (write(2, "Error. Malloc\n", 15), NULL);
 	data->mlx = NULL;
 	data->window = NULL;
 	data->img.img = NULL;

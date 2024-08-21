@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/19 18:28:33 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/21 16:52:03 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,14 @@ typedef	struct	s_map_info
 	int	start_o;
 }				t_map_info;
 
+typedef	enum	s_id
+{
+	nord,
+	south, 
+	east,
+	west	
+}				t_id;
+
 /**
  * @struct t_texture
  * @brief Structure holding texture data
@@ -205,7 +213,11 @@ typedef	struct	s_map_info
 typedef struct s_texture
 {
 	char	*direction;
-	char	*path;
+	char	*N_path;
+	char	*E_path;
+	char	*W_path;
+	char	*S_path;
+	t_id	identor;
 }				t_texture;
 
 /**
@@ -285,7 +297,7 @@ typedef struct s_data
 	t_vec	player_pos;
 	t_vec	direction;
 	t_vec	camera_plane;
-	t_texture	textures[4];
+	t_texture	textures;
 	t_map_info	map_info;
 	t_colors	colors;
 }				t_data;
@@ -313,10 +325,13 @@ int		render(void *param);
 // parser.c
 t_data	*init_map(t_data *data, char  *file_name);
 int		find_map_info(char **map, t_data *data);
-void    process_info_lines(t_data *data, char *line, int i);
+int    process_info_lines(t_data *data, char *line);
 int		map_h(char *file_name);
 int		parsing(t_data *data);
 void	strip_newline(char *str);
-
+int		is_closed(char **map, int height);
+int		is_valid_chars(char **map, int height);
+void	fill_spaces(char **map, int height);
+int		is_empty_line(char *line);
 
 #endif // !CUB3D_H
