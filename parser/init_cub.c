@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/21 13:11:57 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:55:26 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ t_data	*init_cub(void)
 	data->map_info.map2_height = 0; 
 	data->map_info.start_map = 0;
 	data->map_info.map_pos = 0;
+	data->textures.S_path = NULL;
+	data->textures.N_path = NULL;
+	data->textures.E_path = NULL;
+	data->textures.W_path = NULL;
+	data->colors.f_color = NULL;
+	data->colors.c_color = NULL;
 	// data = init_screen(data);
 	// if (!data)
 	// 	return (NULL);

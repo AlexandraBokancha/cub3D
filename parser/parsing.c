@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/21 17:11:19 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:56:53 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ int	is_path(char *path)
     int fd;
 
 	if (path == NULL)
-		return (write(2, "Error. Path is not valid\n", 25), 0); 
+		return (write(2, "Error. Path is missing\n", 24), 0);
 	strip_newline(path);
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return (write(2, "Error. Path is not valid\n", 25), 0);
+	{
+		ft_putstr_fd("Error. Path is not valid: ", 2);
+		ft_putstr_fd(path, 2);
+		return (ft_putstr_fd("\n", 2), 0);
+	}
 	close(fd);
 	return (1);
 }
@@ -79,9 +83,9 @@ int parsing(t_data *data)
 {
 	if (parsing_textures(data->textures))
         return (1);
-    if (!parsing_colors(data->colors.f_color))
-        return (1);
     if (parsing_map(&data->map_info))
 		return (1);
+    if (!parsing_colors(data->colors.f_color))
+        return (1);
     return (0);
 }
