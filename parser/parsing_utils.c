@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:32:58 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/21 15:22:41 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:06:12 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,38 @@ void	fill_spaces(char **map, int height)
 		i++;
 	}
 }
+int	find_pos(char *line)
+{
+	int player_in;
+	int i;
+	
+	i = 0;
+	player_in = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		if ((line[i] == 'N' || line[i] == 'W' \
+			|| line[i] == 'E' || line[i] == 'S'))
+			player_in++;
+		i++;
+	}
+	return (player_in);
+}
 
+int	has_start_pos(char **map, int height)
+{
+	int i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (i < height)
+	{
+		count += find_pos(map[i]);
+		if (count > 1)
+			return (write(2, "Error. More then one start position found\n", 43), 0);
+		i++;
+	}
+	if (!count)
+		return (write(2, "Error. No start position found\n", 32), 0);
+	return (1);
+}

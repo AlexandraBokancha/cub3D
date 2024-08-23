@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:01:31 by albokanc          #+#    #+#             */
-/*   Updated: 2024/08/21 15:55:54 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:08:58 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,8 @@ int	check_first_last(char *line)
 	i = 0;
 	while(line[i] && line[i] != '\n')
 	{	
-		if (line[i] != '1')
-		{	
-			write(2, "Error. Map is not closed\n", 26);
-			return (0);
-			break;
-		}
+		if (line[i] != '1')	
+			return (write(2, "Error. Map is not closed\n", 26), 0);
 		i++;
 	}
 	return (1);
@@ -32,16 +28,8 @@ int	check_first_last(char *line)
 
 int	check_borders(char *line)
 {
-	if (line[0] != '1')
-	{
-		write(2, "Error. Map is not closed\n", 26);
-			return (0);
-	}
-	if (line[ft_strlen(line) - 2] != '1')
-	{
-		write(2, "Error. Map is not closed\n", 26);
-			return (0);
-	}
+	if (line[0] != '1' || line[ft_strlen(line) - 2] != '1')
+		return (write(2, "Error. Map is not closed\n", 26), 0);
 	return (1);
 }
 
@@ -82,12 +70,8 @@ int	check_char_in_line(char *line)
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' \
-			&& line[i] != 'S' && line[i] != 'S' && line[i] != 'E') 
-		{
-			write(2, "Error. Values are not valid\n", 29);
-			return (0);
-			break;
-		}
+			&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E') 
+			return (write(2, "Error. Values are not valid\n", 29), 0);
 		i++;
 	}
 	return (1);

@@ -1,10 +1,12 @@
-NO /home/albokanc/42/github/cub3D/textures/bricks.xpm
-SO /home/albokanc/42/github/cub3D/textures/bricks.xpm
-WE /home/albokanc/42/github/cub3D/textures/bricks.xpm
-EA /home/albokanc/42/github/cub3D/textures/bricks.xpm
+NO /home/alexandra/42/cub3D/textures/bricks.xpm
+SO /home/alexandra/42/cub3D/textures/bricks.xpm
+WE /home/alexandra/42/cub3D/textures/bricks.xpm
+EA /home/alexandra/42/cub3D/textures/bricks.xpm
 
 F 220,100,0
 C 225,30,0
+
+
 
 
 1 111111111111111111111111

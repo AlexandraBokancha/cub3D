@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_info_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/21 17:54:23 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:28:42 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-// faire une enum;
-// stocke les orientations direct;
 
 int	is_empty_line(char *line)
 {
@@ -25,10 +22,7 @@ int	is_empty_line(char *line)
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] != ' ')
-		{
 			return (0);
-			break;
-		}
 		i++;
 	}
 	return (1);	
@@ -58,12 +52,20 @@ int    process_info_lines(t_data *data, char *line)
 		data->textures.identor = east;
         data->textures.E_path = line + 3;
     }
-    else if (!ft_strncmp(line, "F", 1) && !data->colors.f_color)
-        data->colors.f_color = line + 1;
-    else if (!ft_strncmp(line, "C", 1) && !data->colors.f_color)
-        data->colors.c_color = line + 1;
+    else if (!ft_strncmp(line, "F ", 2) && !data->colors.f_color)
+        data->colors.f_color = line + 2;
+    else if (!ft_strncmp(line, "C ", 2) && !data->colors.c_color)
+        data->colors.c_color = line + 2;
 	else
-		return (0);
+    {
+    	if (is_empty_line(line))
+	       return (1);
+        else
+		{
+		    write(2, "Error. Invalid line in the map: ", 32);
+			return (ft_putstr_fd(line, 2), 0);
+		}
+    }
 	return (1);
 }
 
@@ -89,4 +91,21 @@ int map_h(char *file_name)
     }
     close (fd);
     return (height);
+}
+
+void    copy_map(int map_pos, int height,  t_data *data)
+{
+    int i;
+
+    i = 0;
+    data->map_info.map2d = (char **)malloc(sizeof(char *) * (height + 1));
+    if (!data->map_info.map2d)
+        return ((void)write(2, "Error. Malloc\n", 15));
+    while (i < height)
+    {   
+        data->map_info.map2d[i] = ft_strdup(data->map[map_pos]);
+        map_pos++;
+        i++;
+    }
+    data->map_info.map2d[i] = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/21 16:52:03 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:38:47 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,7 +325,7 @@ int		render(void *param);
 // parser.c
 t_data	*init_map(t_data *data, char  *file_name);
 int		find_map_info(char **map, t_data *data);
-int    process_info_lines(t_data *data, char *line);
+int		process_info_lines(t_data *data, char *line);
 int		map_h(char *file_name);
 int		parsing(t_data *data);
 void	strip_newline(char *str);
@@ -333,5 +333,8 @@ int		is_closed(char **map, int height);
 int		is_valid_chars(char **map, int height);
 void	fill_spaces(char **map, int height);
 int		is_empty_line(char *line);
+int		has_player(char *line);
+void		copy_map(int map_pos, int height,  t_data *data);
+int		has_start_pos(char **map, int height);
 
 #endif // !CUB3D_H

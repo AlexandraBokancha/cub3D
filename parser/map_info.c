@@ -3,50 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   map_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/21 18:10:00 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:02:33 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../includes/cub3d.h"
 
-int	has_player(char *line)
+int    map_content(t_data *data, char *map_line, int i)
 {
-	int player_in;
-	int i;
-
-	i = 0;
-	player_in = 0;
-	while (line[i] && line[i] != '\n')
-	{
-		if ((line[i] == 'N' || line[i] == 'W' \
-			|| line[i] == 'E' || line[i] == 'S'))
-			player_in++;
-		i++;
-	}
-	//printf("%d\n", player_in);
-	if (player_in != 1)
-		return (0);
-	return (1);
-}
-static  int    copy_map(int map_pos, int height,  t_data *data)
-{
-    int i;
-
-    i = 0;
-    while (i < height)
-    {   
-        data->map_info.map2d[i] = data->map[map_pos];
-        map_pos++;
-        i++;
+    if (!ft_strncmp(map_line, "1", 1) || !ft_strncmp(map_line, "0", 1)) 
+    {
+        data->map_info.start_map = 1;
+        data->map_info.map_pos = i;
     }
-    data->map_info.map2d[i] = NULL;
-	return (1);
+    else if (!process_info_lines(data, map_line) && !data->map_info.map_pos)
+        return (1);
+    return (0);
 }
-
-// mettre a la norme 
 
 static  int    search_map_info(char **map, t_data *data)
 { 
@@ -57,42 +33,19 @@ static  int    search_map_info(char **map, t_data *data)
     {
         if (!data->map_info.start_map)
         {
-            if (!ft_strncmp(map[i], "1", 1) || !ft_strncmp(map[i], "0", 1)) 
-            {
-                data->map_info.start_map = 1;
-                data->map_info.map_pos = i;
-            }
-        	else if (!process_info_lines(data, map[i]))
-			{
-				if (!is_empty_line(map[i]))
-				{
-					write(2, "Error. Invalid line in the map: ", 32);
-					return (ft_putstr_fd(map[i], 2), 1);
-				}
-			}
+            if (map_content(data, map[i], i))
+                return (1);
         }
         if (data->map_info.start_map)
-		{
-			printf("%s", data->map[i]);
-			if (!has_player(data->map[i]))
-			{
-				return(write(2, "Error. Player start position is absent, or there is more then one position\n", 76), 1);
-				break;
-			}
             data->map_info.map2_height++;
-		}
         i++;
     }
     if (data->map_info.start_map)
-	{
-        if (!copy_map(data->map_info.map_pos, data->map_info.map2_height, data))
-			return (0);
-	}
+        copy_map(data->map_info.map_pos, data->map_info.map2_height, data);
     else
-		return (write(2, "Error. Map was not found\n", 36), 1);
+		return (write(2, "Error. Map was not found\n", 26), 1);
     return (0);
 }
-
 
 char    **open_map(char *file_name, int lines)
 {
