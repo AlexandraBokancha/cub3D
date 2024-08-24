@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/23 20:32:21 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 13:50:25 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,13 @@ int parsing_colors(char *color)
 
 int	parsing_map(t_map_info *map_info)
 {
-	fill_spaces(map_info->map2d, map_info->map2_height);
+	//fill_spaces(map_info->map2d, map_info->map2_height);
+    char **ptr = map_info->map2d;
+    while (*ptr != NULL)
+    {
+        printf("%s", *ptr);
+        ptr++;
+    }
 	if (!is_closed(map_info->map2d, map_info->map2_height))
 		return (1);
 	if (!is_valid_chars(map_info->map2d, map_info->map2_height))

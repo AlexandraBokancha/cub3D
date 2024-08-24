@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/23 19:38:47 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 13:59:18 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,5 +336,6 @@ int		is_empty_line(char *line);
 int		has_player(char *line);
 void		copy_map(int map_pos, int height,  t_data *data);
 int		has_start_pos(char **map, int height);
+int ft_isspace(char c);
 
 #endif // !CUB3D_H

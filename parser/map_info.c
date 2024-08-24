@@ -6,14 +6,22 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/23 20:02:33 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 13:45:54 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../includes/cub3d.h"
 
+int ft_isspace(char c)
+{
+    if (c == ' ')
+        return (1);
+    return (0);
+}
 int    map_content(t_data *data, char *map_line, int i)
 {
+    while (*map_line && ft_isspace(*map_line))
+        map_line++;
     if (!ft_strncmp(map_line, "1", 1) || !ft_strncmp(map_line, "0", 1)) 
     {
         data->map_info.start_map = 1;

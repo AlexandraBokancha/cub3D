@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:01:31 by albokanc          #+#    #+#             */
-/*   Updated: 2024/08/23 20:08:58 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 14:00:20 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ int	check_first_last(char *line)
 	i = 0;
 	while(line[i] && line[i] != '\n')
 	{	
-		if (line[i] != '1')	
+		if (line[i] != '1' && line[i] != ' ')
+		{	
+			//printf("at line  with index: %s\n%d\n", line, i);
 			return (write(2, "Error. Map is not closed\n", 26), 0);
+		}
 		i++;
 	}
 	return (1);
@@ -28,8 +31,13 @@ int	check_first_last(char *line)
 
 int	check_borders(char *line)
 {
-	if (line[0] != '1' || line[ft_strlen(line) - 2] != '1')
+	while (*line && ft_isspace(*line))
+        line++;
+	if (*line != '1' || line[ft_strlen(line) - 2] != '1')
+	{
+		//printf("at line : %s\n", line);
 		return (write(2, "Error. Map is not closed\n", 26), 0);
+	}
 	return (1);
 }
 
@@ -53,7 +61,7 @@ int	is_closed(char **map, int height)
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (i < height)
 	{
 		if (!is_wall(map[i], height, i))
 			return (0);
@@ -70,7 +78,7 @@ int	check_char_in_line(char *line)
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' \
-			&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E') 
+			&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E' && line[i] != ' ') 
 			return (write(2, "Error. Values are not valid\n", 29), 0);
 		i++;
 	}
