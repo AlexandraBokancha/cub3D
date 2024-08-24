@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/24 18:32:04 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 18:41:09 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,6 @@ typedef struct s_img
  * @var t_map_info:map2d
  * An array containing map info
  * 
- * @var t_map_info::start_x, start_y
- * Start position of a player
- * 
- * @var t_map_info::start_o;
- * Start orientation of a player
  */
 typedef	struct	s_map_info
 {
@@ -184,40 +179,28 @@ typedef	struct	s_map_info
 	int	map2_height;
 	int	start_map;
 	int	map_pos;
-	int	start_x;
-	int	start_y;
-	int	start_o;
+	//int	start_x;
+	//int	start_y;
+	//int	start_o;
 }				t_map_info;
 
-typedef	enum	s_id
-{
-	nord,
-	south, 
-	east,
-	west	
-}				t_id;
 
 /**
  * @struct t_texture
  * @brief Structure holding texture data
  * 
  * This structure contains data for a texture such as:
- * texture identifier, path to the structure
- *
- * @var t_texture::direction
- * Identifier : NO, SO, WE and EA
+ * path to the structure
  * 
  * @var t_texture::path
  * Path to the texture file
  */
 typedef struct s_texture
 {
-	char	*direction;
 	char	*N_path;
 	char	*E_path;
 	char	*W_path;
 	char	*S_path;
-	t_id	identor;
 }				t_texture;
 
 /**
@@ -235,7 +218,6 @@ typedef struct s_texture
  */
 typedef	struct	s_colors
 {
-	int	start;
 	char *f_color;
 	char *c_color;
 }				t_colors;
