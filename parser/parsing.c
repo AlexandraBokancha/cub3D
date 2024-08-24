@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/24 13:50:25 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 15:51:40 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_path(char *path)
 	if (path == NULL)
 		return (write(2, "Error. Path texture is missing\n", 32), 0);
 	strip_newline(path);
+    while (*path && ft_isspace(*path))
+       path++;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
@@ -48,37 +50,32 @@ int parsing_colors(char *color)
     start = 0;
     count = 0;
     i = 0;
-    strip_newline(color);
     if (color == NULL)
         return (write(2, "Error. Invalid RGB.\n", 21), 1);
+    strip_newline(color);
     while (color[i])
     {
         if (color[i] == ',' || color[i + 1] == '\0')
         {
             if (color[i + 1] == '\0')
                 i++;
+            if (i == start)
+                return (write(2, "Error. Invalid RGB.\n", 21), 1);
             value = ft_atoi(&color[start]);
             if (value < 0 || value > 255)
                 return (write(2, "Error. Invalid RGB.\n", 21), 1);
-            count++;
             start = i + 1;
+            count++;
         }
         i++;
     }
-    if (count > 3)
+    if (count != 3)
         return (write(2, "Error. Invalid RGB.\n", 21), 1);
     return (0);    
 }
 
 int	parsing_map(t_map_info *map_info)
 {
-	//fill_spaces(map_info->map2d, map_info->map2_height);
-    char **ptr = map_info->map2d;
-    while (*ptr != NULL)
-    {
-        printf("%s", *ptr);
-        ptr++;
-    }
 	if (!is_closed(map_info->map2d, map_info->map2_height))
 		return (1);
 	if (!is_valid_chars(map_info->map2d, map_info->map2_height))

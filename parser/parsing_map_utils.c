@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:01:31 by albokanc          #+#    #+#             */
-/*   Updated: 2024/08/24 14:00:20 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 16:20:31 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	check_first_last(char *line)
 	while(line[i] && line[i] != '\n')
 	{	
 		if (line[i] != '1' && line[i] != ' ')
-		{	
-			//printf("at line  with index: %s\n%d\n", line, i);
 			return (write(2, "Error. Map is not closed\n", 26), 0);
-		}
 		i++;
 	}
 	return (1);
@@ -34,10 +31,7 @@ int	check_borders(char *line)
 	while (*line && ft_isspace(*line))
         line++;
 	if (*line != '1' || line[ft_strlen(line) - 2] != '1')
-	{
-		//printf("at line : %s\n", line);
 		return (write(2, "Error. Map is not closed\n", 26), 0);
-	}
 	return (1);
 }
 

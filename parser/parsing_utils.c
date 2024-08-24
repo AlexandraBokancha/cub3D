@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:32:58 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/24 13:26:12 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 15:51:02 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,6 @@ void    strip_newline(char *str)
         *pos = '\0';
 }
 
-void	fill_spaces(char **map, int height)
-{
-	int i;
-	int j;
-
-	i = 1;
-	while (i < height - 1)
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == ' ')
-				map[i][j] = '1';
-			j++;
-		}
-		i++;
-	}
-}
 int	find_pos(char *line)
 {
 	int player_in;

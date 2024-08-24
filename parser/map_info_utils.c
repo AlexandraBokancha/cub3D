@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/23 20:28:42 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 14:52:00 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ int map_h(char *file_name)
     height = 0;
     fd = open(file_name, O_RDONLY);
     if (fd < 0)
-        return (write(2, "Error. File management\n", 24));
+        return (write(2, "Error. File management\n", 24), 0);
     line = get_next_line(fd);
     if (line == NULL)
-        return (write(2, "Error. Empty map\n", 18));
+        return (write(2, "Error. Empty map\n", 18), 0);
     while (line)
     {
         height++;
