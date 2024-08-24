@@ -6,13 +6,13 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/24 15:51:40 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 18:36:59 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../includes/cub3d.h"
 
-int	is_path(char *path)
+static int	is_path(char *path)
 {
     int fd;
 
@@ -32,7 +32,7 @@ int	is_path(char *path)
 	return (1);
 }
 
-int parsing_textures(t_texture textures)
+static int parsing_textures(t_texture textures)
 {
 	if (!is_path(textures.N_path) || !is_path(textures.E_path) \
 		|| !is_path(textures.S_path) || !is_path(textures.W_path))
@@ -40,18 +40,17 @@ int parsing_textures(t_texture textures)
     return (0);
 }
 
-int parsing_colors(char *color)
+static int parsing_colors(char *color)
 {
-    int value;
     int start;
     int count;
     int i;
 
+    if (color == NULL)
+        return (1);
     start = 0;
     count = 0;
     i = 0;
-    if (color == NULL)
-        return (write(2, "Error. Invalid RGB.\n", 21), 1);
     strip_newline(color);
     while (color[i])
     {
@@ -59,22 +58,17 @@ int parsing_colors(char *color)
         {
             if (color[i + 1] == '\0')
                 i++;
-            if (i == start)
-                return (write(2, "Error. Invalid RGB.\n", 21), 1);
-            value = ft_atoi(&color[start]);
-            if (value < 0 || value > 255)
-                return (write(2, "Error. Invalid RGB.\n", 21), 1);
+            if (validate_value(color, start, i))
+                return (0);
             start = i + 1;
             count++;
         }
         i++;
     }
-    if (count != 3)
-        return (write(2, "Error. Invalid RGB.\n", 21), 1);
-    return (0);    
+    return (count);    
 }
 
-int	parsing_map(t_map_info *map_info)
+static int	parsing_map(t_map_info *map_info)
 {
 	if (!is_closed(map_info->map2d, map_info->map2_height))
 		return (1);
@@ -85,15 +79,13 @@ int	parsing_map(t_map_info *map_info)
 	return (0);	
 };
 
-//save colors in rgb ??
-
 int parsing(t_data *data)
 {
 	if (parsing_textures(data->textures))
         return (1);
     if (parsing_map(&data->map_info))
 		return (1);
-    if (parsing_colors(data->colors.f_color) || parsing_colors(data->colors.c_color))
-        return (1);
+    if (parsing_colors(data->colors.f_color) != 3 || parsing_colors(data->colors.c_color) != 3)
+        return (write(2, "Error. Invalid RGB.\n", 21), 1);
     return (0);
 }

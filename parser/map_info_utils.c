@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/24 14:52:00 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 18:29:13 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,16 @@ int	is_empty_line(char *line)
 	return (1);	
 }
 
-// mettre a la norme, verifie si on a besoin d'enum
-
 int    process_info_lines(t_data *data, char *line)
 {
     if (!ft_strncmp(line, "NO ", 3) && !data->textures.N_path)
-    {
-		data->textures.identor = nord;
 		data->textures.N_path = line + 3;
-    }
     else if (!ft_strncmp(line, "SO ", 3) && !data->textures.S_path)
-    {
-		data->textures.identor = south;
         data->textures.S_path = line + 3;
-    }
     else if (!ft_strncmp(line, "WE ", 3) && !data->textures.W_path)
-    {
-		data->textures.identor = west;
         data->textures.W_path = line + 3;
-    }
     else if (!ft_strncmp(line, "EA ", 3) && !data->textures.E_path)
-	{
-		data->textures.identor = east;
         data->textures.E_path = line + 3;
-    }
     else if (!ft_strncmp(line, "F ", 2) && !data->colors.f_color)
         data->colors.f_color = line + 2;
     else if (!ft_strncmp(line, "C ", 2) && !data->colors.c_color)
@@ -108,4 +94,10 @@ void    copy_map(int map_pos, int height,  t_data *data)
         i++;
     }
     data->map_info.map2d[i] = NULL;
+}
+int ft_isspace(char c)
+{
+    if (c == ' ')
+        return (1);
+    return (0);
 }

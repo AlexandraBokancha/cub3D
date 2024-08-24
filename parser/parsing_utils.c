@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:32:58 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/24 15:51:02 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 18:27:12 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,16 @@ int	has_start_pos(char **map, int height)
 	if (!count)
 		return (write(2, "Error. No start position found\n", 32), 0);
 	return (1);
+}
+
+int validate_value(char *color, int start, int end)
+{
+    int value;
+    
+    if (end == start)
+        return (1);
+    value = ft_atoi(&color[start]);
+    if (value < 0 || value > 255)
+        return (1);
+    return (0);
 }

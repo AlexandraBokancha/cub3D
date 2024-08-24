@@ -6,19 +6,13 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/24 13:45:54 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 18:36:40 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../includes/cub3d.h"
 
-int ft_isspace(char c)
-{
-    if (c == ' ')
-        return (1);
-    return (0);
-}
-int    map_content(t_data *data, char *map_line, int i)
+static  int    map_content(t_data *data, char *map_line, int i)
 {
     while (*map_line && ft_isspace(*map_line))
         map_line++;
@@ -84,7 +78,7 @@ char    **open_map(char *file_name, int lines)
     return (buf);
 }
 
-int	check_cub_path(char *path)
+static int	check_cub_path(char *path)
 {
 	if (!ft_strnstr(path, ".cub", ft_strlen(path)))
 		return (write(2, "Error. Not a correct map path\n", 31), 1);

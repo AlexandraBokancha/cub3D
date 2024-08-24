@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/24 13:59:18 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/24 18:32:04 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ typedef struct s_texture
  */
 typedef	struct	s_colors
 {
+	int	start;
 	char *f_color;
 	char *c_color;
 }				t_colors;
@@ -331,11 +332,13 @@ int		parsing(t_data *data);
 void	strip_newline(char *str);
 int		is_closed(char **map, int height);
 int		is_valid_chars(char **map, int height);
-void	fill_spaces(char **map, int height);
 int		is_empty_line(char *line);
+int		check_borders(char *line);
+int		check_first_last(char *line);
 int		has_player(char *line);
-void		copy_map(int map_pos, int height,  t_data *data);
+void	copy_map(int map_pos, int height,  t_data *data);
 int		has_start_pos(char **map, int height);
-int ft_isspace(char c);
+int		ft_isspace(char c);
+int		validate_value(char *color, int start, int end);
 
 #endif // !CUB3D_H
