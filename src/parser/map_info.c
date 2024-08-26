@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/26 16:29:50 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/26 18:24:07 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char    **open_map(char *file_name, int lines)
 		return (write(2, "Error. File management\n",  24), NULL);
     }
     line = get_next_line(fd);
-    while (line)
+    while (i < lines && line)
     {
         buf[i++] = line;
         line = get_next_line(fd);
