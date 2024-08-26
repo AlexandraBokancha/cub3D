@@ -6,11 +6,24 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/26 15:18:13 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/26 16:01:43 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	ft_free_tab(char **tab, int height)
+{
+	int	i;
+
+	i = 0;
+	while (i < height)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
 
 /**
  * @brief Free the cub3d data structure and its associated resources.
@@ -47,7 +60,7 @@ void	free_cub(t_data *data)
 	if (data->map)
 		ft_free_char_tab(&data->map);
 	if (data->map_info.map2d)
-		ft_free_char_tab(&data->map_info.map2d);
+		ft_free_tab(data->map_info.map2d, data->map_info.map2_height);
 	free(data);
 	return ;
 }

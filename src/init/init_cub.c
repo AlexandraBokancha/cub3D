@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/26 15:26:21 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/26 16:07:42 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ t_data	*init_cub(void)
 	data->window = NULL;
 	data->img.img = NULL;
 	data->map = NULL;
+	data->texture_tab = NULL;
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
 	data->texture[0].img = NULL;
@@ -143,9 +144,6 @@ t_data	*init_cub(void)
 	data->textures.W_path = NULL;
 	data->colors.f_color = NULL;
 	data->colors.c_color = NULL;
-	data->map_info.map2_height = 0; 
-	data->map_info.start_map = 0;
-	data->map_info.map_pos = 0;
 	data = init_screen(data);
 	if (!data)
 		return (NULL);

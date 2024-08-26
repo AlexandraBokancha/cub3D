@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/26 14:41:28 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/26 15:58:37 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,6 +433,7 @@ typedef struct s_data
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
+	char		**texture_tab;
 	t_ivec		map_size;
 	t_dvec		player;
 	t_dvec		direction;
