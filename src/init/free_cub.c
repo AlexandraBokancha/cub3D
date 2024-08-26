@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 14:48:13 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:18:13 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	free_cub(t_data *data)
 	}
 	if (data->map)
 		ft_free_char_tab(&data->map);
+	if (data->map_info.map2d)
+		ft_free_char_tab(&data->map_info.map2d);
 	free(data);
 	return ;
 }

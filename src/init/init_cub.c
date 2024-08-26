@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 21:09:59 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:26:21 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,15 @@ void	init_player(t_data *data)
 	int	y;
 
 	x = 0;
-	while (data->map[x])
+	while (data->map_info.map2d[x])
 	{
 		y = 0;
-		while (data->map[x][y])
+		while (data->map_info.map2d[x][y])
 		{
-			if (data->map[x][y] == 'N' || data->map[x][y] == 'S'
-					|| data->map[x][y] == 'E' || data->map[x][y] == 'W')
+			if (data->map_info.map2d[x][y] == 'N' || data->map_info.map2d[x][y] == 'S'
+					|| data->map_info.map2d[x][y] == 'E' || data->map_info.map2d[x][y] == 'W')
 			{
-				set_player(data, x, y, data->map[x][y]);
+				set_player(data, x, y, data->map_info.map2d[x][y]);
 				return ;
 			}
 			y++;
@@ -136,6 +136,16 @@ t_data	*init_cub(void)
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
 	data->texture[0].img = NULL;
+	data->map_info.map2d = NULL;
+	data->textures.S_path = NULL;
+	data->textures.N_path = NULL;
+	data->textures.E_path = NULL;
+	data->textures.W_path = NULL;
+	data->colors.f_color = NULL;
+	data->colors.c_color = NULL;
+	data->map_info.map2_height = 0; 
+	data->map_info.start_map = 0;
+	data->map_info.map_pos = 0;
 	data = init_screen(data);
 	if (!data)
 		return (NULL);

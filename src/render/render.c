@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 16:31:32 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:31:03 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static t_raycast	raycast(t_data	*data, int x)
 			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		hit = (data->map[(int)ray.map.x][(int)ray.map.y] == '1');
+		hit = (data->map_info.map2d[(int)ray.map.x][(int)ray.map.y] == '1');
 	}
 	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	if (ray.side == 0)

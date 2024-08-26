@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor_and_ceiling.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:48:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 00:56:47 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:09:21 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 09:46:30 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:41:28 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,6 +315,65 @@ typedef struct s_img
 }				t_img;
 
 /**
+ * @struct t_map_info
+ * @brief Structure holding map2d data
+ * 
+ * This structure contains data for a map such as:
+ * start position of a player and start orientation (N, S, E or W)
+ *
+ * @var t_map_info:map2d
+ * An array containing map info
+ * 
+ */
+typedef	struct	s_map_info
+{
+	char **map2d;
+	int	map2_height;
+	int	start_map;
+	int	map_pos;
+	//int	start_x;
+	//int	start_y;
+	//int	start_o;
+}				t_map_info;
+
+/**
+ * @struct t_texture
+ * @brief Structure holding texture data
+ * 
+ * This structure contains data for a texture such as:
+ * path to the structure
+ * 
+ * @var t_texture::path
+ * Path to the texture file
+ */
+typedef struct s_texture
+{
+	char	*N_path;
+	char	*E_path;
+	char	*W_path;
+	char	*S_path;
+}				t_texture;
+
+/**
+ * @struct t_colors
+ * @brief Structure holding colors data
+ * 
+ * This structure contains data for a color such as:
+ * color of a ceiling and a floor
+ *
+ * @var t_colors::f_color
+ * Floor color
+ * 
+ * @var t_colors::c_color
+ * Ceiling color
+ */
+typedef	struct	s_colors
+{
+	char *f_color;
+	char *c_color;
+}				t_colors;
+
+/**
  * @struct s_data
  * @brief cub3D holding all program data
  * 
@@ -367,6 +426,8 @@ typedef struct s_data
 	void		*window;
 	int			w_height;
 	int			w_width;
+	int			m_height;
+	int			m_width;
 	t_img		img;
 	t_img		texture[5];
 	int			floor_color;
@@ -377,6 +438,9 @@ typedef struct s_data
 	t_dvec		direction;
 	t_dvec		camera_plane;
 	t_minimap	minimap;
+	t_texture	textures;
+	t_map_info	map_info;
+	t_colors	colors;
 }				t_data;
 
 // ft_mlx_pixel_put.c
@@ -414,5 +478,26 @@ int			render(void *param);
 t_minimap	init_minimap(t_data *data);
 // draw_minimap.c
 void		draw_minimap(t_data *data);
+
+// parser 
+t_data	*init_map(t_data *data, char  *file_name);
+int		find_map_info(char **map, t_data *data);
+int		process_info_lines(t_data *data, char *line);
+int		map_h(char *file_name);
+int		parsing(t_data *data);
+void	strip_newline(char *str);
+int		is_closed(char **map, int height);
+int		is_valid_chars(char **map, int height);
+int		is_empty_line(char *line);
+int		check_borders(char *line);
+int		check_first_last(char *line);
+int		has_player(char *line);
+void	copy_map(int map_pos, int height,  t_data *data);
+int		has_start_pos(char **map, int height);
+int		ft_isspace(char c);
+int		validate_value(char *color, int start, int end);
+
+// formating parsed data
+int    rgb_to_hex(char *color);
 
 #endif // !CUB3D_H

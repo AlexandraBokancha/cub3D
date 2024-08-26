@@ -16,6 +16,7 @@ SRC_DIR := src
 ERROR_DIR := error
 INIT_DIR := init
 RENDER_DIR := render
+PARSER_DIR := parser
 
 ### BONUS_DIR ###
 BONUS_DIR := bonus
@@ -76,6 +77,15 @@ define RENDER_FILE :=
 		draw_floor_and_ceiling.c
 	)
 endef
+
+define PARSER_FILE :=
+	$(addprefix $(SRC_DIR)/$(PARSER_DIR)/, \
+		parsing_utils.c \
+		parsing_map_utils.c \
+		parsing_map_utils2.c \
+		map_info_utils.c \
+	)
+endef
  
 #                       +------------------------------+                      #
 #                       +         MANDATORY            +                      #
@@ -96,6 +106,13 @@ endef
 define MANDATORY_RENDER_FILE :=
 	$(addprefix $(SRC_DIR)/$(RENDER_DIR)/, \
 		render.c
+	)
+endef
+
+define MANDATORY_PARSER_FILE :=
+	$(addprefix $(SRC_DIR)/$(PARSER_DIR)/, \
+		parsing.c \
+		map_info.c
 	)
 endef
  
@@ -146,7 +163,8 @@ OBJ_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(SRC_FILE:.c=.o)))
 OBJ_ERROR := $(addprefix $(OBJ_DIR)/, $(notdir $(ERROR_FILE:.c=.o)))
 OBJ_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(INIT_FILE:.c=.o)))
 OBJ_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(RENDER_FILE:.c=.o)))
-OBJ := $(OBJ_SRC) $(OBJ_ERROR) $(OBJ_INIT) $(OBJ_RENDER)
+OBJ_PARSER :=  $(addprefix $(OBJ_DIR)/, $(notdir $(PARSER_FILE:.c=.o)))
+OBJ := $(OBJ_SRC) $(OBJ_ERROR) $(OBJ_INIT) $(OBJ_RENDER) $(OBJ_PARSER)
 
 #                       +------------------------------+                      #
 #                       +         MANDATORY            +                      #
@@ -157,8 +175,10 @@ OBJ_MANDATORY_INIT := $(addprefix $(OBJ_DIR)/, \
 					$(notdir $(MANDATORY_INIT_FILE:.c=.o)))
 OBJ_MANDATORY_RENDER := $(addprefix $(OBJ_DIR)/, \
 					$(notdir $(MANDATORY_RENDER_FILE:.c=.o)))
+OBJ_MANDATORY_PARSER := $(addprefix $(OBJ_DIR)/, \
+					$(notdir $(MANDATORY_PARSER_FILE:.c=.o)))
 OBJ_MANDATORY := $(OBJ) $(OBJ_MANDATORY_SRC) $(OBJ_MANDATORY_INIT) \
-				$(OBJ_MANDATORY_RENDER)
+				$(OBJ_MANDATORY_RENDER) $(OBJ_MANDATORY_PARSER)
 
 #                       +------------------------------+                      #
 #                       +           BONUS              +                      #
@@ -210,6 +230,12 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/$(INIT_DIR)/%.c
 $(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling PARSER_FILE ###
+$(OBJ_DIR)/%.o : $(SRC_DIR)/$(PARSER_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
 
 # *************************************************************************** #
 #                         MANDATORY COMPILE OBJECT                            #

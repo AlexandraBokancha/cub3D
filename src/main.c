@@ -3,61 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 12:16:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:19:20 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-/* ************************************************************************** */
-/*                          FOR TESTING PURPOSE ONLY                          */
-/* ************************************************************************** */
-char	test_map[10][10] =
-{
-	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-	{'1', '0', '0', '1', '0', '1', '1', '0', '0', '1'},
-	{'1', '0', '0', '0', 'E', '0', '0', '0', '0', '1'},
-	{'1', '0', '0', '1', '0', '1', '0', '0', '0', '1'},
-	{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-};
-
-char	*texture[5] = 
-{
-	"./assets/tile065.xpm",
-	"./assets/tile068.xpm",
-	"./assets/tile073.xpm",
-	"./assets/tile085.xpm",
-	NULL
-};
-
-char	**copy_map(void)
-{
-	char **map;
-	int		i;
-
-	map = (char **)malloc(sizeof(char *) * 11);
-	if (!map)
-		return (print_error("malloc", errno), NULL);
-	i = 0;
-	while (i < 10)
-	{
-		map[i] = ft_strndup(test_map[i], 10);
-		i++;
-	}
-	map[10] = NULL;
-	return (map);
-}
-/* ************************************************************************** */
-/*                           END OF TESTING FUNCTION                          */
-/* ************************************************************************** */
 
 int	load_texture(t_data *data, char **texture_name)
 {
@@ -78,20 +31,31 @@ int	load_texture(t_data *data, char **texture_name)
 	return (0);
 }
 
-int	main()
+int	main(int ac, char **av)
 {
+	(void) ac;
 	t_data	*data;
 
 	data = init_cub();
 	if (!data)
 		return (1);
 	// PLAYER, COLOR AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
-	data->map = copy_map();
-	data->ceiling_color = 0x00645832;
-	data->floor_color = 0x00474747;
+	data = init_map(data, av[1]);
+	if (!data)
+		return (1);
+	data->floor_color = rgb_to_hex(data->colors.f_color);
+    data->ceiling_color = rgb_to_hex(data->colors.c_color);
 	init_player(data);
 
 	// LOAD TEXTURE
+	char *texture[5];
+	
+	texture[0] = data->textures.N_path;
+	texture[1] = data->textures.S_path;
+	texture[2] = data->textures.W_path;
+	texture[3] = data->textures.E_path;
+	texture[4] = NULL;
+	
 	load_texture(data, texture);
 
 	// HOOK EVERYTHING
