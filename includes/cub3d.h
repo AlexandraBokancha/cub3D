@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/26 15:58:37 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/26 16:53:01 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,6 +324,15 @@ typedef struct s_img
  * @var t_map_info:map2d
  * An array containing map info
  * 
+ * @var t_map_info:map2_height
+ * Map2d height
+ * 
+ * @var t_map_info:start_map
+ * A flag for parser to start a map
+ * 
+ * @var t_map_info:map_pos
+ * Map index
+ * 
  */
 typedef	struct	s_map_info
 {
@@ -331,9 +340,6 @@ typedef	struct	s_map_info
 	int	map2_height;
 	int	start_map;
 	int	map_pos;
-	//int	start_x;
-	//int	start_y;
-	//int	start_o;
 }				t_map_info;
 
 /**
@@ -343,7 +349,7 @@ typedef	struct	s_map_info
  * This structure contains data for a texture such as:
  * path to the structure
  * 
- * @var t_texture::path
+ * @var t_texture::@_path
  * Path to the texture file
  */
 typedef struct s_texture
@@ -393,6 +399,12 @@ typedef	struct	s_colors
  * @var s_data::w_width
  * Window width
  * 
+ * @var s_data::m_height
+ * Map height
+ * 
+ * @var s_data::m_width
+ * Map width
+ * 
  * @var s_data::img
  * mlx window image
  *
@@ -407,6 +419,9 @@ typedef	struct	s_colors
  *
  * @var s_data::map
  * Game map
+ * 
+ * @var s_data::texture_tab
+ * An array of strings representing the file paths to the textures used in the game.
  *
  * @var s_data::map_size
  * The vector represent the map size (in block)
@@ -419,6 +434,17 @@ typedef	struct	s_colors
  *
  * @var s_data::camera_plane
  * Camera Y plane
+ * 
+ * @var s_data::textures
+ * A structure holding the paths for the textures used in the game.
+ *
+ * @var s_data::map_info
+ * A structure containing additional information about the map, such as its starting position
+ * and validation status.
+ *
+ * @var s_data::colors
+ * A structure holding the color information for various elements in the game, including the
+ * floor and ceiling.
  * */
 typedef struct s_data
 {
@@ -480,25 +506,23 @@ t_minimap	init_minimap(t_data *data);
 // draw_minimap.c
 void		draw_minimap(t_data *data);
 
-// parser 
+// map_info.c
 t_data	*init_map(t_data *data, char  *file_name);
 int		find_map_info(char **map, t_data *data);
 int		process_info_lines(t_data *data, char *line);
 int		map_h(char *file_name);
+void	copy_map(int map_pos, int height,  t_data *data);
+int		ft_isspace(char c);
+
+// parsing.c
 int		parsing(t_data *data);
 void	strip_newline(char *str);
 int		is_closed(char **map, int height);
 int		is_valid_chars(char **map, int height);
-int		is_empty_line(char *line);
 int		check_borders(char *line);
 int		check_first_last(char *line);
-int		has_player(char *line);
-void	copy_map(int map_pos, int height,  t_data *data);
 int		has_start_pos(char **map, int height);
-int		ft_isspace(char c);
 int		validate_value(char *color, int start, int end);
-
-// formating parsed data
-int    rgb_to_hex(char *color);
+int		rgb_to_hex(char *color);
 
 #endif // !CUB3D_H
