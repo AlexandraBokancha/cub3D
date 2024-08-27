@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/26 18:24:07 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/26 18:34:17 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char    **open_map(char *file_name, int lines)
     line = get_next_line(fd);
     while (i < lines && line)
     {
-        buf[i++] = line;
+        buf[i++] = ft_strdup(line);
         line = get_next_line(fd);
     }
     close (fd);

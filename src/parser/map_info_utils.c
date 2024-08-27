@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/26 18:07:44 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/26 21:10:54 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void    copy_map(int map_pos, int height,  t_data *data)
     {   
         if (data->map[map_pos])
         {
-            data->map_info.map2d[i] = ft_strdup(data->map[map_pos]);
+            data->map_info.map2d[i] = data->map[map_pos];
             if (!data->map_info.map2d[i])
                  return ((void)write(2, "Error. Ft_strdup malloc\n", 15));
         }
