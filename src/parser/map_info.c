@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/27 17:59:18 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/27 18:11:51 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char    **open_map(char *file_name, int lines)
     buf = (char **)malloc(sizeof(char *) * (lines + 1));
     if (!buf)
         return (write(2, "Error. Malloc\n", 15), NULL);
-    buf[lines] = NULL;
+    buf[0] = 0;
     line = get_next_line(fd);
     while (line)
     {
@@ -115,6 +115,7 @@ char    **open_map(char *file_name, int lines)
         buf[i++] = line;
         line = get_next_line(fd);
     }
+    buf[i] = '\0';
     close (fd);
     return (buf);
 }

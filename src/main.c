@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/26 15:59:30 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/27 18:28:37 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av)
 	mlx_key_hook(data->window, &key_hook, data);
 	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
 	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);
-	//mlx_hook(data->window, ON_MOUSEMOVE, (1L<<6), &camera_move, data); // Mouse movment detection
+	//mlx_hook(data->window, ON_MOUSEMOVE, (1L<<6), &camera_move, data); // Mouse movement detection
 	mlx_loop_hook(data->mlx, &render, data);
 	mlx_loop(data->mlx);
 	mlx_do_sync(data->mlx);

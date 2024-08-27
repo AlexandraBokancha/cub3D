@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 10:20:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:50:55 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ static int	obstacle(t_data *data, t_dvec move)
 	pos = init_dvec(data->player.x, data->player.y);
 	if (move.x == 0)
 	{
-		if (data->map[(int)(pos.x - 0.001)]
+		if (data->map_info.map2d[(int)(pos.x - 0.001)]
 				[(int)(pos.y + move.y * DELTA)] == '1'
-				|| data->map[(int)(pos.x + 0.001)]
+				|| data->map_info.map2d[(int)(pos.x + 0.001)]
 				[(int)(pos.y + move.y * DELTA)] == '1')
 			return (1);
 	}
 	if (move.y == 0)
 	{
-		if (data->map[(int)(pos.x + move.x * DELTA)]
+		if (data->map_info.map2d[(int)(pos.x + move.x * DELTA)]
 				[(int)(pos.y - 0.001)] == '1'
-				|| data->map[(int)(pos.x + move.x * DELTA)]
+				|| data->map_info.map2d[(int)(pos.x + move.x * DELTA)]
 				[(int)(pos.y + 0.001)] == '1')
 			return (1);
 	}
-	if (data->map[(int)(pos.x + move.x * DELTA)][(int)(pos.y)] != '1'
-		&& data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1'
-		&& data->map[(int)(pos.x + move.x * DELTA)]
+	if (data->map_info.map2d[(int)(pos.x + move.x * DELTA)][(int)(pos.y)] != '1'
+		&& data->map_info.map2d[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1'
+		&& data->map_info.map2d[(int)(pos.x + move.x * DELTA)]
 			[(int)(pos.y + move.y * DELTA)] == '1')
 		return (1);
 	return (0);
@@ -77,9 +77,9 @@ static void	move_forward_backward(int key, t_data *data)
 	{
 		if (obstacle(data, move))
 			return ;
-		if (data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
+		if (data->map_info.map2d[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
 			data->player.x += move.x;
-		if (data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
+		if (data->map_info.map2d[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
 			data->player.y += move.y;
 	}
 	if (key != S)
@@ -88,9 +88,9 @@ static void	move_forward_backward(int key, t_data *data)
 	move.y = -move.y;
 	if (obstacle(data, move))
 		return ;
-	if (data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
+	if (data->map_info.map2d[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
 		data->player.x += move.x;
-	if (data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
+	if (data->map_info.map2d[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
 		data->player.y += move.y;
 }
 
@@ -116,9 +116,9 @@ static void	move_sideway(int key, t_data *data)
 	{
 		if (obstacle(data, move))
 			return ;
-		if (data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
+		if (data->map_info.map2d[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
 			data->player.x += move.x;
-		if (data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
+		if (data->map_info.map2d[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
 			data->player.y += move.y;
 	}
 	if (key != D)
@@ -127,9 +127,9 @@ static void	move_sideway(int key, t_data *data)
 	move.y = -move.y;
 	if (obstacle(data, move))
 		return ;
-	if (data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
+	if (data->map_info.map2d[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
 		data->player.x += move.x;
-	if (data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
+	if (data->map_info.map2d[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
 		data->player.y += move.y;
 }
 
