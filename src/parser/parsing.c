@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/26 16:39:43 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/27 16:37:17 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	is_path(char *path)
 
 	if (path == NULL)
 		return (write(2, "Error. Path texture is missing\n", 32), 0);
-	strip_newline(path);
     while (*path && ft_isspace(*path))
        path++;
 	fd = open(path, O_RDONLY);
@@ -70,7 +69,6 @@ static int parsing_colors(char *color)
     start = 0;
     count = 0;
     i = 0;
-    strip_newline(color);
     while (color[i])
     {
         if (color[i] == ',' || color[i + 1] == '\0')

@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/26 16:53:01 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/27 17:17:47 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -510,7 +510,6 @@ void		draw_minimap(t_data *data);
 t_data	*init_map(t_data *data, char  *file_name);
 int		find_map_info(char **map, t_data *data);
 int		process_info_lines(t_data *data, char *line);
-int		map_h(char *file_name);
 void	copy_map(int map_pos, int height,  t_data *data);
 int		ft_isspace(char c);
 

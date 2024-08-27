@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/26 18:34:17 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/27 17:18:54 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static  int    search_map_info(char **map, t_data *data)
     i = 0;
     data->map_info.start_map = 0;
 	data->map_info.map_pos = 0;
-    data->map_info.map2_height = 0; 
+    data->map_info.map2_height = 0;
     while (i < data->m_height)
     {
         if (!data->map_info.start_map)
@@ -92,33 +92,36 @@ static  int    search_map_info(char **map, t_data *data)
  * 
  * @return A pointer to an array of strings representing the map lines, or NULL on error.
  */
-char    **open_map(char *file_name, int lines)
+char    **open_map(t_data *data, char *file_name)
 {
-    char **buf;
+    char *tmp;
+    char *new_tmp;
     char *line;
     int fd;
-    int i;
 
-    i = 0;
     line = NULL;
-    buf = (char **)malloc(sizeof(char *) * (lines + 1));
-    if (!buf)
-        return (write(2, "Error. Malloc\n", 15), NULL);
-    buf[lines] = NULL;
+    tmp = NULL;
     fd = open(file_name, O_RDONLY);
     if (fd < 0)
-    {
-        free(buf);
 		return (write(2, "Error. File management\n",  24), NULL);
-    }
     line = get_next_line(fd);
-    while (i < lines && line)
+    while (line)
     {
-        buf[i++] = ft_strdup(line);
+        if (!tmp)
+            tmp = ft_strdup(line);
+        else
+        {    
+            new_tmp = ft_strjoin(tmp, line);
+            free(tmp);
+            tmp = new_tmp;
+        }
+        free(line);
         line = get_next_line(fd);
     }
+    data->map = ft_split(tmp, '\n');
+    free(tmp);
     close (fd);
-    return (buf);
+    return (data->map);
 }
 
 /**
@@ -139,6 +142,15 @@ static int	check_cub_path(char *path)
 	return (0);
 }
 
+int    map_height(char **map)
+{
+    int i;
+
+    i = 0;
+    while (map[i])
+        i++;
+    return (i);
+}
 /**
  * @brief Initializes and processes the map data from a .cub file.
  *
@@ -156,12 +168,10 @@ t_data *init_map(t_data *data, char  *file_name)
 {
     if (check_cub_path(file_name))
 		exit_cub(data);
-    data->m_height = map_h(file_name);
-    if (!data->m_height)
-        exit_cub(data);
-    data->map = open_map(file_name, data->m_height);
+    data->map = open_map(data, file_name);
     if (!data->map)
         exit_cub(data);
+    data->m_height = map_height(data->map);
     if (search_map_info(data->map, data))
         exit_cub(data);
     if (parsing(data))

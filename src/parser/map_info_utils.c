@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/26 21:10:54 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/27 17:17:34 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_empty_line(char *line)
 int    process_info_lines(t_data *data, char *line)
 {
     if (!ft_strncmp(line, "NO ", 3) && !data->textures.N_path)
-		data->textures.N_path = line + 3;
+    	data->textures.N_path = line + 3;
     else if (!ft_strncmp(line, "SO ", 3) && !data->textures.S_path)
         data->textures.S_path = line + 3;
     else if (!ft_strncmp(line, "WE ", 3) && !data->textures.W_path)
@@ -44,39 +44,11 @@ int    process_info_lines(t_data *data, char *line)
         data->colors.c_color = line + 2;
 	else
     {
-    	if (is_empty_line(line))
-	       return (1);
-        else
-		{
-		    write(2, "Error. Invalid line in the map: ", 32);
-			return (ft_putstr_fd(line, 2), 0);
-		}
+		write(2, "Error. Invalid line in the map: ", 32);
+        ft_putstr_fd(line, 2);
+		return (ft_putstr_fd("\n", 2), 0);
     }
 	return (1);
-}
-
-int map_h(char *file_name)
-{
-    char    *line;
-    int     height;
-    int     fd;
-
-    line = NULL;
-    height = 0;
-    fd = open(file_name, O_RDONLY);
-    if (fd < 0)
-        return (write(2, "Error. File management\n", 24), 0);
-    line = get_next_line(fd);
-    if (line == NULL)
-        return (write(2, "Error. Empty map\n", 18), 0);
-    while (line)
-    {
-        height++;
-        free(line);
-        line = get_next_line(fd);
-    }
-    close (fd);
-    return (height);
 }
 
 void    copy_map(int map_pos, int height,  t_data *data)
@@ -89,14 +61,9 @@ void    copy_map(int map_pos, int height,  t_data *data)
         return ((void)write(2, "Error. Malloc\n", 15));
     while (i < height)
     {   
-        if (data->map[map_pos])
-        {
-            data->map_info.map2d[i] = data->map[map_pos];
-            if (!data->map_info.map2d[i])
-                 return ((void)write(2, "Error. Ft_strdup malloc\n", 15));
-        }
-        else
-            data->map_info.map2d[i] = NULL;
+        data->map_info.map2d[i] = ft_strdup(data->map[map_pos]);
+        if (!data->map_info.map2d[i])
+            return ((void)write(2, "Error. Malloc\n", 15));
         map_pos++;
         i++;
     }

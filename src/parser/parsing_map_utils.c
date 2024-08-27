@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:01:31 by albokanc          #+#    #+#             */
-/*   Updated: 2024/08/24 18:33:30 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/27 16:11:01 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_char_in_line(char *line)
 	int i;
 	
 	i = 0;
-	while (line[i] && line[i] != '\n')
+	while (line[i])
 	{
 		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' \
 			&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E' && line[i] != ' ') 
