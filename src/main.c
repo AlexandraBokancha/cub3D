@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/27 18:28:37 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/28 17:01:50 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	**init_tab_texture(t_data *data)
 	data->texture_tab = malloc(sizeof(char *) * 5);
 	if (!data->texture_tab)
 		return (NULL);
+	printf("%s\n", data->textures.N_path);
 	data->texture_tab[0] = data->textures.N_path;
 	data->texture_tab[1] = data->textures.S_path;
 	data->texture_tab[2] = data->textures.W_path;

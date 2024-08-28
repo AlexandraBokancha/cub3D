@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/27 17:51:39 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/27 19:07:36 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ int    process_info_lines(t_data *data, char *line)
         data->colors.c_color = line + 2;
 	else
     {
-		write(2, "Error. Invalid line in the map: ", 32);
-        ft_putstr_fd(line, 2);
-		return (ft_putstr_fd("\n", 2), 0);
+		if (is_empty_line(line))
+	       return (1);
+        else
+		{
+		    write(2, "Error. Invalid line in the map: ", 32);
+			return (ft_putstr_fd(line, 2), 0);
+		}
     }
 	return (1);
 }

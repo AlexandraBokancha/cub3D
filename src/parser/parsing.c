@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/27 17:44:21 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/28 17:09:48 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,29 @@
  * @param path The file path to check.
  * @return 1 if the path is valid and the file can be opened, 0 otherwise.
  */
-static int	is_path(char *path)
+static int	is_path(char **path)
 {
     int fd;
 
-	if (path == NULL)
+	if (*path == NULL)
 		return (write(2, "Error. Path texture is missing\n", 32), 0);
-    while (*path && ft_isspace(*path))
-       path++;
-	fd = open(path, O_RDONLY);
+    while (**path && ft_isspace(**path))
+       (*path)++;
+	fd = open(*path, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_putstr_fd("Error. Path texture is not valid: ", 2);
-		ft_putstr_fd(path, 2);
+		ft_putstr_fd(*path, 2);
 		return (ft_putstr_fd("\n", 2), 0);
 	}
 	close(fd);
 	return (1);
 }
 
-static int parsing_textures(t_texture textures)
+static int parsing_textures(t_texture *textures)
 {
-	if (!is_path(textures.N_path) || !is_path(textures.E_path) \
-		|| !is_path(textures.S_path) || !is_path(textures.W_path))
+	if (!is_path(&textures->N_path) || !is_path(&textures->E_path) \
+		|| !is_path(&textures->S_path) || !is_path(&textures->W_path))
 			return (1);
     return (0);
 }
@@ -117,7 +117,7 @@ static int	parsing_map(t_map_info *map_info)
  */
 int parsing(t_data *data)
 {
-	if (parsing_textures(data->textures))
+	if (parsing_textures(&data->textures))
         return (1);
     if (parsing_map(&data->map_info))
 		return (1);
