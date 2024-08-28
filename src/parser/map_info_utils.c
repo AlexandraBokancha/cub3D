@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/27 19:07:36 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/28 18:00:23 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_empty_line(char *line)
 	i = 0;
 	if (line == NULL)
 		return (1);
-	while (line[i] && line[i] != '\n')
+	while (line[i])
 	{
 		if (line[i] != ' ')
 			return (0);

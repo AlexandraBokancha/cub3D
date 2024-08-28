@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/27 17:17:47 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/28 18:01:20 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -512,6 +512,8 @@ int		find_map_info(char **map, t_data *data);
 int		process_info_lines(t_data *data, char *line);
 void	copy_map(int map_pos, int height,  t_data *data);
 int		ft_isspace(char c);
+int		is_empty_line(char *line);
+
 
 // parsing.c
 int		parsing(t_data *data);
