@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/28 18:00:23 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/30 19:39:14 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,33 @@ void    copy_map(int map_pos, int height,  t_data *data)
     }
     data->map_info.map2d[i] = NULL;
 }
+
 int ft_isspace(char c)
 {
     if (c == ' ')
         return (1);
     return (0);
+}
+int map_h(char *file_name)
+{
+    char    *line;
+    int     height;
+    int     fd;
+
+    line = NULL;
+    height = 0;
+    fd = open(file_name, O_RDONLY);
+    if (fd < 0)
+        return (write(2, "Error. File management\n", 24), 0);
+    line = get_next_line(fd);
+    if (line == NULL)
+        return (write(2, "Error. Empty map\n", 18), 0);
+    while (line)
+    {
+        height++;
+        free(line);
+        line = get_next_line(fd);
+    }
+    close (fd);
+    return (height);
 }

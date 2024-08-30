@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/27 18:11:51 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/30 19:36:47 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,30 +136,6 @@ static int	check_cub_path(char *path)
 	if (!ft_strnstr(path, ".cub", ft_strlen(path)))
 		return (write(2, "Error. Not a correct map path\n", 31), 1);
 	return (0);
-}
-
-int map_h(char *file_name)
-{
-    char    *line;
-    int     height;
-    int     fd;
-
-    line = NULL;
-    height = 0;
-    fd = open(file_name, O_RDONLY);
-    if (fd < 0)
-        return (write(2, "Error. File management\n", 24), 0);
-    line = get_next_line(fd);
-    if (line == NULL)
-        return (write(2, "Error. Empty map\n", 18), 0);
-    while (line)
-    {
-        height++;
-        free(line);
-        line = get_next_line(fd);
-    }
-    close (fd);
-    return (height);
 }
 
 /**

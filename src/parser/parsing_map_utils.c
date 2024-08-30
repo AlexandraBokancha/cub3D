@@ -6,11 +6,35 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:01:31 by albokanc          #+#    #+#             */
-/*   Updated: 2024/08/27 16:11:01 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/30 18:43:15 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../includes/cub3d.h"
+
+int	check_inside(char **map, int height)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < height)
+	{
+		y = 0;
+		while (map[x][y])
+		{
+			if (map[x][y] == 'N' || map[x][y] == 'W' || map[x][y] == 'E' || 
+				map[x][y] == 'S' || map[x][y] == '0')
+			{
+				if (!is_closed_inside(x, y, map, height))
+					return (write(2, "Error. Map is not closed\n", 26), 0);
+			}
+			y++;
+		}
+		x++;
+	}
+	return (1);	
+}
 
 int	is_wall(char *line, int last, int i)
 {

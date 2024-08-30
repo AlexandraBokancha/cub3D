@@ -6,20 +6,11 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:32:58 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/26 16:36:51 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/30 19:44:35 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../includes/cub3d.h"
-
-void    strip_newline(char *str)
-{
-    char *pos;
-
-    pos = ft_strchr(str, '\n');
-    if (pos != NULL)
-        *pos = '\0';
-}
 
 int	find_pos(char *line)
 {
@@ -28,7 +19,7 @@ int	find_pos(char *line)
 	
 	i = 0;
 	player_in = 0;
-	while (line[i] && line[i] != '\n')
+	while (line[i])
 	{
 		if ((line[i] == 'N' || line[i] == 'W' \
 			|| line[i] == 'E' || line[i] == 'S'))
@@ -83,8 +74,7 @@ int    rgb_to_hex(char *color)
     if (color[i] == ',')
         i++;
     g = ft_atoi(&color[i]);
-     while
-      (ft_isdigit(color[i]))
+    while (ft_isdigit(color[i]))
         i++;
     if (color[i] == ',')
         i++;

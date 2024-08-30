@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/28 18:01:20 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/30 19:37:07 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -513,6 +513,8 @@ int		process_info_lines(t_data *data, char *line);
 void	copy_map(int map_pos, int height,  t_data *data);
 int		ft_isspace(char c);
 int		is_empty_line(char *line);
+int		map_h(char *file_name);
+
 
 
 // parsing.c
@@ -520,10 +522,13 @@ int		parsing(t_data *data);
 void	strip_newline(char *str);
 int		is_closed(char **map, int height);
 int		is_valid_chars(char **map, int height);
+int		check_inside(char **map, int height);
+int		is_closed_inside(int x_dep, int y_dep, char **map, int height);
 int		check_borders(char *line);
 int		check_first_last(char *line);
 int		has_start_pos(char **map, int height);
 int		validate_value(char *color, int start, int end);
 int		rgb_to_hex(char *color);
+
 
 #endif // !CUB3D_H

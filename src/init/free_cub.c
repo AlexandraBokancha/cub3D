@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/28 17:15:02 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/30 20:02:52 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ void	ft_free_tab(char **tab, int height)
  *
  * @param data A pointer to the cub3d data structure.
  */
+
+void	free_map_content(t_data *data)
+{
+	if (data->map)
+		ft_free_tab(data->map, data->m_height);
+	if (data->map_info.map2d)
+		ft_free_tab(data->map_info.map2d, data->map_info.map2_height);
+	if (data->texture_tab)
+		free(data->texture_tab);
+}
+
 void	free_cub(t_data *data)
 {
 	int	i;
@@ -58,12 +69,7 @@ void	free_cub(t_data *data)
 			mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
-	if (data->map)
-		ft_free_tab(data->map, data->m_height);
-	if (data->map_info.map2d)
-		ft_free_tab(data->map_info.map2d, data->map_info.map2_height);
-	if (data->texture_tab)
-		free(data->texture_tab);
+	free_map_content(data);
 	free(data);
 	return ;
 }

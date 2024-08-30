@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:48:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/24 19:09:21 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/30 19:57:53 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 /**
  * @brief Draw a unicolor floor and ceiling
- *
  * Draw th ceiling in the right color then draw the floor
- *
  * @param	data	the cub3d global data structure
  */
 void	draw_floor_and_ceiling(t_data *data)

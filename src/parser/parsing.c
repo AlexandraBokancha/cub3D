@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/28 17:09:48 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/30 19:42:22 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Checks if a texture path is valid.
  *
- * This function checks if the given texture path is non-null, strips any newline characters,
+ * This function checks if the given texture path is non-null,
  * skips leading whitespace, and attempts to open the file. If the path is invalid or the file
  * cannot be opened, it returns 0 and prints an appropriate error message.
  *
@@ -30,7 +30,7 @@ static int	is_path(char **path)
 		return (write(2, "Error. Path texture is missing\n", 32), 0);
     while (**path && ft_isspace(**path))
        (*path)++;
-	fd = open(*path, O_RDONLY);
+	fd = open(*path, O_RDONLY || O_WRONLY);
 	if (fd == -1)
 	{
 		ft_putstr_fd("Error. Path texture is not valid: ", 2);
@@ -53,7 +53,7 @@ static int parsing_textures(t_texture *textures)
  * @brief Parses and validates a color string.
  *
  * This function checks the format of the given color string, ensuring it contains exactly
- * three comma-separated values. It strips any newline characters and validates each value.
+ * three comma-separated values.
  *
  * @param color The color string to validate.
  * @return The number of valid comma-separated values (should be 3), or 0 if invalid.
@@ -65,7 +65,7 @@ static int parsing_colors(char *color)
     int i;
 
     if (color == NULL)
-        return (0);
+        return (write(2, "Error. Invalid RGB.\n", 21), 0);
     start = 0;
     count = 0;
     i = 0;
@@ -76,7 +76,7 @@ static int parsing_colors(char *color)
             if (color[i + 1] == '\0')
                 i++;
             if (validate_value(color, start, i))
-                return (0);
+                return (write(2, "Error. Invalid RGB.\n", 21), 0);
             start = i + 1;
             count++;
         }
@@ -100,10 +100,13 @@ static int	parsing_map(t_map_info *map_info)
 		return (1);
 	if (!is_valid_chars(map_info->map2d, map_info->map2_height))
 		return (1);
-    if (!has_start_pos(map_info->map2d, map_info->map2_height))
+	if (!has_start_pos(map_info->map2d, map_info->map2_height))
 		return (1);
-	return (0);	
-};
+	if (!check_inside(map_info->map2d, map_info->map2_height))
+		return (1);
+	return (0);
+}
+
 
 /**
  * @brief Main parsing function for cub3d data.
@@ -122,6 +125,6 @@ int parsing(t_data *data)
     if (parsing_map(&data->map_info))
 		return (1);
     if (parsing_colors(data->colors.f_color) != 3 || parsing_colors(data->colors.c_color) != 3)
-        return (write(2, "Error. Invalid RGB.\n", 21), 1);
+        return (1);
     return (0);
 }
