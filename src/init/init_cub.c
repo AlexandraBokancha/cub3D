@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 15:09:26 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:59:55 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,7 @@ t_data	*init_cub(void)
 	data = init_screen(data);
 	if (!data)
 		return (NULL);
+	if (load_texture(data) != 0)
+		return (free_cub(data), NULL);
 	return (data);
 }

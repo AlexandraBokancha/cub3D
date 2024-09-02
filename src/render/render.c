@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 16:31:32 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:17:54 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
  * Then it draw the image
  */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 /**
  * @brief Init a t_raycast variable
@@ -92,11 +92,10 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 static t_raycast	raycast(t_data	*data, int x)
 {
 	t_raycast	ray;
-	int			hit;
 
 	ray = init_ray(data, x);
-	hit = 0;
-	while (hit == 0)
+	ray.hit = 0;
+	while (ray.hit == 0)
 	{
 		if (ray.side_dist.x < ray.side_dist.y)
 		{
@@ -110,7 +109,7 @@ static t_raycast	raycast(t_data	*data, int x)
 			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		hit = (data->map[(int)ray.map.x][(int)ray.map.y] == '1');
+		ray.hit = (data->map[(int)ray.map.x][(int)ray.map.y] == '1');
 	}
 	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	if (ray.side == 0)

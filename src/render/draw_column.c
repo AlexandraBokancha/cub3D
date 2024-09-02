@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:01:52 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 15:08:44 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:24:55 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 #include <math.h>
 
 /**
@@ -24,6 +24,8 @@
  */
 static int	get_wall_orientation(t_raycast ray)
 {
+	if (ray.hit != 1)
+		return (DOOR);
 	if (ray.side == 0)
 	{
 		if (ray.dir.x < 0)
@@ -61,7 +63,8 @@ static t_draw	init_draw(t_data *data, const t_raycast *ray)
 	else
 		draw.wall_x = data->player.x + ray->perp_wall_dist * ray->dir.x;
 	draw.wall_x -= floorf(draw.wall_x);
-	draw.tex_x = (int)(draw.wall_x * TEXTURE_WIDTH);
+	draw.tex_x = (int)(draw.wall_x
+			* data->texture[draw.wall_orientation].size.x);
 	if ((ray->side == 0 && ray->dir.x > 0)
 		|| (ray->side == 1 && ray->dir.y < 0))
 		draw.tex_x = TEXTURE_WIDTH - draw.tex_x - 1;
@@ -110,7 +113,8 @@ void	draw_column(t_data *data, t_raycast ray)
 	i = draw.start;
 	while (i < draw.end)
 	{
-		tex_y = (int)draw.tex_start & ((int)TEXTURE_HEIGHT - 1);
+		tex_y = (int)draw.tex_start
+			& ((int)data->texture[draw.wall_orientation].size.y - 1);
 		draw.tex_start += draw.step;
 		color = get_texture_color(data->texture[draw.wall_orientation].img,
 				draw.tex_x, tex_y);

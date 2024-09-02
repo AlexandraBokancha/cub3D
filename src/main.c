@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 15:10:52 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:04:13 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ char	test_map[10][10] =
 	{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-};
-
-char	*texture[5] = 
-{
-	"./assets/tile065.xpm",
-	"./assets/tile068.xpm",
-	"./assets/tile073.xpm",
-	"./assets/tile085.xpm",
-	NULL
 };
 
 char	**copy_map(void)
@@ -59,25 +50,6 @@ char	**copy_map(void)
 /*                           END OF TESTING FUNCTION                          */
 /* ************************************************************************** */
 
-int	load_texture(t_data *data, char **texture_name)
-{
-	int	x;
-	int	y;
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		data->texture[i].img.img = mlx_xpm_file_to_image(data->mlx,
-			texture_name[i], &x, &y);
-		data->texture[i].img.addr = mlx_get_data_addr(data->texture[i].img.img,
-			&data->texture[i].img.bits_per_pixel, &data->texture[i].img.line_length,
-			&data->texture[i].img.endian);
-		i++;
-	}
-	return (0);
-}
-
 int	main()
 {
 	t_data	*data;
@@ -90,9 +62,6 @@ int	main()
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;
 	init_player(data);
-
-	// LOAD TEXTURE
-	load_texture(data, texture);
 
 	// HOOK EVERYTHING
 	// mlx_key_hook(data->window, &key_hook, data);
