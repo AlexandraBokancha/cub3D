@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/28 17:12:28 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/01 20:56:56 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	main(int ac, char **av)
 	data = init_map(data, av[1]);
 	if (!data)
 		return (1);
+	if (parsing(data))
+        exit_cub(data);
 	data->floor_color = rgb_to_hex(data->colors.f_color);
     data->ceiling_color = rgb_to_hex(data->colors.c_color);
 	init_player(data);

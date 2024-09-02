@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/30 19:36:47 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/01 20:57:09 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,6 @@ if (check_cub_path(file_name))
     if (!data->map)
         exit_cub(data);
     if (search_map_info(data->map, data))
-        exit_cub(data);
-    if (parsing(data))
         exit_cub(data);
     return (data);
 }

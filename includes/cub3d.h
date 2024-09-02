@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/30 19:37:07 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/01 20:55:29 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <sys/stat.h>
 # include <sys/time.h>
 # include <errno.h>
+#include <stdbool.h>
+
 
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
@@ -110,6 +112,11 @@ typedef struct s_dvec
 	double	x;
 	double	y;
 }				t_dvec;
+
+typedef	struct	s_sprite
+{
+	bool	is_active;
+}				t_sprite;
 
 /**
  * @struct s_minimap
@@ -456,6 +463,7 @@ typedef struct s_data
 	int			m_width;
 	t_img		img;
 	t_img		texture[5];
+	t_img		sprite;
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
@@ -501,8 +509,14 @@ void		draw_floor_and_ceiling(t_data *data);
 //render.c
 int			render(void *param);
 
+
 // init_minimap.c
 t_minimap	init_minimap(t_data *data);
+
+// init_sprite_bonus.c
+
+void	init_sprite(t_data *data);
+
 // draw_minimap.c
 void		draw_minimap(t_data *data);
 
@@ -514,7 +528,7 @@ void	copy_map(int map_pos, int height,  t_data *data);
 int		ft_isspace(char c);
 int		is_empty_line(char *line);
 int		map_h(char *file_name);
-
+char	**init_tab_texture(t_data *data);
 
 
 // parsing.c

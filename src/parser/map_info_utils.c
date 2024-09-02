@@ -6,11 +6,20 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/30 19:39:14 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/08/31 18:36:52 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void    strip_newline(char *str)
+{
+    char *pos;
+
+    pos = ft_strchr(str, '\n');
+    if (pos != NULL)
+        *pos = '\0';
+}
 
 int	is_empty_line(char *line)
 {

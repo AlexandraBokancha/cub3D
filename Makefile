@@ -21,6 +21,7 @@ PARSER_DIR := parser
 ### BONUS_DIR ###
 BONUS_DIR := bonus
 MINIMAP_DIR := minimap
+SPRITE_DIR	:= sprite
 
 # *************************************************************************** #
 #                                 INCLUDES                                    #
@@ -139,6 +140,12 @@ define BONUS_INIT_FILE :=
 	)
 endef
 
+define BONUS_SPRITE_FILE :=
+	$(addprefix $(BONUS_DIR)/$(SPRITE_DIR)/, \
+		init_sprite_bonus.c \
+	)
+endef
+
 define BONUS_RENDER_FILE :=
 	$(addprefix $(BONUS_DIR)/$(RENDER_DIR)/, \
 		render_bonus.c
@@ -187,8 +194,9 @@ OBJ_BONUS_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SRC_FILE:.c=.o)))
 OBJ_BONUS_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_INIT_FILE:.c=.o)))
 OBJ_BONUS_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_RENDER_FILE:.c=.o)))
 OBJ_BONUS_MINIMAP := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MINIMAP_FILE:.c=.o)))
+OBJ_BONUS_SPRITE := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SPRITE_FILE:.c=.o)))
 OBJ_BONUS := $(OBJ) $(OBJ_BONUS_SRC) $(OBJ_BONUS_INIT) $(OBJ_BONUS_RENDER) \
-			 $(OBJ_BONUS_MINIMAP)
+			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_SPRITE)
 
 
 # *************************************************************************** #
@@ -264,6 +272,10 @@ $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MINIMAP_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
+### Compiling BONUS_SPRITE_FILE ###
+$(OBJ_DIR)/%.o : $(BONUS_DIR)/$(SPRITE_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 # *************************************************************************** #
 #                             CLEAN, FCLEAN, RE                               # 
 # *************************************************************************** #
