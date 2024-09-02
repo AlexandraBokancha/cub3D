@@ -6,22 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:53:38 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 19:23:48 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:34:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-/**
- * @brief The texture the game is going to load
- */
-static const char	*g_texture[5] = {
-	"./assets/tile065.xpm",
-	"./assets/tile068.xpm",
-	"./assets/tile073.xpm",
-	"./assets/tile085.xpm",
-	NULL
-};
 
 /**
  * @brief This function load the necessary texture in the game
@@ -32,15 +21,15 @@ static const char	*g_texture[5] = {
  * @param	texture_name	The texure name tab
  * @return  0 on sucess, 1 on error
  */
-int	load_texture(t_data *data)
+int	load_texture(t_data *data, const char **texture)
 {
 	int	i;
 
 	i = 0;
-	while (g_texture[i])
+	while (texture[i])
 	{
 		data->texture[i].img.img = mlx_xpm_file_to_image(data->mlx,
-				(char *)g_texture[i], &data->texture[i].size.x,
+				(char *)texture[i], &data->texture[i].size.x,
 				&data->texture[i].size.y);
 		if (!data->texture[i].img.img)
 			return (print_error("mlx_xpm_file_to_image", errno), free_cub(data),

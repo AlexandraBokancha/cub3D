@@ -6,11 +6,22 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 18:59:55 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:33:09 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+/**
+ * @brief The texture the game is going to load
+ */
+static const char	*g_texture[5] = {
+	"./assets/tile065.xpm",
+	"./assets/tile068.xpm",
+	"./assets/tile073.xpm",
+	"./assets/tile085.xpm",
+	NULL
+};
 
 /**
  * @brief Initializes the screen for the cub3d program.
@@ -140,7 +151,7 @@ t_data	*init_cub(void)
 	data = init_screen(data);
 	if (!data)
 		return (NULL);
-	if (load_texture(data) != 0)
+	if (load_texture(data, g_texture) != 0)
 		return (free_cub(data), NULL);
 	return (data);
 }
