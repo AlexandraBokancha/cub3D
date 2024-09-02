@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 15:12:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:11:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ t_data	*init_cub(void)
 	data->map = NULL;
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
-	data->texture[0].img = NULL;
+	data->texture[0].img.img = NULL;
 	data = init_screen(data);
 	if (!data)
 		return (NULL);

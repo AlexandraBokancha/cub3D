@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:01:52 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 00:56:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:08:44 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	draw_column(t_data *data, t_raycast ray)
 	{
 		tex_y = (int)draw.tex_start & ((int)TEXTURE_HEIGHT - 1);
 		draw.tex_start += draw.step;
-		color = get_texture_color(data->texture[draw.wall_orientation],
+		color = get_texture_color(data->texture[draw.wall_orientation].img,
 				draw.tex_x, tex_y);
 		ft_mlx_pixel_put(&data->img, ray.x, i, color);
 		i++;

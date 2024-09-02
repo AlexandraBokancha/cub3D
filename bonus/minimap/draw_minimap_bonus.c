@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/17 19:56:58 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:07:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ static int	get_color(t_data *data, t_dvec tex_pos, double cos_dir,
 	rotate_tex_pos.y = floorf(rotate_tex_pos.y) + 28.0;
 	if (rotate_tex_pos.y < 0)
 		rotate_tex_pos.y = 0;
-	color = (unsigned int)*(data->texture[4].addr
-			+ (int)rotate_tex_pos.x * data->texture[4].bits_per_pixel / 8
-			+ (int)rotate_tex_pos.y * data->texture[4].line_length);
+	color = (unsigned int)*(data->texture[4].img.addr
+			+ (int)rotate_tex_pos.x * data->texture[4].img.bits_per_pixel / 8
+			+ (int)rotate_tex_pos.y * data->texture[4].img.line_length);
 	return (color);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 12:06:43 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:19:22 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@
 /*
  * DEFAULT CONFIGURATION
  */
+# define R_DOOR_TEXTURE "./assets/right_door.xpm"
+# define L_DOOR_TEXTURE "./assets/left_door.xpm"
 # define PLAYER_TEXTURE "./assets/green_arrow.xpm"
 # define TEXTURE_WIDTH 64.0
 # define TEXTURE_HEIGHT 64.0
@@ -315,6 +317,29 @@ typedef struct s_img
 }				t_img;
 
 /**
+ * @struct s_texture
+ * @brief Structure to store texture path and image data
+ *
+ * This structure store the structure path and necessary data like
+ * size of it and MLX img
+ *
+ * @var s_texture::path
+ * Path to texture file
+ *
+ * @var s_texture::size
+ * Texture size in pixel, needed for rendering
+ *
+ * @var s_texture::img
+ * Texture MLX image
+ */
+typedef struct s_texture
+{
+	char	*path;
+	t_ivec	size;
+	t_img	img;
+}				t_texture;
+
+/**
  * @struct s_data
  * @brief cub3D holding all program data
  * 
@@ -368,7 +393,7 @@ typedef struct s_data
 	int			w_height;
 	int			w_width;
 	t_img		img;
-	t_img		texture[5];
+	t_texture	texture[7];
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;

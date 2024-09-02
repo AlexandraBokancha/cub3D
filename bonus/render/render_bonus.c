@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/16 12:21:59 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:36:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	if (ray.dir.y >= 0)
 		ray.side_dist.y = (ray.map.y + 1.0 - data->player.y) * ray.delta_dist.y;
 	return (ray);
+}
+
+// CHECK IF THE RAY HIT A WALL OR DOOR SEPENDING ON MAP SYMBOL
+int	ray_hit(t_data *data, t_raycast *ray)
+{
+	
 }
 
 /**

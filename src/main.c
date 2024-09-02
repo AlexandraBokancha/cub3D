@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/15 12:16:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:10:52 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int	load_texture(t_data *data, char **texture_name)
 	i = 0;
 	while (i < 4)
 	{
-		data->texture[i].img = mlx_xpm_file_to_image(data->mlx,
+		data->texture[i].img.img = mlx_xpm_file_to_image(data->mlx,
 			texture_name[i], &x, &y);
-		data->texture[i].addr = mlx_get_data_addr(data->texture[i].img,
-			&data->texture[i].bits_per_pixel, &data->texture[i].line_length,
-			&data->texture[i].endian);
+		data->texture[i].img.addr = mlx_get_data_addr(data->texture[i].img.img,
+			&data->texture[i].img.bits_per_pixel, &data->texture[i].img.line_length,
+			&data->texture[i].img.endian);
 		i++;
 	}
 	return (0);

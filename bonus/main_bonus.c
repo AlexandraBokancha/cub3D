@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 11:45:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:30:34 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ char	*test_map_002[11] =
 	"1010000101",
 	"1000000001",
 	"1111111111",
+	NULL
+};
+
+char	*test_map_003[11] =
+{
+	"111111111111111111111",
+	"100000000000000000L01",
+	"10000000000000000l0R1",
+	"101000010000000000r01",
+	"10010110000000000R1l1",
+	"1000N00000000R0LL0L01",
+	"100101000000lLrRRrL11",
+	"101000010000llllrrrl1",
+	"100000000000000000001",
+	"111111111111111111111",
 	NULL
 };
 
@@ -72,27 +87,39 @@ char	**copy_map(char *test_map[])
 /*                           END OF TESTING FUNCTION                          */
 /* ************************************************************************** */
 
-int	load_texture(t_data *data, char **texture_name)
+int	load_texture(t_data *data, char **tex_name)
 {
-	int	x;
-	int	y;
 	int	i;
 
 	i = 0;
 	while (i < 4)
 	{
-		data->texture[i].img = mlx_xpm_file_to_image(data->mlx,
-			texture_name[i], &x, &y);
-		data->texture[i].addr = mlx_get_data_addr(data->texture[i].img,
-			&data->texture[i].bits_per_pixel, &data->texture[i].line_length,
-			&data->texture[i].endian);
+		data->texture[i].img.img = mlx_xpm_file_to_image(data->mlx, tex_name[i],
+			&data->texture[i].size.x, &data->texture[i].size.y);
+		if (!data->texture[i].img.img)
+			return (print_error("mlx_xpm_file_to_image", errno), 1);
+		data->texture[i].img.addr = mlx_get_data_addr(data->texture[i].img.img,
+			&data->texture[i].img.bits_per_pixel, &data->texture[i].img.line_length,
+			&data->texture[i].img.endian);
 		i++;
 	}
-	data->texture[i].img = mlx_xpm_file_to_image(data->mlx,
-		PLAYER_TEXTURE, &x, &y);
-	data->texture[i].addr = mlx_get_data_addr(data->texture[i].img,
-		&data->texture[i].bits_per_pixel, &data->texture[i].line_length,
-		&data->texture[i].endian);
+	data->texture[i].img.img = mlx_xpm_file_to_image(data->mlx,
+		PLAYER_TEXTURE, &data->texture[i].size.x, &data->texture[i].size.y);
+	data->texture[i].img.addr = mlx_get_data_addr(data->texture[i].img.img,
+		&data->texture[i].img.bits_per_pixel, &data->texture[i].img.line_length,
+		&data->texture[i].img.endian);
+	i++;
+	data->texture[i].img.img = mlx_xpm_file_to_image(data->mlx,
+		R_DOOR_TEXTURE, &data->texture[i].size.x, &data->texture[i].size.y);
+	data->texture[i].img.addr = mlx_get_data_addr(data->texture[i].img.img,
+		&data->texture[i].img.bits_per_pixel, &data->texture[i].img.line_length,
+		&data->texture[i].img.endian);
+	i++;
+	data->texture[i].img.img = mlx_xpm_file_to_image(data->mlx,
+		L_DOOR_TEXTURE, &data->texture[i].size.x, &data->texture[i].size.y);
+	data->texture[i].img.addr = mlx_get_data_addr(data->texture[i].img.img,
+		&data->texture[i].img.bits_per_pixel, &data->texture[i].img.line_length,
+		&data->texture[i].img.endian);
 	return (0);
 }
 
@@ -142,7 +169,7 @@ int	main()
 	if (!data)
 		return (1);
 	// PLAYER, COLOR AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
-	data->map = copy_map(test_map_002);
+	data->map = copy_map(test_map_003);
 	data->map_size = get_map_size(data->map);
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;
@@ -154,7 +181,8 @@ int	main()
 	init_mouse(data);
 
 	// LOAD TEXTURE
-	load_texture(data, texture);
+	if (load_texture(data, texture) != 0)
+		return (free_cub(data), 0);
 
 	// HOOK EVERYTHING
 	// mlx_key_hook(data->window, &key_hook, data);

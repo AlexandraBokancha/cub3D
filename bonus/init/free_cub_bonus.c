@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/17 20:01:10 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:12:09 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	free_cub(t_data *data)
 	if (data->mlx)
 	{
 		i = 0;
-		while (data->texture[i].img != NULL && i < 5)
+		while (data->texture[i].img.img != NULL && i < 5)
 		{
-			mlx_destroy_image(data->mlx, data->texture[i].img);
+			mlx_destroy_image(data->mlx, data->texture[i].img.img);
 			i++;
 		}
 		if (data->img.img)
