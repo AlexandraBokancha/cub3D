@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 15:36:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:38:36 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,33 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 // CHECK IF THE RAY HIT A WALL OR DOOR SEPENDING ON MAP SYMBOL
 int	ray_hit(t_data *data, t_raycast *ray)
 {
-	
+	char	tile;
+	int		dir;
+
+	tile = data->map[(int)ray->map.x][(int)ray->map.y];
+	if (tile == '0')
+		return (0);
+	if (tile == '1')
+		return (1);
+	dir = 1;
+	if ((data->direction.x < 0 && (tile == 'o' || tile == 'O'))
+			|| (data->direction.y < 0 && (tile == 'c' || tile == 'C')))
+		dir = -1;
+	if (ray->side == 0)
+	{
+		if (tile == 'c' && ((int)(ray->map.y) == (int)(ray->map.y + dir * 0.05)))
+			return ('c');
+		if (tile == 'C' && ((int)(ray->map.y) == (int)(ray->map.y - dir * 0.05)))
+			return ('C');
+	}
+	if (ray->side == 1)
+	{
+		if (tile == 'o' && ((int)(ray->map.x) == (int)(ray->map.x + dir * 0.05)))
+			return ('o');
+		if (tile == 'O' && ((int)(ray->map.x) == (int)(ray->map.x - dir * 0.05)))
+			return ('O');
+	}
+	return (0);
 }
 
 /**
@@ -98,11 +124,10 @@ int	ray_hit(t_data *data, t_raycast *ray)
 static t_raycast	raycast(t_data	*data, int x)
 {
 	t_raycast	ray;
-	int			hit;
 
 	ray = init_ray(data, x);
-	hit = 0;
-	while (hit == 0)
+	ray.hit = 0;
+	while (ray.hit == 0)
 	{
 		if (ray.side_dist.x < ray.side_dist.y)
 		{
@@ -116,8 +141,15 @@ static t_raycast	raycast(t_data	*data, int x)
 			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		hit = (data->map[(int)ray.map.x][(int)ray.map.y] == '1');
+		// NEW DOOR
+		ray.hit = ray_hit(data, &ray);
+
+		// hit = (data->map[(int)ray.map.x][(int)ray.map.y] == '1');
 	}
+	// NEW DOOR
+	// ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
+	
+
 	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	if (ray.side == 0)
 		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;

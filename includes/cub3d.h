@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 15:19:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:32:33 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define EAST 2
 # define SOUTH 3
 # define WEST 4
+# define DOOR 6
 
 /*
  * KEYMAPPING
@@ -229,6 +230,9 @@ typedef struct s_minimap
  * @var s_raycast::side
  * 1 if the ray hit a EAST/WEST facing wall
  * 0 if the ray hit a NORTH/SOUTH facing wall
+ *
+ * @var s_raycast::hit
+ * Take the value of the hitten tile needed to render wall or door
  */
 typedef struct s_raycast
 {
@@ -241,6 +245,7 @@ typedef struct s_raycast
 	t_ivec	map;
 	double	perp_wall_dist;
 	int		side;
+	int		hit;
 }				t_raycast;
 
 /**
@@ -435,6 +440,9 @@ void		draw_floor_and_ceiling(t_data *data);
 
 //render.c
 int			render(void *param);
+
+// load_texure.c
+int			load_texture(t_data *data, const char **texture);
 
 // init_minimap.c
 t_minimap	init_minimap(t_data *data);

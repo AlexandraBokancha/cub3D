@@ -6,11 +6,26 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 15:11:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:36:56 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+/**
+ * @brief The texture the game is going to load
+ */
+static const char	*g_texture[8] = {
+	"./assets/tile065.xpm",
+	"./assets/tile068.xpm",
+	"./assets/tile073.xpm",
+	"./assets/tile085.xpm",
+	"./assets/green_arrow.xpm",
+	"./assets/right_door.xpm",
+	"./assets/left_door.xpm",
+	NULL
+};
+
 
 /**
  * @brief Initializes the screen for the cub3d program.
@@ -139,5 +154,7 @@ t_data	*init_cub(void)
 	data = init_screen(data);
 	if (!data)
 		return (NULL);
+	if (load_texture(data, g_texture) != 0)
+		return (free_cub(data), NULL);
 	return (data);
 }

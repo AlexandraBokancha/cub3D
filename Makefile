@@ -21,6 +21,7 @@ RENDER_DIR := render
 BONUS_DIR := bonus
 MINIMAP_DIR := minimap
 ROTATE_DIR := rotate
+DOOR_DIR := door
 
 # *************************************************************************** #
 #                                 INCLUDES                                    #
@@ -67,7 +68,8 @@ endef
  
 define INIT_FILE :=
 	$(addprefix $(SRC_DIR)/$(INIT_DIR)/, \
-		init_vec.c
+		init_vec.c \
+		load_texture.c
 	)
 endef
 
@@ -122,6 +124,12 @@ define BONUS_MINIMAP_FILE :=
 	)
 endef
 
+define BONUS_DOOR_FILE :=
+	$(addprefix $(BONUS_DIR)/$(DOOR_DIR)/, \
+
+	)
+endef
+
 define BONUS_INIT_FILE :=
 	$(addprefix $(BONUS_DIR)/$(INIT_DIR)/, \
 		init_cub_bonus.c \
@@ -167,9 +175,10 @@ OBJ_BONUS_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SRC_FILE:.c=.o)))
 OBJ_BONUS_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_INIT_FILE:.c=.o)))
 OBJ_BONUS_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_RENDER_FILE:.c=.o)))
 OBJ_BONUS_MINIMAP := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MINIMAP_FILE:.c=.o)))
+OBJ_BONUS_DOOR := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_DOOR_FILE:.c=.o)))
 OBJ_BONUS_ROTATE := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_ROTATE_FILE:.c=.o)))
 OBJ_BONUS := $(OBJ) $(OBJ_BONUS_SRC) $(OBJ_BONUS_INIT) $(OBJ_BONUS_RENDER) \
-			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_ROTATE)
+			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_ROTATE) $(OBJ_BONUS_DOOR)
 
 
 # *************************************************************************** #
@@ -236,6 +245,11 @@ $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(RENDER_DIR)/%.c
 
 ### Compiling BONUS_MINIMAP_FILE ###
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MINIMAP_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling BONUS_DOOR ###
+$(OBJ_DIR)/%.o : $(BONUS_DIR)/$(DOOR_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
