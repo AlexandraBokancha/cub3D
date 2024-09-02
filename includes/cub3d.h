@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 14:50:41 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/02 15:05:01 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,7 +521,8 @@ void	init_sprite(t_data *data);
 // draw_minimap.c
 void		draw_minimap(t_data *data);
 
-// map_info.c
+// init_map.c
+
 t_data	*init_map(t_data *data, char  *file_name);
 int		find_map_info(char **map, t_data *data);
 int		process_info_lines(t_data *data, char *line);

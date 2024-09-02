@@ -68,7 +68,8 @@ endef
  
 define INIT_FILE :=
 	$(addprefix $(SRC_DIR)/$(INIT_DIR)/, \
-		init_vec.c
+		init_vec.c \
+		init_map_utils.c
 	)
 endef
 
@@ -84,7 +85,6 @@ define PARSER_FILE :=
 		parsing_utils.c \
 		parsing_map_utils.c \
 		parsing_map_utils2.c \
-		map_info_utils.c \
 	)
 endef
  
@@ -100,7 +100,8 @@ endef
 define MANDATORY_INIT_FILE :=
 	$(addprefix $(SRC_DIR)/$(INIT_DIR)/, \
 		free_cub.c \
-		init_cub.c
+		init_cub.c \
+		init_map.c
 	)
 endef
 
@@ -112,8 +113,7 @@ endef
 
 define MANDATORY_PARSER_FILE :=
 	$(addprefix $(SRC_DIR)/$(PARSER_DIR)/, \
-		parsing.c \
-		map_info.c
+		parsing.c
 	)
 endef
  

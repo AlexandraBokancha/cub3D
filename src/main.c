@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/01 20:56:56 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/02 15:05:36 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,16 @@ char	**init_tab_texture(t_data *data)
 
 int	main(int ac, char **av)
 {
-	(void) ac;
 	t_data	*data;
 
+	if (ac != 2)
+		return (write(2, "Error.\nProgram needs 2 arguments.\n", 34));
 	data = init_cub();
 	if (!data)
 		return (1);
 	data = init_map(data, av[1]);
 	if (!data)
 		return (1);
-	if (parsing(data))
-        exit_cub(data);
 	data->floor_color = rgb_to_hex(data->colors.f_color);
     data->ceiling_color = rgb_to_hex(data->colors.c_color);
 	init_player(data);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_info.c                                         :+:      :+:    :+:   */
+/*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/01 20:57:09 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/02 15:06:00 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ static int	check_cub_path(char *path)
  */
 t_data *init_map(t_data *data, char  *file_name)
 {
-if (check_cub_path(file_name))
+    if (check_cub_path(file_name))
 		exit_cub(data);
     data->m_height = map_h(file_name);
     if (!data->m_height)
@@ -162,6 +162,8 @@ if (check_cub_path(file_name))
     if (!data->map)
         exit_cub(data);
     if (search_map_info(data->map, data))
+        exit_cub(data);
+    if (parsing(data))
         exit_cub(data);
     return (data);
 }
