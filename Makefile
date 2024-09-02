@@ -136,6 +136,7 @@ endef
 define BONUS_INIT_FILE :=
 	$(addprefix $(BONUS_DIR)/$(INIT_DIR)/, \
 		init_cub_bonus.c \
+		init_map_bonus.c \
 		free_cub_bonus.c
 	)
 endef

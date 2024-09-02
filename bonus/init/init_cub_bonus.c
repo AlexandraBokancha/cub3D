@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/01 20:45:15 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/02 14:55:14 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,15 @@ void	init_player(t_data *data)
 	int	y;
 
 	x = 0;
-	while (data->map[x])
+	while (data->map_info.map2d[x])
 	{
 		y = 0;
-		while (data->map[x][y])
+		while (data->map_info.map2d[x][y])
 		{
-			if (data->map[x][y] == 'N' || data->map[x][y] == 'S'
-					|| data->map[x][y] == 'E' || data->map[x][y] == 'W')
+			if (data->map_info.map2d[x][y] == 'N' || data->map_info.map2d[x][y] == 'S'
+					|| data->map_info.map2d[x][y] == 'E' || data->map_info.map2d[x][y] == 'W')
 			{
-				set_player(data, x, y, data->map[x][y]);
+				set_player(data, x, y, data->map_info.map2d[x][y]);
 				return ;
 			}
 			y++;
@@ -134,9 +134,17 @@ t_data	*init_cub(void)
 	data->window = NULL;
 	data->img.img = NULL;
 	data->map = NULL;
+	data->texture_tab = NULL;
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
 	data->texture[0].img = NULL;
+	data->map_info.map2d = NULL;
+	data->textures.S_path = NULL;
+	data->textures.N_path = NULL;
+	data->textures.E_path = NULL;
+	data->textures.W_path = NULL;
+	data->colors.f_color = NULL;
+	data->colors.c_color = NULL;
 	data = init_screen(data);
 	if (!data)
 		return (NULL);

@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   free_cub_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/17 20:01:10 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:57:07 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	ft_free_tab(char **tab, int height)
+{
+	int	i;
+
+	i = 0;
+	while (i < height)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void	free_map_content(t_data *data)
+{
+	if (data->map)
+		ft_free_tab(data->map, data->m_height);
+	if (data->map_info.map2d)
+		ft_free_tab(data->map_info.map2d, data->map_info.map2_height);
+	if (data->texture_tab)
+		free(data->texture_tab);
+}
 
 /**
  * @brief Free the cub3d data structure and its associated resources.
@@ -31,9 +54,10 @@ void	free_cub(t_data *data)
 	if (data->mlx)
 	{
 		i = 0;
-		while (data->texture[i].img != NULL && i < 5)
+		while (i < 5)
 		{
-			mlx_destroy_image(data->mlx, data->texture[i].img);
+			if (data->texture[0].img != NULL)
+				mlx_destroy_image(data->mlx, data->texture[i].img);
 			i++;
 		}
 		if (data->img.img)
@@ -44,8 +68,7 @@ void	free_cub(t_data *data)
 			mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
-	if (data->map)
-		ft_free_char_tab(&data->map);
+	free_map_content(data);
 	free(data);
 	return ;
 }

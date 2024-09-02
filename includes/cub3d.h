@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/01 20:55:29 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/02 14:50:41 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -509,6 +509,7 @@ void		draw_floor_and_ceiling(t_data *data);
 //render.c
 int			render(void *param);
 
+t_data *init_map_bonus(t_data *data, char  *file_name);
 
 // init_minimap.c
 t_minimap	init_minimap(t_data *data);
