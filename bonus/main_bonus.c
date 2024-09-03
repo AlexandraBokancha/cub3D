@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 12:33:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:46:27 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ char	*test_map_003[11] =
 char	*test_map_004[8] =
 {
 	"11111111",
-	"111S1111",
+	"11101111",
 	"111c1111",
-	"10O0o001",
+	"1EO0o001",
 	"111C1111",
 	"11101111",
 	"11111111",
@@ -145,7 +145,7 @@ int	main()
 	if (!data)
 		return (1);
 	// PLAYER, COLOR AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
-	data->map = copy_map(test_map_004);
+	data->map = get_map(test_map_004);
 	data->map_size = get_map_size(data->map);
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;

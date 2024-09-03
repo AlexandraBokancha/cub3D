@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 19:36:56 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:57:22 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ void	init_player(t_data *data)
 			if (data->map[x][y] == 'N' || data->map[x][y] == 'S'
 					|| data->map[x][y] == 'E' || data->map[x][y] == 'W')
 			{
-				set_player(data, x, y, data->map[x][y]);
+				set_player(data, x, data->map_size.y - 1 - y, data->map[x][y]);
+				// set_player(data, x, y, data->map[x][y]);
 				return ;
 			}
 			y++;

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 19:32:33 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:53:26 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,5 +451,10 @@ void		draw_minimap(t_data *data);
 
 // rotate_bonus.c
 int			camera_move(int x, int y, void *param);
+
+// TESTING ????
+// COPY_MAP
+char	**get_map(char *map[]);
+
 
 #endif // !CUB3D_H
