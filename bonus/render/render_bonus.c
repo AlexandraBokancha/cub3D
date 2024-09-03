@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 17:40:35 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:38:07 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int	ray_hit(t_data *data, t_raycast *ray)
 		}
 		else
 		{
-			if (tile == 'o')
-				return ('o');
+			if (tile == 'O')
+				return ('O');
 			if (data->map[(int)ray->map.x + 1] && data->map[(int)ray->map.x + 1][(int)ray->map.y] == 'O')
 				return ('O');
 		}
@@ -108,14 +108,14 @@ int	ray_hit(t_data *data, t_raycast *ray)
 	{
 		if (ray->dir.y < 0) // Ray orientated down
 		{
-			if (data->map[(int)ray->map.x][(int)ray->map.y - 1] == 'c')
+			if (ray->map.y > 1 && data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'c')
 				return ('c');
 			if (tile == 'C')
 				return ('C');
 		}
 		else
 		{
-			if (data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'C')
+			if (data->map[(int)ray->map.x][(int)ray->map.y - 1] == 'C')
 				return ('C');
 			if (tile == 'c')
 				return ('c');
@@ -224,6 +224,7 @@ int	render(void *param)
 	}
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
-	printf("%5f ; %5f\n", data->player.x, data->player.y);
+	printf("player_pos = %5f ; %5f\n", data->player.x, data->player.y);
+	printf("direction = %5f ; %5f\n\n", data->direction.x, data->direction.y);
 	return (0);
 }
