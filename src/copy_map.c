@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 12:38:32 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 16:45:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:27:53 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,9 @@ char	**get_map(char *map[])
 	x = 0;
 	while (x < size && map[x])
 	{
-		y = 0;
-		while (y < size && map[x][y])
-		{
-			new_map[y][x] = map[x][y];
-			y++;
-		}
+		y = ft_strlen(map[x]);
+		while (y-- > 0)
+			new_map[size - 1 - y][x] = map[ft_tab_size(map) - 1 - x][ft_strlen(map[x]) - 1 - y];
 		x++;
 	}
 	return (new_map);

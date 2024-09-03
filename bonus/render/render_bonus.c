@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 12:28:07 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:40:35 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,7 @@ int	ray_hit(t_data *data, t_raycast *ray)
 	char	tile;
 
 	tile = data->map[(int)ray->map.x][(int)ray->map.y];
-	if (tile == '1')
-		return (1);
-	if (tile != 'c' && tile != 'C' && tile != 'o' && tile != 'O')
-		return (0);
-
-	if (ray->side == 1)	// Ray toiuch a side wall EAST / WEST)
+	if (ray->side == 0)	// Ray toiuch a side wall EAST / WEST)
 	{
 		if (ray->dir.x < 0) // Ray is orientated to the left
 		{
@@ -105,17 +100,17 @@ int	ray_hit(t_data *data, t_raycast *ray)
 		{
 			if (tile == 'o')
 				return ('o');
-			if (data->map[(int)ray->map.x + 1][(int)ray->map.y] == 'O')
+			if (data->map[(int)ray->map.x + 1] && data->map[(int)ray->map.x + 1][(int)ray->map.y] == 'O')
 				return ('O');
 		}
 	}
-	if (ray->side == 0) // Ray touch NORTH ? SOUTH wall
+	if (ray->side == 1) // Ray touch NORTH ? SOUTH wall
 	{
 		if (ray->dir.y < 0) // Ray orientated down
 		{
-			if (tile == 'c')
+			if (data->map[(int)ray->map.x][(int)ray->map.y - 1] == 'c')
 				return ('c');
-			if (data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'C')
+			if (tile == 'C')
 				return ('C');
 		}
 		else
@@ -128,6 +123,8 @@ int	ray_hit(t_data *data, t_raycast *ray)
 	}
 	if (tile == '1')
 		return (1);
+	if (tile != 'c' && tile != 'C' && tile != 'o' && tile != 'O')
+		return (0);
 	//
 	//
 	//
