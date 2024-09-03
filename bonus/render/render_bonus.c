@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 19:38:07 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:50:56 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ int	ray_hit(t_data *data, t_raycast *ray)
 		{
 			if (tile == 'O')
 				return ('O');
-			if (data->map[(int)ray->map.x + 1] && data->map[(int)ray->map.x + 1][(int)ray->map.y] == 'O')
-				return ('O');
+			if (ray->map.x > 1 && data->map[(int)ray->map.x - 1][(int)ray->map.y] == 'o')
+				return ('o');
 		}
 	}
 	if (ray->side == 1) // Ray touch NORTH ? SOUTH wall
@@ -125,27 +125,6 @@ int	ray_hit(t_data *data, t_raycast *ray)
 		return (1);
 	if (tile != 'c' && tile != 'C' && tile != 'o' && tile != 'O')
 		return (0);
-	//
-	//
-	//
-	// dir = 1;
-	// if ((data->direction.x < 0 && (tile == 'o' || tile == 'O'))
-	// 		|| (data->direction.y < 0 && (tile == 'c' || tile == 'C')))
-	// 	dir = -1;
-	// // if (ray->side == 0)
-	// // {
-	// if (tile == 'c' && ((int)(ray->map.y) == (int)(ray->map.y + dir * 0.05)))
-	// 	return ('c');
-	// if (tile == 'C' && ((int)(ray->map.y) == (int)(ray->map.y - dir * 0.05)))
-	// 	return ('C');
-	// // }
-	// // if (ray->side == 1)
-	// // {
-	// if (tile == 'o' && ((int)(ray->map.x) == (int)(ray->map.x + dir * 0.05)))
-	// 	return ('o');
-	// if (tile == 'O' && ((int)(ray->map.x) == (int)(ray->map.x - dir * 0.05)))
-	// 	return ('O');
-	// }
 	return (0);
 }
 
@@ -186,9 +165,9 @@ static t_raycast	raycast(t_data	*data, int x)
 	// ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	
 
-	ray.perp_wall_dist = ray.side_dist.y - (ray.delta_dist.y - ((ray.hit != 1) * 0.025));
+	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	if (ray.side == 0)
-		ray.perp_wall_dist = ray.side_dist.x - (ray.delta_dist.x - ((ray.hit != 1) * 0.025));
+		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;
 	return (ray);
 }
 
