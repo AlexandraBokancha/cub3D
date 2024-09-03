@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/17 19:56:58 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:24:34 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ static int	is_not_int_map(t_data *data, t_dvec map_pos)
 	if (map_pos.x < 0 || map_pos.y < 0)
 		return (1);
 	x = 0;
-	while (data->map[x] && x < (int)map_pos.x)
+	while (data->map_info.map2d[x] && x < (int)map_pos.x)
 		x++;
-	if (x != (int)map_pos.x || !data->map[x])
+	if (x != (int)map_pos.x || !data->map_info.map2d[x])
 		return (1);
 	y = 0;
-	while (data->map[x][y] && y < (int)map_pos.y)
+	while (data->map_info.map2d[x][y] && y < (int)map_pos.y)
 		y++;
-	if (y != (int)map_pos.y || !data->map[x][y])
+	if (y != (int)map_pos.y || !data->map_info.map2d[x][y])
 		return (1);
 	return (0);
 }
@@ -90,7 +90,7 @@ static void	put_minimap_pixel(t_data *data, t_minimap *minimap,
 	if (is_not_int_map(data, map_pos))
 		ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
 			minimap->outbound_color);
-	else if (data->map[(int)map_pos.x][(int)map_pos.y] == '1')
+	else if (data->map_info.map2d[(int)map_pos.x][(int)map_pos.y] == '1')
 		ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
 			minimap->block_color);
 	else

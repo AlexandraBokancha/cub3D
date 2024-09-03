@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 14:58:19 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/03 17:33:56 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,20 @@ int	render(void *param)
 
 	data = (t_data *)param;
 	x = 0;
+	data->zbuffer = (double *)malloc(sizeof(double) * data->w_width);
+	if (!data->zbuffer)
+		return (write(2, "Error. Malloc\n.", 16), 1);
 	draw_floor_and_ceiling(data);
 	while (x < data->w_width)
 	{
 		ray = raycast(data, x);
+		data->zbuffer[x] = ray.perp_wall_dist;
 		draw_column(data, ray);
 		x++;
 	}
 	draw_minimap(data);
+	draw_sprite(data);
+	//printf("%d\n", data->sprite.screen_pos.y);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
 	return (0);
 }

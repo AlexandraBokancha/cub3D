@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 14:55:14 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/03 16:50:10 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ t_data	*init_cub(void)
 	data->textures.W_path = NULL;
 	data->colors.f_color = NULL;
 	data->colors.c_color = NULL;
+	data->zbuffer = NULL;
 	data = init_screen(data);
 	if (!data)
 		return (NULL);

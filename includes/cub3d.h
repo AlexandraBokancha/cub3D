@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 15:05:01 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/03 18:15:51 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,24 @@ typedef struct s_dvec
 	double	y;
 }				t_dvec;
 
+
 typedef	struct	s_sprite
 {
-	bool	is_active;
+	t_ivec		sprite_pos; // sprite pos on the map, eq = 'A'
+	t_dvec		distance; // the distance of sprite to the player
+	t_ivec		draw_start;
+	t_ivec		draw_end;
+	t_ivec		screen_pos;
+	t_ivec		sprite_size;
+	// t_dvec		map_pos;
+	void		**slices;
+	bool		is_active;
+	int				start; // = 1
+	int				frames; //  = 8 
+	int				speed;
+	int	time; // optional
+	
+	
 }				t_sprite;
 
 /**
@@ -457,13 +472,13 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*window;
+	double		*zbuffer; // to store the perpendicular distance of each stripe
 	int			w_height;
 	int			w_width;
 	int			m_height;
 	int			m_width;
 	t_img		img;
 	t_img		texture[5];
-	t_img		sprite;
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
@@ -476,6 +491,7 @@ typedef struct s_data
 	t_texture	textures;
 	t_map_info	map_info;
 	t_colors	colors;
+	t_sprite	sprite;
 }				t_data;
 
 // ft_mlx_pixel_put.c
@@ -516,7 +532,7 @@ t_minimap	init_minimap(t_data *data);
 
 // init_sprite_bonus.c
 
-void	init_sprite(t_data *data);
+t_sprite	init_sprite(t_data *data);
 
 // draw_minimap.c
 void		draw_minimap(t_data *data);
@@ -545,6 +561,9 @@ int		check_first_last(char *line);
 int		has_start_pos(char **map, int height);
 int		validate_value(char *color, int start, int end);
 int		rgb_to_hex(char *color);
+
+int    draw_sprite(t_data *data);
+int		get_current_time();
 
 
 #endif // !CUB3D_H

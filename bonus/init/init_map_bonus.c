@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:06:49 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/02 14:50:24 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/03 16:14:23 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	check_cub_path(char *path)
 
 t_data *init_map_bonus(t_data *data, char  *file_name)
 {
-if (check_cub_path(file_name))
+    if (check_cub_path(file_name))
 		exit_cub(data);
     data->m_height = map_h(file_name);
     if (!data->m_height)
