@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 17:33:56 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/03 20:48:26 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,8 @@ int	render(void *param)
 		draw_column(data, ray);
 		x++;
 	}
-	draw_minimap(data);
 	draw_sprite(data);
-	//printf("%d\n", data->sprite.screen_pos.y);
+	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
 	return (0);
 }

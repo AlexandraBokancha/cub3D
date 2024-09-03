@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 18:15:51 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/03 21:19:18 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.06
 # define DELTA 1.9
+# define TRANSPARENT 0x000000
 
 /**
  * @struct s_ivec
@@ -117,18 +118,20 @@ typedef struct s_dvec
 typedef	struct	s_sprite
 {
 	t_ivec		sprite_pos; // sprite pos on the map, eq = 'A'
-	t_dvec		distance; // the distance of sprite to the player
+	double		distance; // the distance of sprite to the player
+	t_ivec		screen_pos; // position of sprite in camera space
+	double		perp_dist;			
+	t_ivec		sprite_size; // sprite's height and width on the screen
 	t_ivec		draw_start;
 	t_ivec		draw_end;
-	t_ivec		screen_pos;
-	t_ivec		sprite_size;
-	// t_dvec		map_pos;
+	int			color;
 	void		**slices;
-	bool		is_active;
-	int				start; // = 1
-	int				frames; //  = 8 
-	int				speed;
-	int	time; // optional
+	int			current_slice;
+	//t_dvec		map_pos;
+	// bool		is_active;
+	// int				frames; //  = 8 
+	// int				speed;
+	// int	time;
 	
 	
 }				t_sprite;
