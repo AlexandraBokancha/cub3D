@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 19:38:36 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:28:07 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,31 +85,70 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 int	ray_hit(t_data *data, t_raycast *ray)
 {
 	char	tile;
-	int		dir;
 
 	tile = data->map[(int)ray->map.x][(int)ray->map.y];
-	if (tile == '0')
-		return (0);
 	if (tile == '1')
 		return (1);
-	dir = 1;
-	if ((data->direction.x < 0 && (tile == 'o' || tile == 'O'))
-			|| (data->direction.y < 0 && (tile == 'c' || tile == 'C')))
-		dir = -1;
-	if (ray->side == 0)
+	if (tile != 'c' && tile != 'C' && tile != 'o' && tile != 'O')
+		return (0);
+
+	if (ray->side == 1)	// Ray toiuch a side wall EAST / WEST)
 	{
-		if (tile == 'c' && ((int)(ray->map.y) == (int)(ray->map.y + dir * 0.05)))
-			return ('c');
-		if (tile == 'C' && ((int)(ray->map.y) == (int)(ray->map.y - dir * 0.05)))
-			return ('C');
+		if (ray->dir.x < 0) // Ray is orientated to the left
+		{
+			if (data->map[(int)ray->map.x + 1][(int)ray->map.y] == 'O')
+				return ('O');
+			if (tile == 'o')
+				return ('o');
+		}
+		else
+		{
+			if (tile == 'o')
+				return ('o');
+			if (data->map[(int)ray->map.x + 1][(int)ray->map.y] == 'O')
+				return ('O');
+		}
 	}
-	if (ray->side == 1)
+	if (ray->side == 0) // Ray touch NORTH ? SOUTH wall
 	{
-		if (tile == 'o' && ((int)(ray->map.x) == (int)(ray->map.x + dir * 0.05)))
-			return ('o');
-		if (tile == 'O' && ((int)(ray->map.x) == (int)(ray->map.x - dir * 0.05)))
-			return ('O');
+		if (ray->dir.y < 0) // Ray orientated down
+		{
+			if (tile == 'c')
+				return ('c');
+			if (data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'C')
+				return ('C');
+		}
+		else
+		{
+			if (data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'C')
+				return ('C');
+			if (tile == 'c')
+				return ('c');
+		}
 	}
+	if (tile == '1')
+		return (1);
+	//
+	//
+	//
+	// dir = 1;
+	// if ((data->direction.x < 0 && (tile == 'o' || tile == 'O'))
+	// 		|| (data->direction.y < 0 && (tile == 'c' || tile == 'C')))
+	// 	dir = -1;
+	// // if (ray->side == 0)
+	// // {
+	// if (tile == 'c' && ((int)(ray->map.y) == (int)(ray->map.y + dir * 0.05)))
+	// 	return ('c');
+	// if (tile == 'C' && ((int)(ray->map.y) == (int)(ray->map.y - dir * 0.05)))
+	// 	return ('C');
+	// // }
+	// // if (ray->side == 1)
+	// // {
+	// if (tile == 'o' && ((int)(ray->map.x) == (int)(ray->map.x + dir * 0.05)))
+	// 	return ('o');
+	// if (tile == 'O' && ((int)(ray->map.x) == (int)(ray->map.x - dir * 0.05)))
+	// 	return ('O');
+	// }
 	return (0);
 }
 
@@ -150,9 +189,9 @@ static t_raycast	raycast(t_data	*data, int x)
 	// ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	
 
-	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
+	ray.perp_wall_dist = ray.side_dist.y - (ray.delta_dist.y - ((ray.hit != 1) * 0.025));
 	if (ray.side == 0)
-		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;
+		ray.perp_wall_dist = ray.side_dist.x - (ray.delta_dist.x - ((ray.hit != 1) * 0.025));
 	return (ray);
 }
 
@@ -188,5 +227,6 @@ int	render(void *param)
 	}
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
+	printf("%5f ; %5f\n", data->player.x, data->player.y);
 	return (0);
 }
