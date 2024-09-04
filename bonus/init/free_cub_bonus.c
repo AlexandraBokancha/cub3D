@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/02 14:57:07 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/04 20:16:19 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void	free_map_content(t_data *data)
 		free(data->texture_tab);
 }
 
+void	free_sprite(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if (data->sprites[0].img != NULL)
+			mlx_destroy_image(data->mlx, data->sprites[i].img);
+		i++;
+	}
+}
+
 /**
  * @brief Free the cub3d data structure and its associated resources.
  *
@@ -54,6 +67,7 @@ void	free_cub(t_data *data)
 	if (data->mlx)
 	{
 		i = 0;
+		free_sprite(data);
 		while (i < 5)
 		{
 			if (data->texture[0].img != NULL)

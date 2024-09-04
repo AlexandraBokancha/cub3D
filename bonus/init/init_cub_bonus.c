@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 16:50:10 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/04 20:06:52 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ t_data	*init_cub(void)
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
 	data->texture[0].img = NULL;
+	data->sprites[0].img = NULL;
 	data->map_info.map2d = NULL;
 	data->textures.S_path = NULL;
 	data->textures.N_path = NULL;

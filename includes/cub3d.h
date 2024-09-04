@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 21:19:18 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/04 20:03:14 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.06
 # define DELTA 1.9
-# define TRANSPARENT 0x000000
+# define TRANSPARENT -16777216
 
 /**
  * @struct s_ivec
@@ -127,6 +127,7 @@ typedef	struct	s_sprite
 	int			color;
 	void		**slices;
 	int			current_slice;
+	int			frame_counter;
 	//t_dvec		map_pos;
 	// bool		is_active;
 	// int				frames; //  = 8 
@@ -482,6 +483,7 @@ typedef struct s_data
 	int			m_width;
 	t_img		img;
 	t_img		texture[5];
+	t_img		sprites[9];
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
@@ -565,8 +567,10 @@ int		has_start_pos(char **map, int height);
 int		validate_value(char *color, int start, int end);
 int		rgb_to_hex(char *color);
 
-int    draw_sprite(t_data *data);
+int		draw_sprite(t_data *data);
 int		get_current_time();
+void    load_sprite_image(t_data *data);
+
 
 
 #endif // !CUB3D_H
