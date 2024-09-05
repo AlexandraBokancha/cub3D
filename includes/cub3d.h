@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/04 20:03:14 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/05 16:57:02 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ typedef	struct	s_sprite
 	t_ivec		draw_start;
 	t_ivec		draw_end;
 	int			color;
-	void		**slices;
 	int			current_slice;
 	int			frame_counter;
 	//t_dvec		map_pos;
@@ -362,7 +361,7 @@ typedef struct s_img
  */
 typedef	struct	s_map_info
 {
-	char **map2d;
+	char 	**map2d;
 	int	map2_height;
 	int	start_map;
 	int	map_pos;
@@ -483,11 +482,12 @@ typedef struct s_data
 	int			m_width;
 	t_img		img;
 	t_img		texture[5];
-	t_img		sprites[9];
+	t_img		sprites[8];
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
 	char		**texture_tab;
+	char		**sprites_tab;
 	t_ivec		map_size;
 	t_dvec		player;
 	t_dvec		direction;
@@ -569,7 +569,8 @@ int		rgb_to_hex(char *color);
 
 int		draw_sprite(t_data *data);
 int		get_current_time();
-void    load_sprite_image(t_data *data);
+void    load_sprite_image(t_data *data, char **sprites_tab);
+char	**init_tab_sprites(t_data *data);
 
 
 

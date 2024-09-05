@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_info_utils.c                                   :+:      :+:    :+:   */
+/*   init_map_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/31 18:36:52 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/05 16:54:01 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	is_empty_line(char *line)
 
 int    process_info_lines(t_data *data, char *line)
 {
+	//printf("%s\n", line);
     if (!ft_strncmp(line, "NO ", 3) && !data->textures.N_path)
     	data->textures.N_path = line + 3;
     else if (!ft_strncmp(line, "SO ", 3) && !data->textures.S_path)

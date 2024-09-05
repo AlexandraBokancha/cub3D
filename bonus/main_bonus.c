@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/04 19:23:24 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/05 17:13:39 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int ac, char **av)
 	data = init_map_bonus(data, av[1]);
 	if (!data)
 		return (1);
-	data->map_size = get_map_size(data->map_info.map2d);
+	//data->map_size = get_map_size(data->map_info.map2d);
 	data->ceiling_color = rgb_to_hex(data->colors.c_color);
 	data->floor_color = rgb_to_hex(data->colors.f_color);
 	init_player(data);
@@ -99,7 +99,8 @@ int	main(int ac, char **av)
 	load_texture_bonus(data, data->texture_tab);
 	data->minimap = init_minimap(data);
 	data->sprite = init_sprite(data);
-	load_sprite_image(data);
+	data->sprites_tab = init_tab_sprites(data);
+	load_sprite_image(data, data->sprites_tab);
 	mlx_key_hook(data->window, &key_hook, data);
 	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
 	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);

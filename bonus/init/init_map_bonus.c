@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:06:49 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/03 16:14:23 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/05 17:01:12 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ char    **open_map(char *file_name, int lines)
     while (line)
     {
         strip_newline(line);
-        buf[i++] = line;
+        buf[i] = line;
         line = get_next_line(fd);
+		i++;
     }
-    buf[i] = '\0';
+	buf[i] = NULL;
     close (fd);
     return (buf);
 }

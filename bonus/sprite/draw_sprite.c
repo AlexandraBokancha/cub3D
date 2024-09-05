@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:57:45 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/04 20:14:30 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/05 17:42:39 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ void    init_draw(t_data *data)
         data->sprite.draw_end.x = data->w_width - 1;    
 }
 
-int get_pixel_color_from_xpm(int x, int y, t_img img)
+int get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice)
 {
     int pixel_offset;
     int color;
     
-    pixel_offset = (y * img.line_length) + (x * (img.bits_per_pixel / 8));
-    color = *(int *)(img.addr + pixel_offset);
+    pixel_offset = (y * data->sprites[current_slice].line_length) + (x * (data->sprites[current_slice].bits_per_pixel / 8));
+    color = *(int *)(data->sprites[current_slice].addr + pixel_offset);
     return (color);
 }
 
@@ -105,7 +105,7 @@ void    update_sprite_frame(t_data *data)
     if (data->sprite.frame_counter >= 8)
     {
         data->sprite.frame_counter = 0;
-        data->sprite.current_slice = (data->sprite.current_slice + 1) % 8;
+        data->sprite.current_slice = (data->sprite.current_slice + 1) % 7;
     }
 }
 
@@ -126,9 +126,12 @@ void    put_sprite_pxl(t_data *data)
         while (y < data->sprite.draw_end.y)
         {
            d = (y - data->sprite.draw_start.y) * 256 - data->w_height * 128 + data->sprite.sprite_size.y * 128;
-           tex.y = ((d * 32) / data->sprite.sprite_size.y) / 256;  
-            data->sprite.color = get_pixel_color_from_xpm(tex.x, tex.y, data->sprites[data->sprite.current_slice]);
-            if ((data->sprite.color & 0x00FFFFFF) != 0x000000)
+           tex.y = ((d * 32) / data->sprite.sprite_size.y) / 256;
+			if (stripe >= 0 && stripe < data->sprite.sprite_size.x && y >= 0 && y < data->sprite.sprite_size.y)
+        		data->sprite.color = get_pixel_color_from_xpm(tex.x, tex.y, data, data->sprite.current_slice);
+			else
+				data->sprite.color = 0x000000;
+            if ((data->sprite.color >> 24) != 0x00)
                 ft_mlx_pixel_put(&data->img, stripe, y, data->sprite.color);
             y++;
         }

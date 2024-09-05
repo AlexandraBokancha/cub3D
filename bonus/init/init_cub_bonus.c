@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/04 20:06:52 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/05 16:34:45 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ t_data	*init_cub(void)
 	data->img.img = NULL;
 	data->map = NULL;
 	data->texture_tab = NULL;
+	data->sprites_tab = NULL;
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
 	data->texture[0].img = NULL;
