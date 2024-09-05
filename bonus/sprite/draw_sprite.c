@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:57:45 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/05 17:42:39 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/09/05 23:17:00 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,19 @@
 // calculate the difference between the sprite's and player's position on the map.
 // dist euclidean formula = sqrt(dx^2 + dy^2)
 
-void    dist_from_player(t_data *data)
+int    dist_from_player(t_data *data)
 {
     t_dvec  diff;
 
     diff.x = data->sprite.sprite_pos.x - data->player.x;
     diff.y = data->sprite.sprite_pos.y - data->player.y;
     data->sprite.distance = sqrt(diff.x * diff.x + diff.y * diff.y);
+    if (data->sprite.distance < 1)
+    {
+        free_sprite(data);
+        return (1);
+    }
+    return (0);
 }
 // project the sprite on the camera plane (in 2D):
 // substract the player position from the sprite positin
@@ -105,7 +111,7 @@ void    update_sprite_frame(t_data *data)
     if (data->sprite.frame_counter >= 8)
     {
         data->sprite.frame_counter = 0;
-        data->sprite.current_slice = (data->sprite.current_slice + 1) % 7;
+        data->sprite.current_slice = (data->sprite.current_slice + 1) % 8;
     }
 }
 
@@ -127,12 +133,12 @@ void    put_sprite_pxl(t_data *data)
         {
            d = (y - data->sprite.draw_start.y) * 256 - data->w_height * 128 + data->sprite.sprite_size.y * 128;
            tex.y = ((d * 32) / data->sprite.sprite_size.y) / 256;
-			if (stripe >= 0 && stripe < data->sprite.sprite_size.x && y >= 0 && y < data->sprite.sprite_size.y)
-        		data->sprite.color = get_pixel_color_from_xpm(tex.x, tex.y, data, data->sprite.current_slice);
-			else
-				data->sprite.color = 0x000000;
-            if ((data->sprite.color >> 24) != 0x00)
-                ft_mlx_pixel_put(&data->img, stripe, y, data->sprite.color);
+			if (tex.x >= 0 && tex.x < 32 && tex.y >= 0 && tex.y < 32)
+        	{
+            	data->sprite.color = get_pixel_color_from_xpm(tex.x, tex.y, data, data->sprite.current_slice);
+                if ((data->sprite.color & 0x00FFFFFF) != 0x000000)
+                    ft_mlx_pixel_put(&data->img, stripe, y, data->sprite.color);
+            }
             y++;
         }
         stripe++;
@@ -141,11 +147,18 @@ void    put_sprite_pxl(t_data *data)
 
 int    draw_sprite(t_data *data)
 {  
-    dist_from_player(data);
-    sprite_to_camera(data);
-    sprite_size(data);
-    init_draw(data);
-    update_sprite_frame(data);
-    put_sprite_pxl(data);
+    if (data->sprite.count)
+    {
+        if (dist_from_player(data))
+        {
+            data->sprite.count--;
+            return (0);
+        }
+        sprite_to_camera(data);
+        sprite_size(data);
+        init_draw(data);
+        update_sprite_frame(data);
+        put_sprite_pxl(data);
+    }
     return (0);
 }

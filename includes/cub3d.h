@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/05 16:57:02 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/09/05 23:16:43 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef	struct	s_sprite
 	int			color;
 	int			current_slice;
 	int			frame_counter;
+	int			count;
 	//t_dvec		map_pos;
 	// bool		is_active;
 	// int				frames; //  = 8 
@@ -571,6 +572,8 @@ int		draw_sprite(t_data *data);
 int		get_current_time();
 void    load_sprite_image(t_data *data, char **sprites_tab);
 char	**init_tab_sprites(t_data *data);
+void	free_sprite(t_data *data);
+
 
 
 
