@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:57:45 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/05 23:17:00 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/06 19:45:30 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int    dist_from_player(t_data *data)
 // inverse matrix formula:
 // 1 / (dir.x * plane - dir.y * plane.x) X (plane.y - dir.y, -plane.x dir.x)
 
+
 void    sprite_to_camera(t_data *data)
 {
     t_dvec  relative_pos;
@@ -57,16 +58,18 @@ void    sprite_to_camera(t_data *data)
     relative_pos.x = data->sprite.sprite_pos.x - data->player.x;
     relative_pos.y = data->sprite.sprite_pos.y - data->player.y;
     inv = 1.0 / (data->camera_plane.x * data->direction.y - data->direction.x * data->camera_plane.y);
-    transform.x = inv * (data->direction.y * relative_pos.x- data->direction.x * relative_pos.y);
-    transform.y = inv * (-data->camera_plane.y * relative_pos.x+ data->camera_plane.x * relative_pos.y);
+    transform.x = inv * (data->direction.y * relative_pos.x - data->direction.x * relative_pos.y);
+    transform.y = inv * (-data->camera_plane.y * relative_pos.x + data->camera_plane.x * relative_pos.y);
     data->sprite.screen_pos.x = (int)((data->w_width / 2) * (1 + transform.x / transform.y)); 
-    data->sprite.perp_dist = transform.y;
+    if (transform.y > 0)
+        data->sprite.perp_dist = transform.y;
 }
 // calculate the height of the sprite on the screen (in our case
 // the sprite is square (32 x 32 pix))
 
 void    sprite_size(t_data *data)
 {
+
     data->sprite.sprite_size.y = abs((int)(data->w_height / data->sprite.perp_dist));
     data->sprite.sprite_size.x = abs((int)(data->w_height / data->sprite.perp_dist));
 }
@@ -77,11 +80,11 @@ void    sprite_size(t_data *data)
 void    init_draw(t_data *data)
 {
     // top and bottom 
-    
-    data->sprite.draw_start.y = -data->sprite.sprite_size.y / 2 + data->w_height / 2;
+
+    data->sprite.draw_start.y = data->sprite.sprite_size.y + (data->w_height / 2)  - (int)(data->sprite.perp_dist * data->sprite.sprite_size.y);
     if (data->sprite.draw_start.y < 0)
         data->sprite.draw_start.y = 0;
-    data->sprite.draw_end.y = data->sprite.sprite_size.y / 2 + data->w_height / 2;
+    data->sprite.draw_end.y = (data->sprite.sprite_size.y ) + data->w_height / 2;
     if (data->sprite.draw_end.y >= data->w_height)
         data->sprite.draw_end.y = data->w_height - 1;
     

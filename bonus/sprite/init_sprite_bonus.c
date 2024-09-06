@@ -6,18 +6,11 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:44:54 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/05 22:54:51 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/05 23:23:23 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-int get_current_time() 
-{
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-}
 
 void    load_sprite_image(t_data *data, char **sprites_tab)
 {
