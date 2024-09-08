@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/06 18:26:17 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/07 21:03:54 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ typedef	struct	s_sprite
 	int			color;
 	int			current_slice;
 	int			frame_counter;
-	int			count;
+	bool		is_active;
+	//int			count;
 	//t_dvec		map_pos;
 	// bool		is_active;
 	// int				frames; //  = 8 
@@ -481,6 +482,7 @@ typedef struct s_data
 	int			w_width;
 	int			m_height;
 	int			m_width;
+	int			sprites_nb;
 	t_img		img;
 	t_img		texture[5];
 	t_img		sprites[8];
@@ -497,7 +499,7 @@ typedef struct s_data
 	t_texture	textures;
 	t_map_info	map_info;
 	t_colors	colors;
-	t_sprite	sprite;
+	t_sprite	*sprites_arr;
 }				t_data;
 
 // ft_mlx_pixel_put.c
@@ -538,7 +540,7 @@ t_minimap	init_minimap(t_data *data);
 
 // init_sprite_bonus.c
 
-t_sprite	init_sprite(t_data *data);
+t_sprite	*init_sprites(t_data *data);
 
 // draw_minimap.c
 void		draw_minimap(t_data *data);

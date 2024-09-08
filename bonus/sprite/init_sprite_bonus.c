@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:44:54 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/05 23:23:23 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/08 20:25:42 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,62 @@ char	**init_tab_sprites(t_data *data)
 	return (data->sprites_tab);
 }
 
-t_sprite	init_sprite(t_data *data)
+int	count_sprites_nb(t_data *data)
 {
-	t_sprite sprite;
-	
 	int	x;
 	int	y;
+	int count;
 	
+	count = 0;
 	x = 0;
-	sprite.count = 0;
 	while (data->map_info.map2d[x])
 	{
 		y = 0;
 		while (data->map_info.map2d[x][y])
 		{
 			if (data->map_info.map2d[x][y] == 'A')
+				count++;
+			y++;
+		}
+		x++;
+	}
+	return (count);
+}
+
+t_sprite	*init_sprites(t_data *data)
+{
+	t_sprite *sprites;
+	int x;
+	int y;
+	int i;
+	
+	x = 0;
+	i = 0;
+	data->sprites_nb = count_sprites_nb(data);
+	if (!data->sprites_nb)
+		return (NULL);
+	//printf("nb of sprites: %d\n", data->sprites_nb);
+	sprites = (t_sprite *)malloc(sizeof(t_sprite) * data->sprites_nb);
+	if (!sprites)
+		return (NULL);
+	while (data->map_info.map2d[x])
+	{
+		y = 0;
+		while (data->map_info.map2d[x][y] && i < data->sprites_nb)
+		{
+			if (data->map_info.map2d[x][y] == 'A')
 			{
-				sprite.sprite_pos.x = x + 0.5;
-				sprite.sprite_pos.y = y + 0.5;
-				sprite.count++;
-				break;
+				sprites[i].sprite_pos.x = x + 0.5;
+				sprites[i].sprite_pos.y = y + 0.5;
+				sprites[i].current_slice = 0;
+				sprites[i].frame_counter = 0;
+				sprites[i].is_active = true;
+				//printf("index : %d : sprite_pos.x = [%d]\n", i, sprites[i].sprite_pos.x);
+				i++;
 			}
 			y++;
 		}
-		if (data->map_info.map2d[x][y] == 'A')
-			break;
 		x++;
 	}
-	sprite.current_slice = 0;
-	sprite.frame_counter = 0;
-	return (sprite);
+	return (sprites);
 }

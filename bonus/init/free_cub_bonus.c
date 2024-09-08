@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/04 20:16:19 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/07 20:42:43 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	free_sprite(t_data *data)
 	int i;
 
 	i = 0;
+	if (!data->sprites_nb)
+		return ;
 	while (i < 8)
 	{
 		if (data->sprites[0].img != NULL)
