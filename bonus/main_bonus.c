@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/07 18:46:34 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/09 21:45:24 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,13 @@ t_ivec	get_map_size(char *map[])
 	return (map_block);
 }
 
-char	**init_tab_texture_bonus(t_data *data)
+void	init_tab_texture_bonus(t_data *data)
 {
-	data->texture_tab = malloc(sizeof(char *) * 5);
-	if (!data->texture_tab)
-		return (NULL);
 	data->texture_tab[0] = data->textures.N_path;
 	data->texture_tab[1] = data->textures.S_path;
 	data->texture_tab[2] = data->textures.W_path;
 	data->texture_tab[3] = data->textures.E_path;
 	data->texture_tab[4] = NULL;
-	return (data->texture_tab);
 }
 
 int	main(int ac, char **av)
@@ -95,12 +91,16 @@ int	main(int ac, char **av)
 	data->ceiling_color = rgb_to_hex(data->colors.c_color);
 	data->floor_color = rgb_to_hex(data->colors.f_color);
 	init_player(data);
-	data->texture_tab = init_tab_texture_bonus(data);
+	init_tab_texture_bonus(data);
 	load_texture_bonus(data, data->texture_tab);
 	data->minimap = init_minimap(data);
-	data->sprites_arr = init_sprites(data);
-	data->sprites_tab = init_tab_sprites(data);
-	load_sprite_image(data, data->sprites_tab);
+	data->sprites_nb = count_sprites_nb(data);
+	if (data->sprites_nb)
+	{
+		data->sprites_arr = init_sprites(data);
+		init_tab_sprites(data);
+		load_sprite_image(data, data->sprites_tab);	
+	}
 	mlx_key_hook(data->window, &key_hook, data);
 	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
 	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);

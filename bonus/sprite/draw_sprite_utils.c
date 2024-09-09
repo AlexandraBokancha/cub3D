@@ -1,0 +1,109 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_sprite_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/09 22:18:04 by alexandra         #+#    #+#             */
+/*   Updated: 2024/09/09 22:22:54 by alexandra        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/cub3d.h"
+
+// calculate the difference between the sprite's and player's position on the map.
+// dist euclidean formula = sqrt(dx^2 + dy^2)
+
+void    calculate_sprite_distances(t_data *data)
+{
+    t_dvec  diff;
+    int i;
+    
+    i = 0;
+    while (i < data->sprites_nb)
+    {
+        if (!data->sprites_arr[i].is_active)
+        {
+            i++;
+            continue;
+        }
+        diff.x = data->sprites_arr[i].sprite_pos.x - data->player.x;
+        diff.y = data->sprites_arr[i].sprite_pos.y - data->player.y;
+        data->sprites_arr[i].distance = sqrt(diff.x * diff.x + diff.y * diff.y);
+        if (data->sprites_arr[i].distance < 0.8)
+            data->sprites_arr[i].is_active = 0;
+        i++;
+    }
+}
+
+void    sort_sprites(t_data *data)
+{
+    int i;
+    int j;
+    int max;
+    t_sprite temp;
+
+    i = 0;
+    while (i < data->sprites_nb)
+    {
+        max = i;
+        j = i + 1;
+        while (j < data->sprites_nb)
+        {
+            if (data->sprites_arr[j].distance > data->sprites_arr[max].distance)
+                max = j;
+            j++;
+        }
+        if (max != i)
+        {
+            temp = data->sprites_arr[i];
+            data->sprites_arr[i] = data->sprites_arr[max];
+            data->sprites_arr[max] = temp;
+        }
+        i++;
+    }
+}
+
+void    update_sprite_frame(t_data *data, int i)
+{
+    data->sprites_arr[i].frame_counter++;
+    if (data->sprites_arr[i].frame_counter >= 8)
+    {
+        data->sprites_arr[i].frame_counter = 0;
+        data->sprites_arr[i].current_slice = (data->sprites_arr[i].current_slice + 1) % 8;
+    }
+}
+
+int get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice)
+{
+    int pixel_offset;
+    int color;
+    
+    pixel_offset = (y * data->sprites[current_slice].line_length) + (x * \
+        (data->sprites[current_slice].bits_per_pixel / 8));
+    color = *(int *)(data->sprites[current_slice].addr + pixel_offset);
+    return (color);
+}
+
+void    process_sprite_y(t_data *data, int i, int stripe)
+{
+    int y;
+    int d;
+    
+    y = data->sprites_arr[i].draw_start.y;
+    while (y < data->sprites_arr[i].draw_end.y)
+    {
+        d = (y - data->sprites_arr[i].draw_start.y) * 256 - data->w_height * 128 + \
+            data->sprites_arr[i].sprite_size.y * 128;
+        data->tex.y = ((d * 32) / data->sprites_arr[i].sprite_size.y) / 256;
+		if (data->tex.x >= 0 && data->tex.x < 32 && data->tex.y >= 0 && data->tex.y < 32)
+        {
+            data->sprites_arr[i].color = get_pixel_color_from_xpm(data->tex.x, data->tex.y, \
+                data, data->sprites_arr[i].current_slice);
+            if ((data->sprites_arr[i].color & 0x00FFFFFF) != 0x000000)
+                ft_mlx_pixel_put(&data->img, stripe, y, data->sprites_arr[i].color);
+        }
+        y++;
+    }
+}

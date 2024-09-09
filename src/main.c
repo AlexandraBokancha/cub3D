@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/05 22:42:21 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/09 18:57:13 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,13 @@ int	load_texture(t_data *data, char **texture_name)
 	}
 	return (0);
 }
-char	**init_tab_texture(t_data *data)
+void	init_tab_texture(t_data *data)
 {
-	data->texture_tab = malloc(sizeof(char *) * 5);
-	if (!data->texture_tab)
-		return (NULL);
 	data->texture_tab[0] = data->textures.N_path;
 	data->texture_tab[1] = data->textures.S_path;
 	data->texture_tab[2] = data->textures.W_path;
 	data->texture_tab[3] = data->textures.E_path;
 	data->texture_tab[4] = NULL;
-	return (data->texture_tab);
 }
 
 int	main(int ac, char **av)
@@ -58,7 +54,7 @@ int	main(int ac, char **av)
 	data->floor_color = rgb_to_hex(data->colors.f_color);
     data->ceiling_color = rgb_to_hex(data->colors.c_color);
 	init_player(data);
-	data->texture_tab = init_tab_texture(data);
+	init_tab_texture(data);
 	load_texture(data, data->texture_tab);
 	// HOOK EVERYTHING
 	mlx_key_hook(data->window, &key_hook, data);

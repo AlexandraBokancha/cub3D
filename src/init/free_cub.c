@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/30 20:02:52 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/09 18:57:32 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	free_map_content(t_data *data)
 		ft_free_tab(data->map, data->m_height);
 	if (data->map_info.map2d)
 		ft_free_tab(data->map_info.map2d, data->map_info.map2_height);
-	if (data->texture_tab)
-		free(data->texture_tab);
 }
 
 void	free_cub(t_data *data)

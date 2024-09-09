@@ -144,7 +144,8 @@ endef
 define BONUS_SPRITE_FILE :=
 	$(addprefix $(BONUS_DIR)/$(SPRITE_DIR)/, \
 		init_sprite_bonus.c \
-		draw_sprite.c
+		draw_sprite.c \
+		draw_sprite_utils.c
 	)
 endef
 

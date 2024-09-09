@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/07 21:03:54 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/09 22:22:12 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef	struct	s_sprite
 	int			color;
 	int			current_slice;
 	int			frame_counter;
-	bool		is_active;
+	int			is_active;
 	//int			count;
 	//t_dvec		map_pos;
 	// bool		is_active;
@@ -489,8 +489,9 @@ typedef struct s_data
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
-	char		**texture_tab;
-	char		**sprites_tab;
+	char		*texture_tab[4];
+	char		*sprites_tab[8];
+	t_ivec		tex;
 	t_ivec		map_size;
 	t_dvec		player;
 	t_dvec		direction;
@@ -554,7 +555,7 @@ void	copy_map(int map_pos, int height,  t_data *data);
 int		ft_isspace(char c);
 int		is_empty_line(char *line);
 int		map_h(char *file_name);
-char	**init_tab_texture(t_data *data);
+void	init_tab_texture(t_data *data);
 
 
 // parsing.c
@@ -570,12 +571,17 @@ int		has_start_pos(char **map, int height);
 int		validate_value(char *color, int start, int end);
 int		rgb_to_hex(char *color);
 
-int		draw_sprite(t_data *data);
-int		get_current_time();
+// sprite
+void	init_tab_sprites(t_data *data);
 void    load_sprite_image(t_data *data, char **sprites_tab);
-char	**init_tab_sprites(t_data *data);
+int		count_sprites_nb(t_data *data);
+void    calculate_sprite_distances(t_data *data);
+void    sort_sprites(t_data *data);
+void    update_sprite_frame(t_data *data, int i);
+int		get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice);
+void    process_sprite_y(t_data *data, int i, int stripe);
+int		draw_sprite(t_data *data);
 void	free_sprite(t_data *data);
-
 
 
 
