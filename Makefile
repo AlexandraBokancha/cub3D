@@ -127,7 +127,7 @@ endef
 
 define BONUS_DOOR_FILE :=
 	$(addprefix $(BONUS_DIR)/$(DOOR_DIR)/, \
-
+		get_hit_pos_bonus.c
 	)
 endef
 
@@ -176,8 +176,8 @@ OBJ_BONUS_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SRC_FILE:.c=.o)))
 OBJ_BONUS_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_INIT_FILE:.c=.o)))
 OBJ_BONUS_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_RENDER_FILE:.c=.o)))
 OBJ_BONUS_MINIMAP := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MINIMAP_FILE:.c=.o)))
-OBJ_BONUS_DOOR := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_DOOR_FILE:.c=.o)))
 OBJ_BONUS_ROTATE := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_ROTATE_FILE:.c=.o)))
+OBJ_BONUS_DOOR := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_DOOR_FILE:.c=.o)))
 OBJ_BONUS := $(OBJ) $(OBJ_BONUS_SRC) $(OBJ_BONUS_INIT) $(OBJ_BONUS_RENDER) \
 			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_ROTATE) $(OBJ_BONUS_DOOR)
 

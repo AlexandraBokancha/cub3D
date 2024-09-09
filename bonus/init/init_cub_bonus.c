@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 19:21:29 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/04 08:36:29 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief The texture the game is going to load
  */
-static const char	*g_texture[8] = {
+static const char	*g_texture[9] = {
 	"./assets/tile065.xpm",
 	"./assets/tile068.xpm",
 	"./assets/tile073.xpm",
@@ -23,6 +23,7 @@ static const char	*g_texture[8] = {
 	"./assets/green_arrow.xpm",
 	"./assets/right_door.xpm",
 	"./assets/left_door.xpm",
+	"./assets/door_side.xpm",
 	NULL
 };
 
@@ -117,7 +118,6 @@ void	init_player(t_data *data)
 					|| data->map[x][y] == 'E' || data->map[x][y] == 'W')
 			{
 				set_player(data, x, y, data->map[x][y]);
-				// set_player(data, x, y, data->map[x][y]);
 				return ;
 			}
 			y++;

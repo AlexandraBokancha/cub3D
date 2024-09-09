@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 12:53:26 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:46:51 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ typedef struct s_minimap
  * @var s_raycast::delta_dist
  * A vector describing the distance between two walls (given a certain ray)
  *
- * @var s_raycast::map_pos
+ * @var s_raycast::map
  * A pair containing the actual ray position in the map (map = int player_pos)
  *
  * @var s_raycast::step
@@ -233,6 +233,13 @@ typedef struct s_minimap
  *
  * @var s_raycast::hit
  * Take the value of the hitten tile needed to render wall or door
+ *
+ * @var s_raycast::h_pos
+ * A pair of double containing the exact position of the ray hit
+ * needed to render door
+ *
+ * @var s_raycast::h_side
+ * Raycast vector, needed for door rendering
  */
 typedef struct s_raycast
 {
@@ -246,6 +253,8 @@ typedef struct s_raycast
 	double	perp_wall_dist;
 	int		side;
 	int		hit;
+	t_dvec	h_pos;
+	t_dvec	h_side;
 }				t_raycast;
 
 /**
@@ -398,7 +407,7 @@ typedef struct s_data
 	int			w_height;
 	int			w_width;
 	t_img		img;
-	t_texture	texture[7];
+	t_texture	texture[8];
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
@@ -439,6 +448,7 @@ void		draw_column(t_data *data, t_raycast ray);
 void		draw_floor_and_ceiling(t_data *data);
 
 //render.c
+t_raycast	raycast(t_data	*data, int x);
 int			render(void *param);
 
 // load_texure.c
@@ -451,6 +461,8 @@ void		draw_minimap(t_data *data);
 
 // rotate_bonus.c
 int			camera_move(int x, int y, void *param);
+
+// get_hit_pos_bonus.c
 
 // TESTING ????
 // COPY_MAP

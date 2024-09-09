@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 19:50:56 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/09 20:18:21 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,51 +81,45 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	return (ray);
 }
 
-// CHECK IF THE RAY HIT A WALL OR DOOR SEPENDING ON MAP SYMBOL
-int	ray_hit(t_data *data, t_raycast *ray)
+static int new_hit(t_data *data, t_raycast* ray)
+{
+}
+
+/**
+ * @brief Return the obstacle theray hit for the rendering
+ *
+ * Return an int based on what wall was hit (door or wall)
+ *
+ * @param	data	The cub3D global data structure
+ * @param	ray		The t_ray with alredy filled data
+ * @return	An int representing the type of door (o, O, c, C) or wall (1) or 0
+ */
+static int	ray_hit(t_data *data, t_raycast *ray)
 {
 	char	tile;
 
 	tile = data->map[(int)ray->map.x][(int)ray->map.y];
-	if (ray->side == 0)	// Ray toiuch a side wall EAST / WEST)
-	{
-		if (ray->dir.x < 0) // Ray is orientated to the left
-		{
-			if (data->map[(int)ray->map.x + 1][(int)ray->map.y] == 'O')
-				return ('O');
-			if (tile == 'o')
-				return ('o');
-		}
-		else
-		{
-			if (tile == 'O')
-				return ('O');
-			if (ray->map.x > 1 && data->map[(int)ray->map.x - 1][(int)ray->map.y] == 'o')
-				return ('o');
-		}
-	}
-	if (ray->side == 1) // Ray touch NORTH ? SOUTH wall
-	{
-		if (ray->dir.y < 0) // Ray orientated down
-		{
-			if (ray->map.y > 1 && data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'c')
-				return ('c');
-			if (tile == 'C')
-				return ('C');
-		}
-		else
-		{
-			if (data->map[(int)ray->map.x][(int)ray->map.y - 1] == 'C')
-				return ('C');
-			if (tile == 'c')
-				return ('c');
-		}
-	}
-	if (tile == '1')
-		return (1);
-	if (tile != 'c' && tile != 'C' && tile != 'o' && tile != 'O')
-		return (0);
-	return (0);
+	if (ray->side == 0 && ray->dir.x < 0 && data->map[(int)ray->map.x + 1]
+		[(int)ray->map.y] == 'O')
+		return ('O');
+	if (ray->side == 0 && ray->dir.x < 0 && tile == 'o')
+		return ('o');
+	if (ray->side == 0 && ray->dir.x >= 0 && tile == 'O')
+			return ('O');
+	if (ray->side == 0 && ray->dir.x >= 0 && ray->map.x > 1
+			&& data->map[(int)ray->map.x - 1][(int)ray->map.y] == 'o')
+		return ('o');
+	if (ray->side == 1 && ray->dir.y < 0 && ray->map.y > 1.0
+		&& data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'c')
+		return ('c');
+	if (ray->side == 1 && ray->dir.y < 0 && tile == 'C')
+		return ('C');
+	if (ray->side == 1 && ray->dir.y >= 0 && ray->map.y > 1.0
+			&& data->map[(int)ray->map.x][(int)ray->map.y - 1] == 'C')
+		return ('C');
+	if (ray->side == 1 && ray->dir.y >= 0 && tile == 'c')
+		return ('c');
+	return (tile == '1' || 0);
 }
 
 /**
@@ -136,7 +130,7 @@ int	ray_hit(t_data *data, t_raycast *ray)
  * This object contain every parameter for the raycast
  * plus a flag indicating the type of wall it hit
  */
-static t_raycast	raycast(t_data	*data, int x)
+t_raycast	raycast(t_data	*data, int x)
 {
 	t_raycast	ray;
 
@@ -156,18 +150,23 @@ static t_raycast	raycast(t_data	*data, int x)
 			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		// NEW DOOR
 		ray.hit = ray_hit(data, &ray);
 
-		// hit = (data->map[(int)ray.map.x][(int)ray.map.y] == '1');
 	}
-	// NEW DOOR
-	// ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
-	
-
 	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	if (ray.side == 0)
 		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;
+
+	// ADDED
+	// if (ray.side == 0 && (data->direction.x > 0 && ray.hit == 'O'))
+	// 	ray.perp_wall_dist -= 0.2;
+	// if (ray.side == 0 && (data->direction.x < 0 && ray.hit == 'o'))
+	// 	ray.perp_wall_dist += 0.2;
+	// if (ray.side == 1 && data->direction.y > 0 && ray.hit == 'c')
+	// 	ray.perp_wall_dist -= 0.2;
+	// if (ray.side == 1 && data->direction.y < 0 && ray.hit == 'C')
+	// 	ray.perp_wall_dist += 0.2;
+
 	return (ray);
 }
 
