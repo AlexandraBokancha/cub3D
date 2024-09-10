@@ -6,15 +6,20 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:18:04 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/09 22:22:54 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/10 15:34:38 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-// calculate the difference between the sprite's and player's position on the map.
-// dist euclidean formula = sqrt(dx^2 + dy^2)
-
+/**
+ * @brief Calculates the distance between each sprite and the player.
+ *
+ * This function computes the Euclidean distance between each sprite and the player's position on the map.
+ * If a sprite is too close to the player (less than 0.8 units away), it is marked as inactive.
+ *
+ * J'ai choisi 0.8 mais c'etait un peu aleatoire, j'ai suivi mon feeling
+ */
 void    calculate_sprite_distances(t_data *data)
 {
     t_dvec  diff;
@@ -36,7 +41,9 @@ void    calculate_sprite_distances(t_data *data)
         i++;
     }
 }
-
+/**
+ * @brief Sorts the sprites based on their distance from the player.
+ */
 void    sort_sprites(t_data *data)
 {
     int i;
@@ -64,7 +71,18 @@ void    sort_sprites(t_data *data)
         i++;
     }
 }
-
+/**
+ * @brief Updates the sprite's animation frame.
+ *
+ * This function increments the frame counter for each sprite.
+ * When the frame counter reaches a certain
+ * threshold (8 frames), the current slice of the sprite
+ * (used for animation) is updated.
+ * 
+ * Je pars du principe qu'on a 8 images de notre
+ * sprite (a changer pour d'autres sprite sheet)
+ * 
+ */
 void    update_sprite_frame(t_data *data, int i)
 {
     data->sprites_arr[i].frame_counter++;
@@ -74,7 +92,16 @@ void    update_sprite_frame(t_data *data, int i)
         data->sprites_arr[i].current_slice = (data->sprites_arr[i].current_slice + 1) % 8;
     }
 }
-
+/**
+ * @brief Retrieves the color of a pixel from an XPM sprite texture.
+ *
+ * This function fetches the color value of 
+ * a specific pixel in the XPM texture for a sprite.
+ * The pixel is located by calculating the offset 
+ * in the texture data based on its X and Y coordinates.
+ *
+ * @return The color value of the pixel at (x, y).
+ */
 int get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice)
 {
     int pixel_offset;
@@ -86,6 +113,16 @@ int get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice)
     return (color);
 }
 
+/**
+ * @brief Processes the Y axis of the sprite and draws its pixels.
+ *
+ * This function iterates through the Y-axis pixels of the sprite,
+ * calculating the texture's Y coordinate 
+ * and fetching the appropriate pixel color. 
+ * If the pixel is not transparent, it is drawn to the screen.
+ *
+ * Sacree norminette
+ */
 void    process_sprite_y(t_data *data, int i, int stripe)
 {
     int y;

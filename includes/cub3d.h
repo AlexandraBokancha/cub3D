@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 22:22:12 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/10 15:23:37 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ typedef	struct	s_sprite
 	int			is_active;
 	//int			count;
 	//t_dvec		map_pos;
-	// bool		is_active;
 	// int				frames; //  = 8 
 	// int				speed;
 	// int	time;
@@ -492,7 +491,7 @@ typedef struct s_data
 	char		*texture_tab[4];
 	char		*sprites_tab[8];
 	t_ivec		tex;
-	t_ivec		map_size;
+	//t_ivec		map_size;
 	t_dvec		player;
 	t_dvec		direction;
 	t_dvec		camera_plane;
@@ -570,6 +569,10 @@ int		check_first_last(char *line);
 int		has_start_pos(char **map, int height);
 int		validate_value(char *color, int start, int end);
 int		rgb_to_hex(char *color);
+int		parsing_bonus(t_data *data);
+int		parsing_textures(t_texture *textures);
+int		parsing_colors(char *color);
+
 
 // sprite
 void	init_tab_sprites(t_data *data);
@@ -580,7 +583,7 @@ void    sort_sprites(t_data *data);
 void    update_sprite_frame(t_data *data, int i);
 int		get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice);
 void    process_sprite_y(t_data *data, int i, int stripe);
-int		draw_sprite(t_data *data);
+void		draw_sprite(t_data *data);
 void	free_sprite(t_data *data);
 
 

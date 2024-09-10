@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 19:33:52 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/10 15:39:18 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,20 @@ void	ft_free_tab(char **tab, int height)
 
 void	free_map_content(t_data *data)
 {
-	if (data->zbuffer)
-		free(data->zbuffer);
 	if (data->map)
 		ft_free_tab(data->map, data->m_height);
 	if (data->map_info.map2d)
 		ft_free_tab(data->map_info.map2d, data->map_info.map2_height);
-	
 }
+/**
+ * @brief Frees the allocated memory and resources for sprites in the cub3D data structure.
+ *
+ * This function iterates through the sprite array and destroys any associated
+ * images using the MLX library.
+ * After all sprites are freed, it deallocates the memory allocated for the sprite array. 
+ * If no sprites are present (`data->sprites_nb == 0`), 
+ * the function simply returns without doing anything.
+ */
 
 void	free_sprite(t_data *data)
 {
@@ -49,6 +55,7 @@ void	free_sprite(t_data *data)
 			mlx_destroy_image(data->mlx, data->sprites[i].img);
 		i++;
 	}
+	free(data->sprites_arr);
 }
 
 /**
@@ -69,8 +76,8 @@ void	free_cub(t_data *data)
 		return ;
 	if (data->mlx)
 	{
-		i = 0;
 		free_sprite(data);
+		i = 0;
 		while (i < 5)
 		{
 			if (data->texture[0].img != NULL)

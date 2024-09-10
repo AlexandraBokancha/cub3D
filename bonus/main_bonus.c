@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 21:45:24 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/10 12:43:16 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,29 @@ void	init_tab_texture_bonus(t_data *data)
 	data->texture_tab[3] = data->textures.E_path;
 	data->texture_tab[4] = NULL;
 }
+void	load_mlx(t_data *data)
+{
+	mlx_key_hook(data->window, &key_hook, data);
+	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
+	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);
+	// mlx_hook(data->window, ON_MOUSEMOVE, (1L<<6), &camera_move, data); // Mouse movment detection
+	mlx_loop_hook(data->mlx, &render, data);
+	mlx_loop(data->mlx);
+	mlx_do_sync(data->mlx);
+}
 
 int	main(int ac, char **av)
 {
 	t_data	*data;
 
 	if (ac != 2)
-		return (1);
+		return (write(2, "Error. Wrong number of arguments\n", 34), 1);
 	data = init_cub();
 	if (!data)
 		return (1);
 	data = init_map_bonus(data, av[1]);
 	if (!data)
 		return (1);
-	//data->map_size = get_map_size(data->map_info.map2d);
-	data->ceiling_color = rgb_to_hex(data->colors.c_color);
-	data->floor_color = rgb_to_hex(data->colors.f_color);
 	init_player(data);
 	init_tab_texture_bonus(data);
 	load_texture_bonus(data, data->texture_tab);
@@ -101,13 +108,7 @@ int	main(int ac, char **av)
 		init_tab_sprites(data);
 		load_sprite_image(data, data->sprites_tab);	
 	}
-	mlx_key_hook(data->window, &key_hook, data);
-	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
-	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);
-	// mlx_hook(data->window, ON_MOUSEMOVE, (1L<<6), &camera_move, data); // Mouse movment detection
-	mlx_loop_hook(data->mlx, &render, data);
-	mlx_loop(data->mlx);
-	mlx_do_sync(data->mlx);
+	load_mlx(data);
 	free_cub(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 18:57:13 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/10 15:35:33 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	main(int ac, char **av)
 	init_player(data);
 	init_tab_texture(data);
 	load_texture(data, data->texture_tab);
-	// HOOK EVERYTHING
 	mlx_key_hook(data->window, &key_hook, data);
 	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
 	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);
@@ -64,8 +63,6 @@ int	main(int ac, char **av)
 	mlx_loop_hook(data->mlx, &render, data);
 	mlx_loop(data->mlx);
 	mlx_do_sync(data->mlx);
-
-	// EXIT
 	free_cub(data);
 	return (0);
 }

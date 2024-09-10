@@ -82,6 +82,7 @@ endef
 
 define PARSER_FILE :=
 	$(addprefix $(SRC_DIR)/$(PARSER_DIR)/, \
+		parsing.c \
 		parsing_utils.c \
 		parsing_map_utils.c \
 		parsing_map_utils2.c \
@@ -111,12 +112,6 @@ define MANDATORY_RENDER_FILE :=
 	)
 endef
 
-define MANDATORY_PARSER_FILE :=
-	$(addprefix $(SRC_DIR)/$(PARSER_DIR)/, \
-		parsing.c
-	)
-endef
- 
 #                       +------------------------------+                      #
 #                       +           BONUS              +                      #
 #                       +------------------------------+                      #
@@ -152,6 +147,12 @@ endef
 define BONUS_RENDER_FILE :=
 	$(addprefix $(BONUS_DIR)/$(RENDER_DIR)/, \
 		render_bonus.c
+	)
+endef
+
+define BONUS_PARSER_FILE :=
+	$(addprefix $(BONUS_DIR)/$(PARSER_DIR)/, \
+		parsing_bonus.c
 	)
 endef
 
@@ -198,8 +199,9 @@ OBJ_BONUS_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_INIT_FILE:.c=.o)))
 OBJ_BONUS_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_RENDER_FILE:.c=.o)))
 OBJ_BONUS_MINIMAP := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MINIMAP_FILE:.c=.o)))
 OBJ_BONUS_SPRITE := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SPRITE_FILE:.c=.o)))
+OBJ_BONUS_PARSER :=  $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_PARSER_FILE:.c=.o)))
 OBJ_BONUS := $(OBJ) $(OBJ_BONUS_SRC) $(OBJ_BONUS_INIT) $(OBJ_BONUS_RENDER) \
-			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_SPRITE)
+			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_SPRITE) $(OBJ_BONUS_PARSER)
 
 
 # *************************************************************************** #
@@ -279,6 +281,12 @@ $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MINIMAP_DIR)/%.c
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(SPRITE_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling BONUS_RENDER_FILE ###
+$(OBJ_DIR)/%.o : $(BONUS_DIR)/$(PARSER_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
 # *************************************************************************** #
 #                             CLEAN, FCLEAN, RE                               # 
 # *************************************************************************** #

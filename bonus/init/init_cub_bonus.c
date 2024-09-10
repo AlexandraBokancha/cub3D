@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 18:52:38 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/10 13:25:31 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,19 @@ void	init_player(t_data *data)
 	return ;
 }
 
+static t_data *init_info(t_data *data)
+{
+	data->map_info.map2d = NULL;
+	data->textures.S_path = NULL;
+	data->textures.N_path = NULL;
+	data->textures.E_path = NULL;
+	data->textures.W_path = NULL;
+	data->colors.f_color = NULL;
+	data->colors.c_color = NULL;
+	data->zbuffer = NULL;
+	data->sprites_nb = 0;
+	return (data);
+}
 /**
  * @brief Initializes the cub3d data structure.
  *
@@ -134,20 +147,11 @@ t_data	*init_cub(void)
 	data->window = NULL;
 	data->img.img = NULL;
 	data->map = NULL;
-	//data->texture_tab = NULL;
-	//data->sprites_tab = NULL;
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
 	data->texture[0].img = NULL;
 	data->sprites[0].img = NULL;
-	data->map_info.map2d = NULL;
-	data->textures.S_path = NULL;
-	data->textures.N_path = NULL;
-	data->textures.E_path = NULL;
-	data->textures.W_path = NULL;
-	data->colors.f_color = NULL;
-	data->colors.c_color = NULL;
-	data->zbuffer = NULL;
+	data = init_info(data);
 	data = init_screen(data);
 	if (!data)
 		return (NULL);

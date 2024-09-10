@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/08/30 19:42:22 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/10 12:59:15 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	is_path(char **path)
 	return (1);
 }
 
-static int parsing_textures(t_texture *textures)
+int parsing_textures(t_texture *textures)
 {
 	if (!is_path(&textures->N_path) || !is_path(&textures->E_path) \
 		|| !is_path(&textures->S_path) || !is_path(&textures->W_path))
@@ -58,7 +58,7 @@ static int parsing_textures(t_texture *textures)
  * @param color The color string to validate.
  * @return The number of valid comma-separated values (should be 3), or 0 if invalid.
  */
-static int parsing_colors(char *color)
+int parsing_colors(char *color)
 {
     int start;
     int count;

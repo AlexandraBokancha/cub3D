@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:57:45 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/09 22:22:30 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/10 15:24:04 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@
 2. calculate sprite screen position
 3. calculate size of the sprite
 4. initialiser le debut et la fin de draw
+5. put pxl
 
 */
 
-
-// project the sprite on the camera plane (in 2D):
-// substract the player position from the sprite positin
-// multiply the result with the inverse of the 2x2 camera matrix
-// player direction vector: data->direction;
-// camera plane vector: data->camera_plane;
-// inverse matrix formula:
-// 1 / (dir.x * plane - dir.y * plane.x) X (plane.y - dir.y, -plane.x dir.x)
-
+/**
+ * @brief Projects a sprite onto the 2D camera plane.
+ *
+ * This function calculates the position of the sprite relative to the player's position and projects it 
+ * onto the camera plane using the inverse of the 2x2 camera matrix. The sprite's screen position and its 
+ * perpendicular distance from the player are stored for later use.
+ * 
+ */
 void    sprite_to_camera(t_data *data, int i)
 {
     t_dvec  relative_pos;
@@ -46,18 +46,28 @@ void    sprite_to_camera(t_data *data, int i)
     data->sprites_arr[i].screen_pos.x = (int)((data->w_width / 2) * (1 + transform.x / transform.y)); 
     data->sprites_arr[i].perp_dist = transform.y;
 }
-// calculate the height of the sprite on the screen (in our case
-// the sprite is square (32 x 32 pix)
 
+/**
+ * @brief Calculates the size of the sprite on the screen.
+ *
+ * This function computes the height and width of the sprite based
+ * on its distance from the player.
+ * The sprite is assumed to be square (32x32pxl);
+ *
+ */
 void    sprite_size(t_data *data, int i)
 {
     data->sprites_arr[i].sprite_size.y = abs((int)(data->w_height / data->sprites_arr[i].perp_dist));
     data->sprites_arr[i].sprite_size.x = abs((int)(data->w_height / data->sprites_arr[i].perp_dist));
 }
 
-// calculate the top and bottom of the sprite 
-// calculate the left and right sides of the sprite 
-
+/**
+ * @brief Initializes the coordinates for drawing the sprite.
+ *
+ * This function calculates the top, bottom, left, 
+ * and right positions of the sprite on the screen.
+ *
+ */
 void    init_draw(t_data *data, int i)
 {
     data->sprites_arr[i].draw_start.y = data->sprites_arr[i].sprite_size.y / 2 + data->w_height / 2 \
@@ -75,7 +85,17 @@ void    init_draw(t_data *data, int i)
     if (data->sprites_arr[i].draw_end.x >= data->w_width)
         data->sprites_arr[i].draw_end.x = data->w_width - 1; 
 }
-        
+ /**
+ * @brief Draws the pixels of the sprite onto the screen.
+ *
+ * This function iterates over the horizontal stripes of the sprite and
+ * draws the sprite's pixels onto the screen.
+ * It checks the sprite's perpendicular distance from the player to determine whether it 
+ * should be drawn in front of the background (walls and floor).
+ * The texture's X coordinate is calculated
+ * for each stripe.
+ *
+ */    
 void    put_sprite_pxl(t_data *data, int i)
 {
     int     stripe;
@@ -93,8 +113,17 @@ void    put_sprite_pxl(t_data *data, int i)
         stripe++;
     }
 }
-
-int    draw_sprite(t_data *data)
+/**
+ * @brief Draws all active sprites in the game.
+ *
+ * This function loops through all sprites, 
+ * sorting them by distance from the player to ensure that 
+ * closer sprites are drawn in front of farther ones.
+ * It projects each sprite onto the camera plane, 
+ * calculates its size, initializes its draw positions, and renders it on the screen.
+ *
+ */
+void    draw_sprite(t_data *data)
 {
     int i;
 
@@ -113,5 +142,4 @@ int    draw_sprite(t_data *data)
         }
         i++;
     }
-    return (0);
 }
