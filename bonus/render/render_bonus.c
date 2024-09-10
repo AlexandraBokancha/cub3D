@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 20:18:21 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:52:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,6 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	return (ray);
 }
 
-static int new_hit(t_data *data, t_raycast* ray)
-{
-}
-
 /**
  * @brief Return the obstacle theray hit for the rendering
  *
@@ -94,33 +90,33 @@ static int new_hit(t_data *data, t_raycast* ray)
  * @param	ray		The t_ray with alredy filled data
  * @return	An int representing the type of door (o, O, c, C) or wall (1) or 0
  */
-static int	ray_hit(t_data *data, t_raycast *ray)
-{
-	char	tile;
-
-	tile = data->map[(int)ray->map.x][(int)ray->map.y];
-	if (ray->side == 0 && ray->dir.x < 0 && data->map[(int)ray->map.x + 1]
-		[(int)ray->map.y] == 'O')
-		return ('O');
-	if (ray->side == 0 && ray->dir.x < 0 && tile == 'o')
-		return ('o');
-	if (ray->side == 0 && ray->dir.x >= 0 && tile == 'O')
-			return ('O');
-	if (ray->side == 0 && ray->dir.x >= 0 && ray->map.x > 1
-			&& data->map[(int)ray->map.x - 1][(int)ray->map.y] == 'o')
-		return ('o');
-	if (ray->side == 1 && ray->dir.y < 0 && ray->map.y > 1.0
-		&& data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'c')
-		return ('c');
-	if (ray->side == 1 && ray->dir.y < 0 && tile == 'C')
-		return ('C');
-	if (ray->side == 1 && ray->dir.y >= 0 && ray->map.y > 1.0
-			&& data->map[(int)ray->map.x][(int)ray->map.y - 1] == 'C')
-		return ('C');
-	if (ray->side == 1 && ray->dir.y >= 0 && tile == 'c')
-		return ('c');
-	return (tile == '1' || 0);
-}
+// static int	ray_hit(t_data *data, t_raycast *ray)
+// {
+// 	char	tile;
+//
+// 	tile = data->map[(int)ray->map.x][(int)ray->map.y];
+// 	if (ray->side == 0 && ray->dir.x < 0 && data->map[(int)ray->map.x + 1]
+// 		[(int)ray->map.y] == 'O')
+// 		return ('O');
+// 	if (ray->side == 0 && ray->dir.x < 0 && tile == 'o')
+// 		return ('o');
+// 	if (ray->side == 0 && ray->dir.x >= 0 && tile == 'O')
+// 			return ('O');
+// 	if (ray->side == 0 && ray->dir.x >= 0 && ray->map.x > 1
+// 			&& data->map[(int)ray->map.x - 1][(int)ray->map.y] == 'o')
+// 		return ('o');
+// 	if (ray->side == 1 && ray->dir.y < 0 && ray->map.y > 1.0
+// 		&& data->map[(int)ray->map.x][(int)ray->map.y + 1] == 'c')
+// 		return ('c');
+// 	if (ray->side == 1 && ray->dir.y < 0 && tile == 'C')
+// 		return ('C');
+// 	if (ray->side == 1 && ray->dir.y >= 0 && ray->map.y > 1.0
+// 			&& data->map[(int)ray->map.x][(int)ray->map.y - 1] == 'C')
+// 		return ('C');
+// 	if (ray->side == 1 && ray->dir.y >= 0 && tile == 'c')
+// 		return ('c');
+// 	return (tile == '1' || 0);
+// }
 
 /**
  * @brief Return a t_raycast resulting from the raycast to column x
@@ -150,23 +146,11 @@ t_raycast	raycast(t_data	*data, int x)
 			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		ray.hit = ray_hit(data, &ray);
-
+		ray.hit = check_hit(data, &ray);
 	}
 	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	if (ray.side == 0)
 		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;
-
-	// ADDED
-	// if (ray.side == 0 && (data->direction.x > 0 && ray.hit == 'O'))
-	// 	ray.perp_wall_dist -= 0.2;
-	// if (ray.side == 0 && (data->direction.x < 0 && ray.hit == 'o'))
-	// 	ray.perp_wall_dist += 0.2;
-	// if (ray.side == 1 && data->direction.y > 0 && ray.hit == 'c')
-	// 	ray.perp_wall_dist -= 0.2;
-	// if (ray.side == 1 && data->direction.y < 0 && ray.hit == 'C')
-	// 	ray.perp_wall_dist += 0.2;
-
 	return (ray);
 }
 

@@ -127,7 +127,8 @@ endef
 
 define BONUS_DOOR_FILE :=
 	$(addprefix $(BONUS_DIR)/$(DOOR_DIR)/, \
-		get_hit_pos_bonus.c
+		get_hit_pos_bonus.c \
+		check_hit_bonus.c
 	)
 endef
 

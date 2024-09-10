@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 21:46:51 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/10 10:57:46 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -463,6 +463,10 @@ void		draw_minimap(t_data *data);
 int			camera_move(int x, int y, void *param);
 
 // get_hit_pos_bonus.c
+void		get_hit_pos(t_data *data, t_raycast *ray);
+
+// check_hit_bonus.c
+int			check_hit(t_data *data, t_raycast *ray);
 
 // TESTING ????
 // COPY_MAP
