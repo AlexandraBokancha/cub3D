@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:01:52 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/10 11:57:00 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:57:16 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
  */
 static int	get_wall_orientation(t_raycast ray)
 {
-	// if (ray.hit == 's')
-	// 	return (7);
+	if (ray.hit == 's')
+		return (7);
 	if (ray.hit != 1)
 		return (DOOR);
 	if (ray.side == 0)

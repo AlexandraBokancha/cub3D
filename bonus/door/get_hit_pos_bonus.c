@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 20:25:29 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 21:47:11 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:00:31 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  */
 static void	side_hit(t_data *data, t_raycast *ray)
 {
-	double	delta;
+	int	delta;
 
 	delta = ray->side_dist.x / ray->delta_dist.x;
 	ray->h_side.x = 1.0 + data->player.x - (int)data->player.x - delta;
@@ -50,13 +50,13 @@ static void	side_hit(t_data *data, t_raycast *ray)
  */
 static void	not_side_hit(t_data *data, t_raycast *ray)
 {
-	double	delta;
+	int	delta;
 
 	delta = ray->side_dist.y / ray->delta_dist.y;
 	ray->h_side.y = 1.0 + data->player.y - (int)data->player.y - delta;
 	if (data->direction.y >= 0)
 		ray->h_side.y = data->player.y - (int)data->player.y + delta;
-	ray->h_side.y = sqrtf(ray->side_dist.y * ray->side_dist.y
+	ray->h_side.x = sqrtf(ray->side_dist.y * ray->side_dist.y
 		- (ray->h_side.y * ray->h_side.y));
 	ray->h_pos.y = (int)data->player.y - delta;
 	if (data->direction.y >= 0)

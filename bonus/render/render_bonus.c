@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/10 11:52:14 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:33:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 		ray.step.y = 1.0;
 	if (ray.dir.y >= 0)
 		ray.side_dist.y = (ray.map.y + 1.0 - data->player.y) * ray.delta_dist.y;
+	ray.side = (ray.side_dist.y >= ray.side_dist.x);
 	return (ray);
 }
 
@@ -131,7 +132,8 @@ t_raycast	raycast(t_data	*data, int x)
 	t_raycast	ray;
 
 	ray = init_ray(data, x);
-	ray.hit = 0;
+	// ray.hit = 0;
+	ray.hit = check_hit(data, &ray);
 	while (ray.hit == 0)
 	{
 		if (ray.side_dist.x < ray.side_dist.y)
@@ -148,9 +150,15 @@ t_raycast	raycast(t_data	*data, int x)
 		}
 		ray.hit = check_hit(data, &ray);
 	}
-	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
+	// NEW
+	ray.perp_wall_dist = ray.side_dist.y;
 	if (ray.side == 0)
-		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;
+		ray.perp_wall_dist = ray.side_dist.x;
+
+
+	// ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
+	// if (ray.side == 0)
+	// 	ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;
 	return (ray);
 }
 
