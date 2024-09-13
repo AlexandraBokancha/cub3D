@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/13 11:53:43 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:25:58 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,14 +140,15 @@ t_raycast	raycast(t_data	*data, int x)
 		{
 			ray.side_dist.x += ray.delta_dist.x;
 			ray.map.x += ray.step.x;
-			ray.side = 0;
+			// ray.side = 0;
 		}
 		else
 		{
 			ray.side_dist.y += ray.delta_dist.y;
 			ray.map.y += ray.step.y;
-			ray.side = 1;
+			// ray.side = 1;
 		}
+		ray.side = (ray.side_dist.y >= ray.side_dist.x);
 		ray.hit = check_hit(data, &ray);
 	}
 	// NEW
