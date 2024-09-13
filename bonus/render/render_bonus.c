@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/13 11:33:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:53:43 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ t_raycast	raycast(t_data	*data, int x)
 	}
 	// NEW
 	ray.perp_wall_dist = ray.side_dist.y;
-	if (ray.side == 0)
+	if (ray.side == 1)
 		ray.perp_wall_dist = ray.side_dist.x;
 
 
