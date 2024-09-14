@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/10 10:57:46 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:51:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -471,6 +471,9 @@ int			check_hit(t_data *data, t_raycast *ray);
 // TESTING ????
 // COPY_MAP
 char	**get_map(char *map[]);
+
+
+void	correct_perp_wall_dist(t_raycast *ray, double diff);
 
 
 #endif // !CUB3D_H
