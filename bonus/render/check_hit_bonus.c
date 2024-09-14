@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 05:47:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 21:06:49 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:08:38 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	check_north_west(t_data *data, t_raycast *ray)
 		if (data->map[ray->map.x][ray->map.y + 1] == 'O'
 				&& modf(ray->h_pos.x, &(double){0}) <= 0.05)
 			return ('O');
-		if (data->map[ray->map.x][ray->map.y + 1] == 'o'
+		if (data->map[(int)ray->h_pos.x][ray->map.y + 1] == 'o'
 				&& modf(ray->h_pos.x, &(double){0}) >= 0.95)
 			return ('o');
 		return (data->map[ray->map.x][ray->map.y + 1] == '1');
