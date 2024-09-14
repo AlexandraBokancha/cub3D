@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 21:08:01 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:14:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ char	*test_map_003[11] =
 {
 	"111111111111111111111",
 	"100000000000000000o01",
-	"10000000000o00000O0c1",
-	"10100001000o000000c01",
-	"10010110000N00000c1O1",
+	"10000000000CCW000O0c1",
+	"101000010000000000c01",
+	"10010110000000000c1O1",
 	"1000000000000c0oo0o01",
 	"100101000000Oocccco11",
 	"101000000000OOOOcccO1",
@@ -163,8 +163,8 @@ int	main()
 	data->floor_color = 0x00474747;
 	// MINIMAP
 	init_player(data);
-	data->player.x = 11.55;
-	data->player.y = 5.4;
+	// data->player.x = 11.45;
+	// data->player.y = 8.6;
 	data->minimap = init_minimap(data);
 
 	// ROTATE_BONUS
