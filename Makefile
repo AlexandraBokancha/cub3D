@@ -142,6 +142,7 @@ define BONUS_RENDER_FILE :=
 	$(addprefix $(BONUS_DIR)/$(RENDER_DIR)/, \
 		get_hit_pos_bonus.c \
 		check_hit_bonus.c \
+		correct_perp_wall_dist_bonus.c \
 		render_bonus.c
 	)
 endef

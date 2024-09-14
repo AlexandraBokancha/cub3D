@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 13:39:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:56:25 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,8 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 	ray.delta_dist = init_dvec(0x1E30, 0x1E30);
 	if (ray.dir.x != 0)
 		ray.delta_dist.x = fabs(1.0 / ray.dir.x);
-		// ray.delta_dist.x = sqrtf(1.0 + (ray.dir.y * ray.dir.y) / (ray.dir.x * ray.dir.x));
 	if (ray.dir.y != 0)
 		ray.delta_dist.y = fabs(1.0 / ray.dir.y);
-		// ray.delta_dist.y = sqrtf(1.0 + (ray.dir.x * ray.dir.x) / (ray.dir.y * ray.dir.y));
 	ray.step = init_ivec(-1, -1);
 	ray.side_dist = init_dvec((data->player.x - ray.map.x) * ray.delta_dist.x,
 			(data->player.y - ray.map.y) * ray.delta_dist.y);
