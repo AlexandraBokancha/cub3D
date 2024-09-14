@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 05:47:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 11:42:04 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:45:36 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,10 +142,10 @@ static int	check_south_est(t_data *data, t_raycast *ray)
 		if (data->map[ray->map.x][ray->map.y - 1] == 'C')
 			return ('C');
 		if (data->map[ray->map.x][ray->map.y - 1] == 'o'
-				&& ray->h_pos.x - (int)ray->h_pos.x <= 0.05)
+				&& ray->h_pos.x - (int)ray->h_pos.x >= 0.95)
 			return ('o');
 		if (data->map[ray->map.x][ray->map.y - 1] == 'O'
-				&& ray->h_pos.x - (int)ray->h_pos.x >= 0.95)
+				&& ray->h_pos.x - (int)ray->h_pos.x <= 0.05)
 			return ('O');
 		return (data->map[ray->map.x][ray->map.y - 1] == '1');
 	}
@@ -180,10 +180,10 @@ static int	check_south_west(t_data *data, t_raycast *ray)
 		if (data->map[ray->map.x][ray->map.y - 1] == 'C')
 			return ('C');
 		if (data->map[ray->map.x][ray->map.y - 1] == 'o'
-				&& ray->h_pos.x - (int)ray->h_pos.x <= 0.05)
+				&& ray->h_pos.x - (int)ray->h_pos.x >= 0.95)
 			return ('o');
 		if (data->map[ray->map.x][ray->map.y - 1] == 'O'
-				&& ray->h_pos.x - (int)ray->h_pos.x >= 0.95)
+				&& ray->h_pos.x - (int)ray->h_pos.x <= 0.05)
 			return ('O');
 		return (data->map[ray->map.x][ray->map.y - 1] == '1');
 	}

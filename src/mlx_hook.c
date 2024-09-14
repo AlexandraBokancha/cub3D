@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/06 02:33:18 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:36:57 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,18 +173,21 @@ static void	new_move(int key, t_data *data)
 			data->direction.y * MOVE_SPEED);
 	if (key == S)
 	{
-		move.x = -move.x;
-		move.y = -move.y;
+		move = init_dvec(-move.x, -move.y);
+		// move.x = -move.x;
+		// move.y = -move.y;
 	}
 	if (key == A)
-	{
-		move.x = -move.y;
-		move.y = move.x;
+	{ 
+		move = init_dvec(-move.y, move.x);
+		// move.x = -move.y;
+		// move.y = move.x;
 	}
 	if (key == D)
 	{
-		move.x = move.y;
-		move.y = -move.x;
+		move = init_dvec(move.y, -move.x);
+		// move.x = move.y;
+		// move.y = -move.x;
 	}
 	if (obstacle(data, &move))
 		return ;
