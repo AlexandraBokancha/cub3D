@@ -57,6 +57,7 @@ define SRC_FILE :=
 	$(addprefix $(SRC_DIR)/, \
 		ft_mlx_pixel_put.c \
 		mlx_hook.c \
+		move.c \
 		copy_map.c
 	)
 endef

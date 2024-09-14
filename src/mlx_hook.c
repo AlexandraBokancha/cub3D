@@ -6,97 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 12:36:57 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:16:54 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-
-
-// NEW
-// static 
-
-// static void	move(t_data *data, int key)
-// {
-// 	t_dvec		dir;
-// 	t_dvec		cam_plane;
-//
-// 	// save original data_value
-// 	dir = init_dvec(data->direction.x, data->direction.y);
-// 	cam_plane = init_dvec(data->camera_plane.x, data->camera_plane.y);
-//
-// 	// change the t_data structure
-// 	if (key == A)
-// 	{
-// 		data->direction = init_dvec(-dir.y, dir.x);
-// 		data->camera_plane = init_dvec(-cam_plane.y, cam_plane.x);
-// 	}
-// 	if (key == S)
-// 	{
-// 		data->direction = init_dvec(-dir.x, -dir.y);
-// 		data->camera_plane = init_dvec(-cam_plane.x, -cam_plane.y);
-//
-// 	}
-// 	if (key == D)
-// 	{
-// 		data->direction = init_dvec(dir.y, -dir.x);
-// 		data->camera_plane = init_dvec(cam_plane.y, -cam_plane.x);
-// 	}
-//
-// 	// Check wall distance
-// 	// TYHIS IS FALSE AND NEED TYO BE REWORKED
-// 	// t_dvec		wall_dist;
-// 	//
-// 	// wall_dist = init_dvec(data->player.x - (int)data->player.x,
-// 	// 		data->player.y - (int)data->player.y);
-// 	// if (data->direction.x >= 0)
-// 	// 	wall_dist.x = 1 - wall_dist.x;
-// 	// if (data->direction.y >= 0)
-// 	// 	wall_dist.y = 1 - wall_dist.y;
-// 	//
-// 	// // move vector
-// 	// t_dvec move;
-// 	//
-// 	// move = init_dvec(data->direction.x * MOVE_SPEED * (wall_dist.x >= 0.1),
-// 	// 	data->direction.y * MOVE_SPEED * (wall_dist.y >= 0.1));
-//
-// 	// Put back data value
-// 	data->direction = dir;
-// 	data->camera_plane = cam_plane;
-//
-// 	// MOVE
-// 	// data->player.x += move.x;
-// 	// data->player.y += move.y;
-// 	// return ;
-//
-// 	//
-// 	// shoot ray
-// 	// t_raycast	ray;
-// 	// ray = raycast(data, data->w_width / 2);
-// 	// if (ray.hit == 1)
-// 	// 	return (0);
-// 	// if (ray.hit != 0 && ray.perp_wall_dist <= 0.1)
-// 	// 		return (1);
-// 	// return (0);
-// }
-
-// int	is_obstacle(char c, t_dvec move)
-// {
-// 	if (c == '0' || c =='N' || c == 'W' || c == 'S' || c == 'E')
-// 		return (0);
-// 	if (c == '1')
-// 		return (1);
-// 	if (move.x < 0 && c == 'O')
-// 		return (1);
-// 	if (move.x >= 0 && c == 'o')
-// 		return (1);
-// 	if (move.y < 0 && c == 'C')
-// 		return (1);
-// 	if (move.y > 0 && c == 'c')
-// 		return (1);
-// 	return (0);
-// }
 
 /**
  * @brief Check if an obstacle is in front of the player
@@ -112,44 +26,44 @@
  * @return  0 if no obstacle is found, 1 when the move is not possible 
  */
 
-static int	obstacle(t_data *data, t_dvec *move)
-{
-	// (void)move;
-	// return (new_obstacle(data, W));
-
-	t_dvec	pos;
-
-	pos = init_dvec(data->player.x, data->player.y);
-	if (move->x == 0)
-	{
-		if (data->map[(int)(pos.x - 0.001)]
-				[(int)(pos.y + move->y * DELTA)] == '1'
-				|| data->map[(int)(pos.x + 0.001)]
-				[(int)(pos.y + move->y * DELTA)] == '1'
-				|| data->map[(int)(pos.x - 0.001)][(int)(pos.y + move->y * DELTA)] == 'o'
-				|| data->map[(int)(pos.x + 0.001)][(int)(pos.y + move->y * DELTA)] == 'O')
-			return (1);
-	}
-	if (move->y == 0)
-	{
-		if (data->map[(int)(pos.x + move->x * DELTA)]
-				[(int)(pos.y - 0.001)] == '1'
-				|| data->map[(int)(pos.x + move->x * DELTA)]
-				[(int)(pos.y + 0.001)] == '1'
-				|| data->map[(int)(pos.x + move->x * DELTA)][(int)(pos.y - 0.001)] == 'c'
-				|| data->map[(int)(pos.x + move->x * DELTA)][(int)(pos.y - 0.001)] == 'C'
-		   )
-			return (1);
-	}
-	// NEW
-
-	if (data->map[(int)(pos.x + move->x * DELTA)][(int)(pos.y)] != '1'
-		&& data->map[(int)pos.x][(int)(pos.y + move->y * DELTA)] != '1'
-		&& data->map[(int)(pos.x + move->x * DELTA)]
-			[(int)(pos.y + move->y * DELTA)] == '1')
-		return (1);
-	return (0);
-}
+// static int	obstacle(t_data *data, t_dvec *move)
+// {
+// 	// (void)move;
+// 	// return (new_obstacle(data, W));
+//
+// 	t_dvec	pos;
+//
+// 	pos = init_dvec(data->player.x, data->player.y);
+// 	if (move->x == 0)
+// 	{
+// 		if (data->map[(int)(pos.x - 0.001)]
+// 				[(int)(pos.y + move->y * DELTA)] == '1'
+// 				|| data->map[(int)(pos.x + 0.001)]
+// 				[(int)(pos.y + move->y * DELTA)] == '1'
+// 				|| data->map[(int)(pos.x - 0.001)][(int)(pos.y + move->y * DELTA)] == 'o'
+// 				|| data->map[(int)(pos.x + 0.001)][(int)(pos.y + move->y * DELTA)] == 'O')
+// 			return (1);
+// 	}
+// 	if (move->y == 0)
+// 	{
+// 		if (data->map[(int)(pos.x + move->x * DELTA)]
+// 				[(int)(pos.y - 0.001)] == '1'
+// 				|| data->map[(int)(pos.x + move->x * DELTA)]
+// 				[(int)(pos.y + 0.001)] == '1'
+// 				|| data->map[(int)(pos.x + move->x * DELTA)][(int)(pos.y - 0.001)] == 'c'
+// 				|| data->map[(int)(pos.x + move->x * DELTA)][(int)(pos.y - 0.001)] == 'C'
+// 		   )
+// 			return (1);
+// 	}
+// 	// NEW
+//
+// 	if (data->map[(int)(pos.x + move->x * DELTA)][(int)(pos.y)] != '1'
+// 		&& data->map[(int)pos.x][(int)(pos.y + move->y * DELTA)] != '1'
+// 		&& data->map[(int)(pos.x + move->x * DELTA)]
+// 			[(int)(pos.y + move->y * DELTA)] == '1')
+// 		return (1);
+// 	return (0);
+// }
 
 /**
  * @brief Move player position forward or backward based on pressed key
@@ -161,79 +75,24 @@ static int	obstacle(t_data *data, t_dvec *move)
  * @param	key		Keycode of the pressed key
  * @param	data	The cub3D global data structure
  */
-static void	new_move(int key, t_data *data)
-{
-	t_dvec	pos;
-	t_dvec	move;
-
-	if (key != W && key != S && key != A && key != D)
-		return ;
-	pos = init_dvec(data->player.x, data->player.y);
-	move = init_dvec(data->direction.x * MOVE_SPEED,
-			data->direction.y * MOVE_SPEED);
-	if (key == S)
-	{
-		move = init_dvec(-move.x, -move.y);
-		// move.x = -move.x;
-		// move.y = -move.y;
-	}
-	if (key == A)
-	{ 
-		move = init_dvec(-move.y, move.x);
-		// move.x = -move.y;
-		// move.y = move.x;
-	}
-	if (key == D)
-	{
-		move = init_dvec(move.y, -move.x);
-		// move.x = move.y;
-		// move.y = -move.x;
-	}
-	if (obstacle(data, &move))
-		return ;
-	if (data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
-		data->player.x += move.x;
-	if (data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
-		data->player.y += move.y;
-}
-
-// /**
-//  * @brief Move player position to the left or right based on pressed key
-//  *
-//  * This function move the player position based on the pressed key
-//  * A : Left | D : Right
-//  * THe function if messy to be 42nrorm compliant
-//  *
-//  * @param	key		Keycode of the pressed key
-//  * @param	data	The cub3D global data structure
-//  */
-// static void	move_sideway(int key, t_data *data)
+// static void	move(int key, t_data *data)
 // {
 // 	t_dvec	pos;
 // 	t_dvec	move;
 //
+// 	if (key != W && key != S && key != A && key != D)
+// 		return ;
 // 	pos = init_dvec(data->player.x, data->player.y);
-// 	move = init_dvec(-data->direction.y * MOVE_SPEED,
-// 			data->direction.x * MOVE_SPEED);
+// 	move = init_dvec(data->direction.x * MOVE_SPEED,
+// 			data->direction.y * MOVE_SPEED);
+// 	if (key == S)
+// 		move = init_dvec(-move.x, -move.y);
 // 	if (key == A)
-// 	{
-// 		if (obstacle(data, move))
-// 			return ;
-// 		// if (new_obstacle(data, key))
-// 		// 	return ;
-// 		if (data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
-// 			data->player.x += move.x;
-// 		if (data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
-// 			data->player.y += move.y;
-// 	}
-// 	if (key != D)
+// 		move = init_dvec(-move.y, move.x);
+// 	if (key == D)
+// 		move = init_dvec(move.y, -move.x);
+// 	if (obstacle(data, &move))
 // 		return ;
-// 	move.x = -move.x;
-// 	move.y = -move.y;
-// 	if (obstacle(data, move))
-// 		return ;
-// 	// if (new_obstacle(data, key))
-// 	// 	return ;
 // 	if (data->map[(int)(pos.x + move.x * DELTA)][(int)pos.y] != '1')
 // 		data->player.x += move.x;
 // 	if (data->map[(int)pos.x][(int)(pos.y + move.y * DELTA)] != '1')
@@ -298,7 +157,8 @@ int	key_hook(int keycode, void *param)
 	if (keycode == ESC)
 		exit_cub(data);
 	if (keycode == W || keycode == S || keycode == A || keycode == D)
-		new_move(keycode, data);
+		// move(keycode, data);
+		new_move(data, keycode);
 	// if (keycode == W || keycode == S)
 	// 	move_forward_backward(keycode, data);
 	// if (keycode == A || keycode == D)
