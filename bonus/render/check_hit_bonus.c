@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 05:47:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 12:45:36 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:41:32 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,14 +199,6 @@ static int	check_south_west(t_data *data, t_raycast *ray)
 		return ('C');
 	return (data->map[ray->map.x - 1][ray->map.y] == '1');
 }
-
-// static int	first_pass(t_data *data, t_raycast *ray)
-// {
-// 	if (ray->dir.x < 0.0 && ray->dir.y < 0.0)
-// 	{
-// 		if (ray->side == 0 && (data->map[ray->map.x][ray->map.y] == 'c'))
-// 	}
-// }
 
 /**
  * @brief Return an integer indicating the type of block the ray hit
