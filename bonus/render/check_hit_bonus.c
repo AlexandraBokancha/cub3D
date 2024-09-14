@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 05:47:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 21:52:13 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:00:00 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,13 @@ static int	check_north(t_data *data, t_raycast *ray)
 		return (correct_perp_wall_dist(ray, 0.05), 'C');
 	if (data->map[(int)ray->h_pos.x][ray->map.y] == 'O'
 		&& modf(ray->h_pos.x, &(double){0}) <= 0.05)
-		return (correct_perp_wall_dist(ray, 0.05 - modf(ray->h_pos.x, &(double){0})), 'O');
+		return (correct_perp_wall_dist(ray,
+				0.05 - modf(ray->h_pos.x, &(double){0})), 'O');
 	if (data->map[(int)ray->h_pos.x][ray->map.y] == 'o'
 		&& modf(ray->h_pos.x, &(double){0}) >= 0.95)
+		return (correct_perp_wall_dist(ray,
+				modf(ray->h_pos.x, &(double){0}) - 0.95), 'o');
+	if (data->map[ray->map.x][ray->map.y + 1] == 'c')
 		return ('c');
 	if (data->map[(int)ray->h_pos.x][ray->map.y + 1] == 'O'
 			&& modf(ray->h_pos.x, &(double){0}) <= 0.05)
@@ -65,10 +69,12 @@ static int	check_east(t_data *data, t_raycast *ray)
 		return (correct_perp_wall_dist(ray, 0.05), 'o');
 	if (data->map[ray->map.x][ray->map.y] == 'C'
 		&& modf(ray->h_pos.y, &(double){0}) >= 0.95)
-		return (correct_perp_wall_dist(ray, modf(ray->h_pos.y, &(double){0}) - 0.95), 'C');
+		return (correct_perp_wall_dist(ray,
+				modf(ray->h_pos.y, &(double){0}) - 0.95), 'C');
 	if (data->map[ray->map.x][ray->map.y] == 'c'
 		&& modf(ray->h_pos.y, &(double){0}) <= 0.05)
-		return (correct_perp_wall_dist(ray, 0.05 - modf(ray->h_pos.y, &(double){0})), 'c');
+		return (correct_perp_wall_dist(ray,
+				0.05 - modf(ray->h_pos.y, &(double){0})), 'c');
 	if (data->map[ray->map.x + 1][ray->map.y] == 'O')
 		return ('O');
 	if (data->map[ray->map.x + 1][(int)ray->h_pos.y] == 'c'
@@ -95,10 +101,12 @@ static int	check_south(t_data *data, t_raycast *ray)
 		return (correct_perp_wall_dist(ray, 0.05), 'c');
 	if (data->map[(int)ray->h_pos.x][ray->map.y] == 'O'
 		&& modf(ray->h_pos.x, &(double){0}) <= 0.05)
-		return (correct_perp_wall_dist(ray, 0.05 - modf(ray->h_pos.x, &(double){0})), 'O');
+		return (correct_perp_wall_dist(ray,
+				0.05 - modf(ray->h_pos.x, &(double){0})), 'O');
 	if (data->map[(int)ray->h_pos.x][ray->map.y] == 'o'
 		&& modf(ray->h_pos.x, &(double){0}) >= 0.95)
-		return (correct_perp_wall_dist(ray, modf(ray->h_pos.x, &(double){0}) - 0.95), 'o');
+		return (correct_perp_wall_dist(ray,
+				modf(ray->h_pos.x, &(double){0}) - 0.95), 'o');
 	if (data->map[ray->map.x][ray->map.y - 1] == 'C')
 		return ('C');
 	if (data->map[(int)ray->h_pos.x][ray->map.y - 1] == 'o'
@@ -125,10 +133,12 @@ static int	check_west(t_data *data, t_raycast *ray)
 		return (correct_perp_wall_dist(ray, 0.05), 'O');
 	if (data->map[ray->map.x][ray->map.y] == 'c'
 		&& modf(ray->h_pos.y, &(double){0}) <= 0.05)
-		return (correct_perp_wall_dist(ray, 0.05 - modf(ray->h_pos.y, &(double){0})), 'c');
+		return (correct_perp_wall_dist(ray,
+				0.05 - modf(ray->h_pos.y, &(double){0})), 'c');
 	if (data->map[ray->map.x][ray->map.y] == 'C'
 		&& modf(ray->h_pos.y, &(double){0}) >= 0.95)
-		return (correct_perp_wall_dist(ray, modf(ray->h_pos.y, &(double){0}) - 0.95), 'C');
+		return (correct_perp_wall_dist(ray,
+				modf(ray->h_pos.y, &(double){0}) - 0.95), 'C');
 	if (data->map[ray->map.x - 1][ray->map.y] == 'o')
 		return ('o');
 	if (data->map[ray->map.x - 1][ray->map.y] == 'c'
