@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 14:17:43 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:42:12 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.06
-# define DELTA 1.9
+# define DELTA 2.2
+// # define DELTA 1.9
 
 /**
  * @struct s_ivec
@@ -474,6 +475,6 @@ char	**get_map(char *map[]);
 
 
 // NEW_MOVE
-void	new_move(t_data *data, int key);
+void	move(t_data *data, int key);
 
 #endif // !CUB3D_H

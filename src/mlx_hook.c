@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 14:16:54 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:42:24 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int	key_hook(int keycode, void *param)
 		exit_cub(data);
 	if (keycode == W || keycode == S || keycode == A || keycode == D)
 		// move(keycode, data);
-		new_move(data, keycode);
+		move(data, keycode);
 	// if (keycode == W || keycode == S)
 	// 	move_forward_backward(keycode, data);
 	// if (keycode == A || keycode == D)
