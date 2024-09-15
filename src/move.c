@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:46:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/15 19:28:06 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/15 19:32:22 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	set_param(t_data *data, int key, t_dvec *dir, t_dvec *cam_plane)
  * @param	data	The cub3D global data structure
  * @return	1 if an obstacle is present else 0 
  */
-static int	obstacle(t_data *data)
+static int	obstacle(t_data *data, t_dvec *move)
 {
 	t_raycast	ray;
 	int			i;
@@ -69,12 +69,13 @@ static int	obstacle(t_data *data)
 	while (i < 3)
 	{
 		ray = raycast(data, pos);
-		if ((ray.side == 1 && ray.side_dist.x < MOVE_SPEED * DELTA)
-				|| (ray.side == 0 && ray.side_dist.y < MOVE_SPEED * DELTA))
-			return (1);
+		if (ray.side == 1 && ray.side_dist.x < MOVE_SPEED * DELTA)
+			move->x = 0;
+		if (ray.side == 0 && ray.side_dist.y < MOVE_SPEED * DELTA)
+			move->y = 0;
 		i++;
 	}
-	return (0);
+	return (move->x == 0 && move->y == 0);
 }
 
 /**
@@ -130,7 +131,7 @@ void	move(t_data *data, int key)
 	set_param(data, key, &dir, &cam_plane);
 	move = init_dvec(data->direction.x * MOVE_SPEED,
 		data->direction.y * MOVE_SPEED);
-	if (obstacle(data))
+	if (obstacle(data, &move))
 	{
 		data->direction = dir;
 		data->camera_plane = cam_plane;
