@@ -9,5 +9,6 @@
 !**/*.c
 !**/*.h
 !mlx/*
+!/src/mlx/
 mlx/
 !assets/*

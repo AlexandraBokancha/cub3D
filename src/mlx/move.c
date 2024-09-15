@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:46:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/15 19:32:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/15 19:56:08 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 /**
  * @brief Set necessary parameter and save the original one in dir && cam_plane
@@ -37,7 +37,6 @@ static void	set_param(t_data *data, int key, t_dvec *dir, t_dvec *cam_plane)
 	{
 		data->direction = init_dvec(-dir->x, -dir->y);
 		data->camera_plane = init_dvec(-cam_plane->x, -cam_plane->y);
-
 	}
 	if (key == D)
 	{
@@ -130,7 +129,7 @@ void	move(t_data *data, int key)
 
 	set_param(data, key, &dir, &cam_plane);
 	move = init_dvec(data->direction.x * MOVE_SPEED,
-		data->direction.y * MOVE_SPEED);
+			data->direction.y * MOVE_SPEED);
 	if (obstacle(data, &move))
 	{
 		data->direction = dir;

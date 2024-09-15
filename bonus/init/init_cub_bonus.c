@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/04 08:36:29 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/15 19:57:13 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static const char	*g_texture[9] = {
 	"./assets/door_side.xpm",
 	NULL
 };
-
 
 /**
  * @brief Initializes the screen for the cub3d program.

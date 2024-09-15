@@ -16,6 +16,7 @@ SRC_DIR := src
 ERROR_DIR := error
 INIT_DIR := init
 RENDER_DIR := render
+MLX_DIR := mlx
 
 ### BONUS_DIR ###
 BONUS_DIR := bonus
@@ -55,9 +56,6 @@ FT_FLAG := -L$(FT_DIR) -l$(FT)
 #                       +------------------------------+                      #
 define SRC_FILE :=
 	$(addprefix $(SRC_DIR)/, \
-		ft_mlx_pixel_put.c \
-		mlx_hook.c \
-		move.c \
 		copy_map.c
 	)
 endef
@@ -79,6 +77,14 @@ define RENDER_FILE :=
 	$(addprefix $(SRC_DIR)/$(RENDER_DIR)/, \
 		draw_column.c \
 		draw_floor_and_ceiling.c
+	)
+endef
+
+define MLX_FILE :=
+	$(addprefix $(SRC_DIR)/$(MLX_DIR)/, \
+		ft_mlx_pixel_put.c \
+		mlx_hook.c \
+		move.c
 	)
 endef
  
@@ -158,7 +164,8 @@ OBJ_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(SRC_FILE:.c=.o)))
 OBJ_ERROR := $(addprefix $(OBJ_DIR)/, $(notdir $(ERROR_FILE:.c=.o)))
 OBJ_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(INIT_FILE:.c=.o)))
 OBJ_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(RENDER_FILE:.c=.o)))
-OBJ := $(OBJ_SRC) $(OBJ_ERROR) $(OBJ_INIT) $(OBJ_RENDER)
+OBJ_MLX := $(addprefix $(OBJ_DIR)/, $(notdir $(MLX_FILE:.c=.o)))
+OBJ := $(OBJ_SRC) $(OBJ_ERROR) $(OBJ_INIT) $(OBJ_RENDER) $(OBJ_MLX)
 
 #                       +------------------------------+                      #
 #                       +         MANDATORY            +                      #
@@ -222,6 +229,11 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/$(INIT_DIR)/%.c
 
 ### Compiling RENDER_FILE ###
 $(OBJ_DIR)/%.o : $(SRC_DIR)/$(RENDER_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling MLX_FILE ###
+$(OBJ_DIR)/%.o : $(SRC_DIR)/$(MLX_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
