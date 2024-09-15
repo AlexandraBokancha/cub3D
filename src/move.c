@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:46:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 18:53:54 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/15 19:28:06 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static	t_dvec	get_wall_dist(t_data *data)
 	ray = raycast(data, 960);
 	wall_dist.x = fabs(ray.h_side.x);
 	if (wall_dist.x > 0.05 && ray.hit != 1)
-		wall_dist.x -= 0.05;
+		wall_dist.x -= 0.04;
 	data->direction.x = 0;
 	data->direction.y = 1;
 	if (old_dir.y < 0)
@@ -107,7 +107,7 @@ static	t_dvec	get_wall_dist(t_data *data)
 	ray = raycast(data, 960);
 	wall_dist.y = fabs(ray.h_side.y);
 	if (wall_dist.y > 0.05 && ray.hit != 1)
-		wall_dist.y -= 0.05;
+		wall_dist.y -= 0.04;
 	data->direction = old_dir;
 	return (wall_dist);
 }

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 05:47:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 22:00:00 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/15 19:03:02 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
  */
 static int	check_north(t_data *data, t_raycast *ray)
 {
+	printf("ray->x = %d\n", ray->x);
 	if (data->map[ray->map.x][ray->map.y] == 'C')
 		return (correct_perp_wall_dist(ray, 0.05), 'C');
 	if (data->map[(int)ray->h_pos.x][ray->map.y] == 'O'
@@ -162,6 +163,10 @@ static int	check_west(t_data *data, t_raycast *ray)
  */
 int	check_hit(t_data *data, t_raycast *ray)
 {
+	if (ray->side == 0 && data->player.y == (double)(int)data->player.y)
+		data->player.y += 0.0000001;
+	if (ray->side == 1 && data->player.x == (double)(int)data->player.x)
+		data->player.x += 0.0000001;
 	get_hit_pos(data, ray);
 	if (ray->side == 1)
 	{
