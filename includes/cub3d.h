@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/15 18:27:07 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:17:29 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.06
 # define DELTA 2.2
-// # define DELTA 1.9
 
 /**
  * @struct s_ivec
@@ -420,63 +419,123 @@ typedef struct s_data
 	int			mouse_visibility;
 }				t_data;
 
-// ft_mlx_pixel_put.c
-void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
-
+/*  ______ _____  _____   ____  _____   */
+/* |  ____|  __ \|  __ \ / __ \|  __ \  */
+/* | |__  | |__) | |__) | |  | | |__) | */
+/* |  __| |  _  /|  _  /| |  | |  _  /  */
+/* | |____| | \ \| | \ \| |__| | | \ \  */
+/* |______|_|  \_\_|  \_\\____/|_|  \_\ */
+/*                                      */
 // Print error.c
 void		print_error(const char *func, int error_nbr);
 
-// free_cub.c
-void		free_cub(t_data *data);
-int			exit_cub(t_data *data);
-
+/*  _____ _   _ _____ _______  */
+/* |_   _| \ | |_   _|__   __| */
+/*   | | |  \| | | |    | |    */
+/*   | | | . ` | | |    | |    */
+/*  _| |_| |\  |_| |_   | |    */
+/* |_____|_| \_|_____|  |_|    */
+/*                             */
 // init_vec.c
 t_ivec		init_ivec(int x, int y);
 t_dvec		init_dvec(double x, double y);
-
 // init_cub.c
 void		init_player(t_data *data);
 t_data		*init_cub(void);
+// free_cub.c
+void		free_cub(t_data *data);
+int			exit_cub(t_data *data);
+// load_texure.c
+int			load_texture(t_data *data, const char **texture);
 
-// mlx_hook
-void		rotate(int keycode, t_data *data, double rotation_speed);
-int			key_hook(int keycode, void *param);
-
-// draw_column.c
-void		draw_column(t_data *data, t_raycast ray);
-
+/*  _____  ______ _   _ _____  ______ _____   */
+/* |  __ \|  ____| \ | |  __ \|  ____|  __ \  */
+/* | |__) | |__  |  \| | |  | | |__  | |__) | */
+/* |  _  /|  __| | . ` | |  | |  __| |  _  /  */
+/* | | \ \| |____| |\  | |__| | |____| | \ \  */
+/* |_|  \_\______|_| \_|_____/|______|_|  \_\ */
+/*                                            */
 // draw_floor_and_ceiling
 void		draw_floor_and_ceiling(t_data *data);
-
+// draw_column.c
+void		draw_column(t_data *data, t_raycast ray);
 //render.c
 t_raycast	raycast(t_data	*data, int x);
 int			render(void *param);
 
-// load_texure.c
-int			load_texture(t_data *data, const char **texture);
+/*  __  __ _     __   __ */
+/* |  \/  | |    \ \ / / */
+/* | \  / | |     \ V /  */
+/* | |\/| | |      > <   */
+/* | |  | | |____ / . \  */
+/* |_|  |_|______/_/ \_\ */
+/*                       */
+// ft_mlx_pixel_put.c
+void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+// mlx_hook
+void		rotate(int keycode, t_data *data, double rotation_speed);
+int			key_hook(int keycode, void *param);
+// move.c
+void		move(t_data *data, int key);
 
+/* ************************************************************************** */
+/*                      ____   ____  _   _ _    _  _____                      */
+/*                     |  _ \ / __ \| \ | | |  | |/ ____|                     */
+/*                     | |_) | |  | |  \| | |  | | (___                       */
+/*                     |  _ <| |  | | . ` | |  | |\___ \                      */
+/*                     | |_) | |__| | |\  | |__| |____) |                     */
+/*                     |____/ \____/|_| \_|\____/|_____/                      */
+/*                                                                            */
+/* ************************************************************************** */
+/*  _____  ______ _   _ _____  ______ _____   */
+/* |  __ \|  ____| \ | |  __ \|  ____|  __ \  */
+/* | |__) | |__  |  \| | |  | | |__  | |__) | */
+/* |  _  /|  __| | . ` | |  | |  __| |  _  /  */
+/* | | \ \| |____| |\  | |__| | |____| | \ \  */
+/* |_|  \_\______|_| \_|_____/|______|_|  \_\ */
+/*                                            */
+// get_hit_pos_bonus.c
+void		get_hit_pos(t_data *data, t_raycast *ray);
+// check_hit_bonus.c
+int			check_hit(t_data *data, t_raycast *ray);
+// correct_perp_wall_dist_bonus.c
+void		correct_perp_wall_dist(t_raycast *ray, double diff);
+
+/*  __  __ _____ _   _ _____ __  __          _____   */
+/* |  \/  |_   _| \ | |_   _|  \/  |   /\   |  __ \  */
+/* | \  / | | | |  \| | | | | \  / |  /  \  | |__) | */
+/* | |\/| | | | | . ` | | | | |\/| | / /\ \ |  ___/  */
+/* | |  | |_| |_| |\  |_| |_| |  | |/ ____ \| |      */
+/* |_|  |_|_____|_| \_|_____|_|  |_/_/    \_\_|      */
+/*                                                   */
 // init_minimap.c
 t_minimap	init_minimap(t_data *data);
 // draw_minimap.c
 void		draw_minimap(t_data *data);
 
+/*  _____   ____ _______    _______ ______  */
+/* |  __ \ / __ \__   __|/\|__   __|  ____| */
+/* | |__) | |  | | | |  /  \  | |  | |__    */
+/* |  _  /| |  | | | | / /\ \ | |  |  __|   */
+/* | | \ \| |__| | | |/ ____ \| |  | |____  */
+/* |_|  \_\\____/  |_/_/    \_\_|  |______| */
+/*                                          */
 // rotate_bonus.c
 int			camera_move(int x, int y, void *param);
 
-// get_hit_pos_bonus.c
-void		get_hit_pos(t_data *data, t_raycast *ray);
-
-// check_hit_bonus.c
-int			check_hit(t_data *data, t_raycast *ray);
+/*  _____   ____   ____  _____   _____  */
+/* |  __ \ / __ \ / __ \|  __ \ / ____| */
+/* | |  | | |  | | |  | | |__) | (___   */
+/* | |  | | |  | | |  | |  _  / \___ \  */
+/* | |__| | |__| | |__| | | \ \ ____) | */
+/* |_____/ \____/ \____/|_|  \_\_____/  */
+/*                                      */
+// 
+int			is_aiming_at_door(t_data *data, t_raycast *ray);
+void		check_door(t_data *data);
 
 // TESTING ????
 // COPY_MAP
-char	**get_map(char *map[]);
-
-
-// NEW_MOVE
-void	move(t_data *data, int key);
-void	correct_perp_wall_dist(t_raycast *ray, double diff);
-
+char		**get_map(char *map[]);
 
 #endif // !CUB3D_H

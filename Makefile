@@ -83,7 +83,7 @@ endef
 define MLX_FILE :=
 	$(addprefix $(SRC_DIR)/$(MLX_DIR)/, \
 		ft_mlx_pixel_put.c \
-		mlx_hook.c \
+		rotate.c \
 		move.c
 	)
 endef
@@ -107,6 +107,12 @@ endef
 define MANDATORY_RENDER_FILE :=
 	$(addprefix $(SRC_DIR)/$(RENDER_DIR)/, \
 		render.c
+	)
+endef
+
+define MANDATORY_MLX_FILE :=
+	$(addprefix $(SRC_DIR)/$(MLX_DIR)/, \
+		mlx_hook.c
 	)
 endef
  
@@ -134,6 +140,7 @@ endef
 
 define BONUS_DOOR_FILE :=
 	$(addprefix $(BONUS_DIR)/$(DOOR_DIR)/, \
+		door_bonus.c
 	)
 endef
 
@@ -176,8 +183,10 @@ OBJ_MANDATORY_INIT := $(addprefix $(OBJ_DIR)/, \
 					$(notdir $(MANDATORY_INIT_FILE:.c=.o)))
 OBJ_MANDATORY_RENDER := $(addprefix $(OBJ_DIR)/, \
 					$(notdir $(MANDATORY_RENDER_FILE:.c=.o)))
+OBJ_MANDATORY_MLX := $(addprefix $(OBJ_DIR)/, \
+					 $(notdir $(MANDATORY_MLX_FILE:.c=.o)))
 OBJ_MANDATORY := $(OBJ) $(OBJ_MANDATORY_SRC) $(OBJ_MANDATORY_INIT) \
-				$(OBJ_MANDATORY_RENDER)
+				$(OBJ_MANDATORY_RENDER) $(OBJ_MANDATORY_MLX)
 
 #                       +------------------------------+                      #
 #                       +           BONUS              +                      #

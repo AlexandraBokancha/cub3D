@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   adjust_door_dist_bonus.c                           :+:      :+:    :+:   */
+/*   open_door_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/09 22:02:44 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/09 22:06:53 by dbaladro         ###   ########.fr       */
+/*   Created: 2024/09/16 00:36:54 by dbaladro          #+#    #+#             */
+/*   Updated: 2024/09/16 12:32:45 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-/**
- * @brief Adjust the ray->side_dist when hitting a door to give it some 3D
- *
- * Adjust the ray->side_dist changinf to change the perp_wall_dist
- * Give the door some 'fat' and realistic aspect
- *
- * @param	data	The cub3D global data structure
- * @param	ray		The ray we're working with
- */
-void	adjust_door_dist(t_data *data, t_raycast *ray)
+void	open_door(t_data *data)
 {
+	t_raycast	ray;
+	t_ivec		pos;
 
+	ray = raycast(data, data->w_width / 2);
+	pos = init_ivec((int)ray.h_pos.x, (int)ray.h_pos.y);
+	if (!is_aiming_at_door(data, &ray))
+		return ;
+	if (data->map[pos.x][pos.y] == 'c'
+		|| data->map[pos.x][pos.y] == 'C')
+		data->map[pos.x][pos.y] += 12;
+	else if (data->map[pos.x][pos.y] == 'o'
+		|| data->map[pos.x][pos.y] == 'O')
+		data->map[pos.x][pos.y] -= 12;
+	else
+		return ;
 }

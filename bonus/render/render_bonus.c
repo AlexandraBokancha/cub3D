@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/14 18:56:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 00:26:19 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ int	render(void *param)
 	}
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
+	check_door(data);
 	printf("player_pos = %5f ; %5f\n", data->player.x, data->player.y);
 	printf("direction = %5f ; %5f\n\n", data->direction.x, data->direction.y);
 	return (0);
