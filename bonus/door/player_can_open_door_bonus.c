@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:25:11 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 15:37:49 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:36:11 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static int	check_right_door(t_data *data, t_ivec player, t_ivec h_pos)
 {
 	if (player.x != h_pos.x - 1)
 		return (1);
-	if (player.y == h_pos.y + 1 && data->player.y - player.y >= 0.85)
+	if (player.y == h_pos.y + 1 && data->player.y - player.y >= 0.80)
 		return (0);
-	if (player.y == h_pos.y && data->player.y - player.y <= 0.15)
+	if (player.y == h_pos.y && data->player.y - player.y <= 0.10)
 		return (0);
 	return (1);
 }
@@ -93,9 +93,9 @@ static int	check_left_door(t_data *data, t_ivec player, t_ivec h_pos)
 {
 	if (player.x != h_pos.x)
 		return (1);
-	if (player.y == h_pos.y && data->player.y - player.y >= 0.85)
+	if (player.y == h_pos.y && data->player.y - player.y >= 0.80)
 		return (0);
-	if (player.y == h_pos.y + 1 && data->player.y - player.y <= 0.15)
+	if (player.y == h_pos.y + 1 && data->player.y - player.y <= 0.10)
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:01 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 17:25:06 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/17 01:52:53 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,25 @@ static int	face_door(t_data *data, t_raycast *ray)
 {
 	ray->hit = check_hit(data, ray);
 	if (is_door(ray->hit))
-			return (1);
+		return (1);
 	ray->hit = data->map[(int)ray->h_pos.x][(int)ray->h_pos.y];
 	if (ray->side == 1)
 	{
 		if (ray->dir.x >= 0)
 			return ((ray->hit == 'C') * -1);
-			// return (is_side_door(ray->hit));
-			// return (is_door(ray->hit));
 		ray->hit = data->map[(int)ray->h_pos.x - 1][(int)ray->h_pos.y];
-		// return (is_side_door(ray->hit));
 		if (ray->hit != 'c')
 			return (0);
-		ray->h_pos.x -= 1;
+		ray->h_pos.x -= 1.0;
 		return (-1);
-		// return (is_door(ray->hit));
 	}
 	if (ray->dir.y >= 0.0)
-		// return (is_not_side_door(ray->hit));
-		// return (is_door(ray->hit));
 		return (-1 * (ray->hit == 'o'));
 	ray->hit = data->map[(int)ray->h_pos.x][(int)ray->h_pos.y - 1];
-	// return (is_not_side_door(ray->hit));
-	if(ray->hit != 'O')
+	if (ray->hit != 'O')
 		return (0);
-	ray->h_pos.y -= 1;
+	ray->h_pos.y -= 1.0;
 	return (-1);
-	// return (is_door(ray->hit));
 }
 
 /**
@@ -71,9 +63,12 @@ static int	face_door(t_data *data, t_raycast *ray)
  */
 static int	reach_door(t_data *data, t_raycast *ray)
 {
+	data->door = NULL;
 	data->door_status = face_door(data, ray);
 	if (data->door_status == 0)
 		return (0);
+	if (!data->door)
+		data->door = &(data->map[(int)ray->h_pos.x][(int)ray->h_pos.y]);
 	if (ray->side == 1)
 		return (ray->side_dist.x <= PLAYER_DOOR_REACH);
 	return (ray->side_dist.y <= PLAYER_DOOR_REACH);

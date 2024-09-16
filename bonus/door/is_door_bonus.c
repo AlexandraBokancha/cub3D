@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:51:00 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 15:04:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/17 01:51:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	is_not_side_door(int tile)
 		return (1);
 	return (0);
 }
+
 /**
  * @brief Check if the tile value is a door on map
  *

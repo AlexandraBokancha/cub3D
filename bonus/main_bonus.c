@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 17:15:54 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/17 01:34:11 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ char	*test_map_004[14] =
 	"100000000000001",
 	"100000000000001",
 	"100000000000001",
-	"100c0000000o001",
+	"100oW000000o001",
 	"100000000000001",
-	"1000000N0000001",
+	"100000000000001",
 	"111111111111111",
 	NULL
 };
@@ -169,8 +169,8 @@ int	main()
 	data->floor_color = 0x00474747;
 	// MINIMAP
 	init_player(data);
-	// data->player.x = 10.65;
-	// data->player.y = 7.5;
+	data->player.x = 4.3;
+	data->player.y = 3.5;
 	data->minimap = init_minimap(data);
 
 	// ROTATE_BONUS

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 05:47:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 16:31:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/17 01:53:54 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@
  */
 static int	check_north(t_data *data, t_raycast *ray)
 {
-	printf("ray->h_side (%5f;%5f)\nray->h_pos (%5f;%5f)\n\n", ray->h_side.x, ray->h_side.y, ray->h_pos.x, ray->h_pos.y);
+	printf("north\nray->h_side (%5f;%5f)\nray->h_pos (%5f;%5f)\n\n", ray->h_side.x, ray->h_side.y, ray->h_pos.x, ray->h_pos.y);
+	data->door = &data->map[ray->map.x][ray->map.y];
 	if (data->map[ray->map.x][ray->map.y] == 'C')
 		return (correct_perp_wall_dist(ray, 0.05), 'C');
+	data->door = &data->map[(int)ray->h_pos.x][ray->map.y];
 	if (data->map[(int)ray->h_pos.x][ray->map.y] == 'O'
 		&& modf(ray->h_pos.x, &(double){0}) <= 0.05)
 		return (correct_perp_wall_dist(ray,
@@ -44,6 +46,7 @@ static int	check_north(t_data *data, t_raycast *ray)
 		&& modf(ray->h_pos.x, &(double){0}) >= 0.95)
 		return (correct_perp_wall_dist(ray,
 				modf(ray->h_pos.x, &(double){0}) - 0.95), 'o');
+	data->door = &data->map[ray->map.x][ray->map.y + 1];
 	if (data->map[ray->map.x][ray->map.y + 1] == 'c')
 		return ('c');
 	if (data->map[(int)ray->h_pos.x][ray->map.y + 1] == 'O'
@@ -66,6 +69,8 @@ static int	check_north(t_data *data, t_raycast *ray)
  */
 static int	check_east(t_data *data, t_raycast *ray)
 {
+	printf("east\nray->h_side (%5f;%5f)\nray->h_pos (%5f;%5f)\n\n", ray->h_side.x, ray->h_side.y, ray->h_pos.x, ray->h_pos.y);
+	data->door = &data->map[ray->map.x][ray->map.y];
 	if (data->map[ray->map.x][ray->map.y] == 'o')
 		return (correct_perp_wall_dist(ray, 0.05), 'o');
 	if (data->map[ray->map.x][ray->map.y] == 'C'
@@ -76,6 +81,7 @@ static int	check_east(t_data *data, t_raycast *ray)
 		&& modf(ray->h_pos.y, &(double){0}) <= 0.05)
 		return (correct_perp_wall_dist(ray,
 				0.05 - modf(ray->h_pos.y, &(double){0})), 'c');
+	data->door = &data->map[ray->map.x + 1][ray->map.y];
 	if (data->map[ray->map.x + 1][ray->map.y] == 'O')
 		return ('O');
 	if (data->map[ray->map.x + 1][(int)ray->h_pos.y] == 'c'
@@ -98,8 +104,11 @@ static int	check_east(t_data *data, t_raycast *ray)
  */
 static int	check_south(t_data *data, t_raycast *ray)
 {
+	printf("south\nray->h_side (%5f;%5f)\nray->h_pos (%5f;%5f)\n\n", ray->h_side.x, ray->h_side.y, ray->h_pos.x, ray->h_pos.y);
+	data->door = &data->map[ray->map.x][ray->map.y];
 	if (data->map[ray->map.x][ray->map.y] == 'c')
 		return (correct_perp_wall_dist(ray, 0.05), 'c');
+	data->door = &data->map[(int)ray->h_pos.x][ray->map.y];
 	if (data->map[(int)ray->h_pos.x][ray->map.y] == 'O'
 		&& modf(ray->h_pos.x, &(double){0}) <= 0.05)
 		return (correct_perp_wall_dist(ray,
@@ -108,8 +117,10 @@ static int	check_south(t_data *data, t_raycast *ray)
 		&& modf(ray->h_pos.x, &(double){0}) >= 0.95)
 		return (correct_perp_wall_dist(ray,
 				modf(ray->h_pos.x, &(double){0}) - 0.95), 'o');
+	data->door = &data->map[ray->map.x][ray->map.y - 1];
 	if (data->map[ray->map.x][ray->map.y - 1] == 'C')
 		return ('C');
+	data->door = &data->map[(int)ray->h_pos.x][ray->map.y - 1];
 	if (data->map[(int)ray->h_pos.x][ray->map.y - 1] == 'o'
 			&& modf(ray->h_pos.x, &(double){0}) >= 0.95)
 		return ('o');
@@ -130,6 +141,9 @@ static int	check_south(t_data *data, t_raycast *ray)
  */
 static int	check_west(t_data *data, t_raycast *ray)
 {
+	printf("west\nray->h_side (%5f;%5f)\nray->h_pos (%5f;%5f)\n\n", ray->h_side.x, ray->h_side.y, ray->h_pos.x, ray->h_pos.y);
+	data->door = &data->map[ray->map.x][ray->map.y];
+	data->door = &data->map[ray->map.x][ray->map.y];
 	if (data->map[ray->map.x][ray->map.y] == 'O')
 		return (correct_perp_wall_dist(ray, 0.05), 'O');
 	if (data->map[ray->map.x][ray->map.y] == 'c'
@@ -140,6 +154,7 @@ static int	check_west(t_data *data, t_raycast *ray)
 		&& modf(ray->h_pos.y, &(double){0}) >= 0.95)
 		return (correct_perp_wall_dist(ray,
 				modf(ray->h_pos.y, &(double){0}) - 0.95), 'C');
+	data->door = &data->map[ray->map.x - 1][ray->map.y];
 	if (data->map[ray->map.x - 1][ray->map.y] == 'o')
 		return ('o');
 	if (data->map[ray->map.x - 1][ray->map.y] == 'c'
