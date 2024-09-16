@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 14:31:08 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:21:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,6 +401,16 @@ typedef struct s_texture
  *
  * @var s_data::camera_plane
  * Camera Y plane
+ *
+ * @var s_data::minimap
+ * minimap data structure for minimap rendering
+ *
+ * @var s_raycast::mouse_visibility
+ * Boolean indicating if the value mouse is visible or not
+ * Needed for mouse rotation bonus
+ *
+ * @var s_data::door_status
+ * Int indicating if the door can be opened or closed
  * */
 typedef struct s_data
 {
@@ -419,6 +429,7 @@ typedef struct s_data
 	t_dvec		camera_plane;
 	t_minimap	minimap;
 	int			mouse_visibility;
+	int			door_status;
 }				t_data;
 
 /*  ______ _____  _____   ____  _____   */
@@ -539,6 +550,8 @@ int			is_not_side_door(int tile);
 int			is_door(int tile);
 // door_raycast_bonus.c
 t_raycast	door_raycast(t_data	*data);
+// player_can_open_door_bonus.c
+int			player_can_open_door(t_data *data, t_raycast *ray);
 
 // 
 int			is_aiming_at_door(t_data *data, t_raycast *ray);

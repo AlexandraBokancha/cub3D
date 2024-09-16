@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 15:16:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:15:54 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,21 @@ char	*test_map_003[11] =
 	NULL
 };
 
-char	*test_map_004[8] =
+char	*test_map_004[14] =
 {
-	"11111111",
-	"11101111",
-	"111c1111",
-	"10o0O001",
-	"111C1111",
-	"111N1111",
-	"11111111",
+	"111111111111111",
+	"100000000000001",
+	"100000000000001",
+	"100O0000000C001",
+	"100000000000001",
+	"100000000000001",
+	"100000000000001",
+	"100000000000001",
+	"100000000000001",
+	"100c0000000o001",
+	"100000000000001",
+	"1000000N0000001",
+	"111111111111111",
 	NULL
 };
 
@@ -157,12 +163,14 @@ int	main()
 	if (!data)
 		return (1);
 	// PLAYER, COLOR AND CAMERA SETUP HAVE TO BE DONE IN THE INIT AFTER PARSING
-	data->map = get_map(test_map_003);
+	data->map = get_map(test_map_004);
 	data->map_size = get_map_size(data->map);
 	data->ceiling_color = 0x00645832;
 	data->floor_color = 0x00474747;
 	// MINIMAP
 	init_player(data);
+	// data->player.x = 10.65;
+	// data->player.y = 7.5;
 	data->minimap = init_minimap(data);
 
 	// ROTATE_BONUS

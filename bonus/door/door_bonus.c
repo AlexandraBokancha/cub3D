@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:02:44 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 15:20:38 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:26:41 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,76 +22,12 @@
  */
 static void	print_open_door(t_data *data, int color)
 {
-	mlx_string_put(data->mlx, data->window, data->w_width / 2,
-		data->w_height / 1.8, color, "OPEN");
-}
-
-/**
- * @brief Check if the player is looking at a door he can reach
- *
- * This function return 1 if the player can reach the door he's looking at
- *
- * @param	data	The cub3D global data structure
- * @return	1 if the player can reach the door an open it, else 0
- */
-// int	is_aiming_at_door(t_data *data, t_raycast *ray)
-// {
-// 	(void) data;
-// 	if (!(ray->hit == 'c' || ray->hit == 'C' || ray->hit == 'o' || ray->hit == 'O'))
-// 		return (0);
-// 	if (ray->side == 1)
-// 		return (ray->side_dist.x <= 0.35);
-// 	return (ray->side_dist.y <= 0.35);
-// }
-
-int	player_can_open_door(t_data *data, t_raycast *ray)
-{
-	t_ivec	player;
-	t_ivec	h_pos;
-
-	player = init_ivec((int)data->player.x, (int)data->player.y);
-	h_pos = init_ivec((int)ray->h_pos.x, (int)ray->h_pos.y);
-	if (ray->hit == 'c')
-	{
-		if (player.y != h_pos.y)
-			return (1);
-		if (player.x == h_pos.x && data->player.x - player.x >= 0.85)
-			return (0);
-		if (player.x == h_pos.x + 1 && data->player.x - player.x <= 0.15)
-			return (0);
-		return (1);
-	}
-	if (ray->hit == 'C')
-	{
-		if (player.y != h_pos.y - 1)
-			return (1);
-		if (player.x == h_pos.x && data->player.x - player.x >= 0.85)
-			return (0);
-		if (player.x == h_pos.x - 1 && data->player.x - player.x <= 0.15)
-			return (0);
-		return (1);
-	}
-	if (ray->hit == 'o')
-	{
-		if (player.x != h_pos.x - 1)
-			return (1);
-		if (player.y == h_pos.y + 1 && data->player.y - player.y >= 0.85)
-			return (0);
-		if (player.y == h_pos.y && data->player.y - player.y <= 0.15)
-			return (0);
-		return (1);
-	}
-	if (ray->hit == 'O')
-	{
-		if (player.x != h_pos.x)
-			return (1);
-		if (player.y == h_pos.y && data->player.y - player.y >= 0.85)
-			return (0);
-		if (player.y == h_pos.y + 1 && data->player.y - player.y <= 0.15)
-			return (0);
-		return (1);
-	}
-	return (0);
+	if (data->door_status == 1)
+		mlx_string_put(data->mlx, data->window, data->w_width / 2,
+			data->w_height / 1.8, color, "OPEN");
+	else
+		mlx_string_put(data->mlx, data->window, data->w_width / 2,
+			data->w_height / 1.8, color, "CLOSE");
 }
 
 /**

@@ -142,6 +142,7 @@ define BONUS_DOOR_FILE :=
 	$(addprefix $(BONUS_DIR)/$(DOOR_DIR)/, \
 		is_door_bonus.c \
 		door_raycast_bonus.c \
+		player_can_open_door_bonus.c \
 		door_bonus.c \
 		open_door_bonus.c
 	)

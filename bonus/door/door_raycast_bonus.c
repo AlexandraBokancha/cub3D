@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:01 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 15:11:12 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:25:06 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
  *
  * @param	data	The cub3D global data structure
  * @param	ray		The ray used to check for door infront of the player
- * @return	1 if the player is facing the door DOESNT MEAN REACHING IT, else 0
+ * @return	1 if the player is facing the door,
+ *			-1 player is facing the side of a door to possibly close the door
+ *			Else return 0
  */
 static int	face_door(t_data *data, t_raycast *ray)
 {
@@ -32,14 +34,28 @@ static int	face_door(t_data *data, t_raycast *ray)
 	if (ray->side == 1)
 	{
 		if (ray->dir.x >= 0)
-			return (is_side_door(ray->hit));
+			return ((ray->hit == 'C') * -1);
+			// return (is_side_door(ray->hit));
+			// return (is_door(ray->hit));
 		ray->hit = data->map[(int)ray->h_pos.x - 1][(int)ray->h_pos.y];
-		return (is_side_door(ray->hit));
+		// return (is_side_door(ray->hit));
+		if (ray->hit != 'c')
+			return (0);
+		ray->h_pos.x -= 1;
+		return (-1);
+		// return (is_door(ray->hit));
 	}
 	if (ray->dir.y >= 0.0)
-		return (is_not_side_door(ray->hit));
+		// return (is_not_side_door(ray->hit));
+		// return (is_door(ray->hit));
+		return (-1 * (ray->hit == 'o'));
 	ray->hit = data->map[(int)ray->h_pos.x][(int)ray->h_pos.y - 1];
-	return (is_not_side_door(ray->hit));
+	// return (is_not_side_door(ray->hit));
+	if(ray->hit != 'O')
+		return (0);
+	ray->h_pos.y -= 1;
+	return (-1);
+	// return (is_door(ray->hit));
 }
 
 /**
@@ -55,7 +71,8 @@ static int	face_door(t_data *data, t_raycast *ray)
  */
 static int	reach_door(t_data *data, t_raycast *ray)
 {
-	if (!face_door(data, ray))
+	data->door_status = face_door(data, ray);
+	if (data->door_status == 0)
 		return (0);
 	if (ray->side == 1)
 		return (ray->side_dist.x <= PLAYER_DOOR_REACH);
