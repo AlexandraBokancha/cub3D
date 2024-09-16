@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 00:26:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:26:40 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
  *
  * @return A t_raycast object containing all data for further processing
  */
-static t_raycast	init_ray(t_data *data, int screen_x)
+t_raycast	init_ray(t_data *data, int screen_x)
 {
 	t_raycast	ray;
 

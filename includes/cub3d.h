@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 12:17:29 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:31:08 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define D 0x0064
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
+# define F 0x0066
 
 /*
  * MINIMAP
@@ -78,6 +79,7 @@
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.06
 # define DELTA 2.2
+# define PLAYER_DOOR_REACH 0.4
 
 /**
  * @struct s_ivec
@@ -460,6 +462,7 @@ void		draw_floor_and_ceiling(t_data *data);
 // draw_column.c
 void		draw_column(t_data *data, t_raycast ray);
 //render.c
+t_raycast	init_ray(t_data *data, int screen_x);
 t_raycast	raycast(t_data	*data, int x);
 int			render(void *param);
 
@@ -530,9 +533,18 @@ int			camera_move(int x, int y, void *param);
 /* | |__| | |__| | |__| | | \ \ ____) | */
 /* |_____/ \____/ \____/|_|  \_\_____/  */
 /*                                      */
+// is_door_bonus.c
+int			is_side_door(int tile);
+int			is_not_side_door(int tile);
+int			is_door(int tile);
+// door_raycast_bonus.c
+t_raycast	door_raycast(t_data	*data);
+
 // 
 int			is_aiming_at_door(t_data *data, t_raycast *ray);
 void		check_door(t_data *data);
+// open_door_bonus.c
+void		open_door(t_data *data);
 
 // TESTING ????
 // COPY_MAP

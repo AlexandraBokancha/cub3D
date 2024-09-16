@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 05:47:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/15 19:03:02 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:15:28 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
  */
 static int	check_north(t_data *data, t_raycast *ray)
 {
-	printf("ray->x = %d\n", ray->x);
 	if (data->map[ray->map.x][ray->map.y] == 'C')
 		return (correct_perp_wall_dist(ray, 0.05), 'C');
 	if (data->map[(int)ray->h_pos.x][ray->map.y] == 'O'

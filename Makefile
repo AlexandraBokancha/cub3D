@@ -112,7 +112,7 @@ endef
 
 define MANDATORY_MLX_FILE :=
 	$(addprefix $(SRC_DIR)/$(MLX_DIR)/, \
-		mlx_hook.c
+		key_hook.c
 	)
 endef
  
@@ -140,7 +140,10 @@ endef
 
 define BONUS_DOOR_FILE :=
 	$(addprefix $(BONUS_DIR)/$(DOOR_DIR)/, \
-		door_bonus.c
+		is_door_bonus.c \
+		door_raycast_bonus.c \
+		door_bonus.c \
+		open_door_bonus.c
 	)
 endef
 
@@ -157,6 +160,12 @@ define BONUS_RENDER_FILE :=
 		check_hit_bonus.c \
 		correct_perp_wall_dist_bonus.c \
 		render_bonus.c
+	)
+endef
+
+define BONUS_MLX_FILE :=
+	$(addprefix $(BONUS_DIR)/$(MLX_DIR)/, \
+		key_hook_bonus.c
 	)
 endef
 
@@ -194,11 +203,13 @@ OBJ_MANDATORY := $(OBJ) $(OBJ_MANDATORY_SRC) $(OBJ_MANDATORY_INIT) \
 OBJ_BONUS_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SRC_FILE:.c=.o)))
 OBJ_BONUS_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_INIT_FILE:.c=.o)))
 OBJ_BONUS_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_RENDER_FILE:.c=.o)))
+OBJ_BONUS_MLX := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MLX_FILE:.c=.o)))
 OBJ_BONUS_MINIMAP := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MINIMAP_FILE:.c=.o)))
 OBJ_BONUS_ROTATE := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_ROTATE_FILE:.c=.o)))
 OBJ_BONUS_DOOR := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_DOOR_FILE:.c=.o)))
 OBJ_BONUS := $(OBJ) $(OBJ_BONUS_SRC) $(OBJ_BONUS_INIT) $(OBJ_BONUS_RENDER) \
-			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_ROTATE) $(OBJ_BONUS_DOOR)
+			 $(OBJ_BONUS_MLX) $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_ROTATE) \
+			 $(OBJ_BONUS_DOOR)
 
 
 # *************************************************************************** #
@@ -265,6 +276,11 @@ $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(INIT_DIR)/%.c
 
 ### Compiling BONUS_RENDER_FILE ###
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(RENDER_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling BONUS_MLX_FILE ###
+$(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MLX_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
