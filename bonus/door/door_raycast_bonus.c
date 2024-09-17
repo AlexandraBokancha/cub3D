@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:01 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/17 01:52:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/17 02:23:25 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 static int	face_door(t_data *data, t_raycast *ray)
 {
 	ray->hit = check_hit(data, ray);
+	if (ray->hit == 1)
+		return (0);
 	if (is_door(ray->hit))
 		return (1);
 	ray->hit = data->map[(int)ray->h_pos.x][(int)ray->h_pos.y];
@@ -92,7 +94,7 @@ t_raycast	door_raycast(t_data	*data)
 	ray.hit = 0;
 	if (reach_door(data, &ray))
 		return (ray);
-	while (ray.side_dist.x <= 1.0 || ray.side_dist.y <= 1.0)
+	while (ray.hit == 0 && (ray.side_dist.x <= 1.0 || ray.side_dist.y <= 1.0))
 	{
 		if (ray.side_dist.x < ray.side_dist.y)
 		{
