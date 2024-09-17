@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 20:25:29 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/15 19:22:33 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/17 02:40:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void	side_hit(t_data *data, t_raycast *ray)
 	real_side_dist = (ray->map.x + 1.0 - data->player.x) * real_delta_dist;
 	if (ray->dir.x < 0.0)
 		real_side_dist = (data->player.x - ray->map.x) * real_delta_dist;
-	delta = ray->side_dist.x / ray->delta_dist.x;
+	// delta = ray->side_dist.x / ray->delta_dist.x;
+	delta = real_side_dist / (real_delta_dist + 0.000000001);
 	ray->h_side.x = -(data->player.x - (int)data->player.x) - delta;
 	if (ray->dir.x >= 0)
 		ray->h_side.x = 1.0 + (int)data->player.x - data->player.x + delta;
@@ -72,7 +73,7 @@ static void	not_side_hit(t_data *data, t_raycast *ray)
 	real_side_dist = (ray->map.y + 1.0 - data->player.y) * real_delta_dist;
 	if (ray->dir.y < 0.0)
 		real_side_dist = (data->player.y - ray->map.y) * real_delta_dist;
-	delta = real_side_dist / real_delta_dist;
+	delta = real_side_dist / (real_delta_dist + 0.000000001);
 	ray->h_side.y = -(data->player.y - (int)data->player.y) - delta;
 	if (ray->dir.y >= 0)
 		ray->h_side.y = 1.0 + (int)data->player.y - data->player.y + delta;

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/16 14:26:40 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/17 02:33:08 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int	render(void *param)
 	{
 		ray = raycast(data, x);
 		draw_column(data, ray);
+		printf("x = %d\n", x);
 		x++;
 	}
 	draw_minimap(data);
