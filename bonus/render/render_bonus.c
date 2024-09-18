@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 19:41:12 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:52:18 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ int	render(void *param)
 		ray = raycast(data, x);
 		data->zbuffer[x] = ray.perp_wall_dist;
 		draw_column(data, ray);
-		printf("x = %d\n", x);
 		x++;
 	}
 	draw_sprite(data);

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:01 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 19:57:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 21:19:40 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	face_door(t_data *data, t_raycast *ray)
 		if (ray->dir.x >= 0)
 			return ((ray->hit == 'C') * -1);
 		ray->hit = data->map_info.map2d[(int)ray->h_pos.x - 1]
-			[(int)ray->h_pos.y];
+		[(int)ray->h_pos.y];
 		if (ray->hit != 'c')
 			return (0);
 		ray->h_pos.x -= 1.0;

@@ -1,11 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_column.c                                      :+:      :+:    :+:   */
+/*   draw_column_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 19:01:52 by dbaladro          #+#    #+#             */
+/*   Created: 2024/09/18 21:21:14 by dbaladro          #+#    #+#             */
+/*   Updated: 2024/09/18 21:21:33 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +69,8 @@ static t_draw	init_draw(t_data *data, const t_raycast *ray)
 		|| (ray->side == 0 && ray->dir.y < 0))
 		draw.tex_x = data->texture[draw.wall_orientation].size.x
 			- draw.tex_x - 1;
-	draw.step = 1.0 * data->texture[draw.wall_orientation].size.y / draw.column_size;
+	draw.step = 1.0 * data->texture[draw.wall_orientation].size.y
+		/ draw.column_size;
 	draw.tex_start = (draw.start - (double)data->w_height / 2
 			+ (double)draw.column_size / 2) * draw.step;
 	return (draw);

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:53:38 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:30:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 21:07:12 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	load_texture(t_data *data, t_texture *texture)
 	int	i;
 
 	i = 0;
-	while (i < 8 && texture[i].path)
+	while (i < TEXTURE_NBR && texture[i].path)
 	{
 		data->texture[i].img.img = mlx_xpm_file_to_image(data->mlx,
 				texture[i].path, &data->texture[i].size.x,
