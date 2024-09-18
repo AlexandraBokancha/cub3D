@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:28:01 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/17 02:23:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:57:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ static int	face_door(t_data *data, t_raycast *ray)
 		return (0);
 	if (is_door(ray->hit))
 		return (1);
-	ray->hit = data->map[(int)ray->h_pos.x][(int)ray->h_pos.y];
+	ray->hit = data->map_info.map2d[(int)ray->h_pos.x][(int)ray->h_pos.y];
 	if (ray->side == 1)
 	{
 		if (ray->dir.x >= 0)
 			return ((ray->hit == 'C') * -1);
-		ray->hit = data->map[(int)ray->h_pos.x - 1][(int)ray->h_pos.y];
+		ray->hit = data->map_info.map2d[(int)ray->h_pos.x - 1]
+			[(int)ray->h_pos.y];
 		if (ray->hit != 'c')
 			return (0);
 		ray->h_pos.x -= 1.0;
@@ -45,7 +46,7 @@ static int	face_door(t_data *data, t_raycast *ray)
 	}
 	if (ray->dir.y >= 0.0)
 		return (-1 * (ray->hit == 'o'));
-	ray->hit = data->map[(int)ray->h_pos.x][(int)ray->h_pos.y - 1];
+	ray->hit = data->map_info.map2d[(int)ray->h_pos.x][(int)ray->h_pos.y - 1];
 	if (ray->hit != 'O')
 		return (0);
 	ray->h_pos.y -= 1.0;
@@ -70,7 +71,8 @@ static int	reach_door(t_data *data, t_raycast *ray)
 	if (data->door_status == 0)
 		return (0);
 	if (!data->door)
-		data->door = &(data->map[(int)ray->h_pos.x][(int)ray->h_pos.y]);
+		data->door = &(data->map_info.map2d[(int)ray->h_pos.x]
+			[(int)ray->h_pos.y]);
 	if (ray->side == 1)
 		return (ray->side_dist.x <= PLAYER_DOOR_REACH);
 	return (ray->side_dist.y <= PLAYER_DOOR_REACH);

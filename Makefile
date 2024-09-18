@@ -74,7 +74,6 @@ endef
 
 define RENDER_FILE :=
 	$(addprefix $(SRC_DIR)/$(RENDER_DIR)/, \
-		draw_column.c \
 		draw_floor_and_ceiling.c
 	)
 endef
@@ -114,6 +113,7 @@ endef
 
 define MANDATORY_RENDER_FILE :=
 	$(addprefix $(SRC_DIR)/$(RENDER_DIR)/, \
+		draw_column.c \
 		render.c
 	)
 endef
@@ -178,6 +178,7 @@ define BONUS_RENDER_FILE :=
 		get_hit_pos_bonus.c \
 		check_hit_bonus.c \
 		correct_perp_wall_dist_bonus.c \
+		draw_column_bonus.c \
 		render_bonus.c
 	)
 endef
