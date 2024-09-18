@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 19:45:03 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 21:23:18 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	set_hook(t_data *data)
 	mlx_mouse_hide(data->mlx, data->window);
 	mlx_mouse_move(data->mlx, data->window, data->w_width / 2,
 		data->w_height / 2);
-	mlx_hook(data->window, ON_MOUSEMOVE, (1L<<6), &camera_move, data); // Mouse movment detection
+	mlx_hook(data->window, ON_MOUSEMOVE, (1L << 6), &camera_move, data);
 	mlx_key_hook(data->window, &key_hook, data);
 	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
 	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);
@@ -143,7 +143,7 @@ t_data	*init_cub(char *param)
 	{
 		data->sprites_arr = init_sprites(data);
 		init_tab_sprites(data);
-		load_sprite_image(data, data->sprites_tab);	
+		load_sprite_image(data, data->sprites_tab);
 	}
 	if (set_texture(data) != 0)
 		return (free_cub(data), NULL);

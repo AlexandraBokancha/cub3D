@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 20:55:00 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 21:32:06 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ void	free_map_content(t_data *data)
 		ft_free_tab(data->map_info.map2d, data->map_info.map2_height);
 }
 /**
- * @brief Frees the allocated memory and resources for sprites in the cub3D data structure.
+ * @brief	Frees the allocated memory and resources for sprites
+ *			in the cub3D data structure.
  *
  * This function iterates through the sprite array and destroys any associated
  * images using the MLX library.
- * After all sprites are freed, it deallocates the memory allocated for the sprite array. 
+ * After all sprites are freed,
+ * it deallocates the memory allocated for the sprite array. 
  * If no sprites are present (`data->sprites_nb == 0`), 
  * the function simply returns without doing anything.
  */
 
 void	free_sprite(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!data->sprites_nb)
@@ -76,7 +78,7 @@ void	free_cub(t_data *data)
 	{
 		free_sprite(data);
 		i = 0;
-		while (i < TEXTURE_NBR && data->texture[i].img.img != NULL) 
+		while (i < TEXTURE_NBR && data->texture[i].img.img != NULL)
 		{
 			mlx_destroy_image(data->mlx, data->texture[i].img.img);
 			i++;
