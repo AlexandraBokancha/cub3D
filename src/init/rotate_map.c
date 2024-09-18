@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 12:38:32 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 20:43:27 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/19 00:43:52 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	free_all(char ***tab, int pos)
 	*tab = NULL;
 }
 
-static int	get_map_size(char *map[])
+static t_ivec	get_map_size(char *map[])
 {
 	t_ivec	size;
 	int		col;
@@ -47,29 +47,29 @@ static int	get_map_size(char *map[])
 			size.y = col;
 		size.x++;
 	}
-	if (size.y > size.x)
-		return (size.y);
-	return (size.x);
+	return (size);
 }
 
-static char	**alloc_map(int size)
+static char	**alloc_map(t_ivec size)
 {
 	char	**new_tab;
 	int		i;
 
-	new_tab = (char **)malloc(sizeof(char *) * (size + 1));
+	new_tab = (char **)malloc(sizeof(char *) * (size.y + 1));
 	if (!new_tab)
 		return (print_error("malloc", errno), NULL);
-	memset(new_tab, 0, (sizeof(char *) * (size + 1)));
+	memset(new_tab, ' ', (sizeof(char *) * (size.y + 1)));
 	i = 0;
-	while (i < size)
+	while (i < size.y)
 	{
-		new_tab[i] = (char *)malloc(size + 1);
+		new_tab[i] = (char *)malloc(size.x + 1);
 		if (!new_tab[i])
 			return (print_error("malloc", errno), free_all(&new_tab, i), NULL);
-		memset(new_tab[i], 0, size + 1);
+		memset(new_tab[i], (int)' ', size.x + 1);
+		new_tab[i][size.x] = '\0';
 		i++;
 	}
+	new_tab[i] = NULL;
 	return (new_tab);
 }
 
@@ -84,7 +84,7 @@ static char	**alloc_map(int size)
  */
 char	**rotate_map(char *map[])
 {
-	int		size;
+	t_ivec	size;
 	int		x;
 	int		y;
 	char	**new_map;
@@ -94,11 +94,11 @@ char	**rotate_map(char *map[])
 	if (!new_map)
 		return (NULL);
 	x = 0;
-	while (x < size && map[x])
+	while (x < size.x && map[x])
 	{
-		y = ft_strlen(map[x]);
+		y = size.y;
 		while (y-- > 0)
-			new_map[size - 1 - y][x] = map[ft_tab_size(map) - 1 - x]
+			new_map[size.y - 1 - y][x] = map[ft_tab_size(map) - 1 - x]
 			[ft_strlen(map[x]) - 1 - y];
 		x++;
 	}
