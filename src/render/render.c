@@ -52,7 +52,7 @@
  *
  * @return A t_raycast object containing all data for further processing
  */
-static t_raycast	init_ray(t_data *data, int screen_x)
+t_raycast	init_ray(t_data *data, int screen_x)
 {
 	t_raycast	ray;
 
@@ -88,7 +88,7 @@ static t_raycast	init_ray(t_data *data, int screen_x)
  * This object contain every parameter for the raycast
  * plus a flag indicating the type of wall it hit
  */
-static t_raycast	raycast(t_data	*data, int x)
+t_raycast	raycast(t_data	*data, int x)
 {
 	t_raycast	ray;
 
