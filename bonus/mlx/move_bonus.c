@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:46:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 12:45:46 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:10:59 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,27 @@ static	t_dvec	get_wall_dist(t_data *data)
 }
 
 /**
+ * @brief Adjust value of player position
+ *
+ * This function is here to avoid rounded value which cause various issue
+ * during raycasting
+ *
+ * @param	data	The cub3D global data structure
+ */
+static void	adjust_player_pos(t_data *data)
+{
+	if (modf(data->player.x, &(double){0}) <= 0.01)
+		data->player.x += 0.01;
+	if (modf(data->player.x, &(double){0}) >= 0.99)
+		data->player.x -= 0.01;
+	if (modf(data->player.y, &(double){0}) <= 0.01)
+		data->player.y += 0.01;
+	if (modf(data->player.y, &(double){0}) >= 0.99)
+		data->player.y -= 0.01;
+	return ;
+}
+
+/**
  * @brief Perform move
  *
  * This function perform the movment checkup and action based on pressed key
@@ -141,6 +162,7 @@ void	move(t_data *data, int key)
 		data->player.x += move.x;
 	if (wall_dist.y > fabs(move.y * DELTA))
 		data->player.y += move.y;
+	adjust_player_pos(data);
 	data->direction = dir;
 	data->camera_plane = cam_plane;
 	return ;
