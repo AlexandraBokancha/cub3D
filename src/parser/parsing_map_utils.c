@@ -6,11 +6,11 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:01:31 by albokanc          #+#    #+#             */
-/*   Updated: 2024/08/30 18:43:15 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/18 14:08:02 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include  "../includes/cub3d.h"
+#include "../includes/cub3d.h"
 
 int	check_inside(char **map, int height)
 {
@@ -23,7 +23,7 @@ int	check_inside(char **map, int height)
 		y = 0;
 		while (map[x][y])
 		{
-			if (map[x][y] == 'N' || map[x][y] == 'W' || map[x][y] == 'E' || 
+			if (map[x][y] == 'N' || map[x][y] == 'W' || map[x][y] == 'E' ||
 				map[x][y] == 'S' || map[x][y] == '0')
 			{
 				if (!is_closed_inside(x, y, map, height))
@@ -33,7 +33,7 @@ int	check_inside(char **map, int height)
 		}
 		x++;
 	}
-	return (1);	
+	return (1);
 }
 
 int	is_wall(char *line, int last, int i)
@@ -67,20 +67,21 @@ int	is_closed(char **map, int height)
 
 int	check_char_in_line(char *line)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (line[i])
 	{
 		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' \
-			&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E' && line[i] != ' ') 
+				&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E'
+			&& line[i] != ' ')
 			return (write(2, "Error. Values are not valid\n", 29), 0);
 		i++;
 	}
 	return (1);
 }
 
-int is_valid_chars(char **map, int height)
+int	is_valid_chars(char **map, int height)
 {
 	int	i;
 

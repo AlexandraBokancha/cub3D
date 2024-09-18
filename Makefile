@@ -69,6 +69,7 @@ endef
 define INIT_FILE :=
 	$(addprefix $(SRC_DIR)/$(INIT_DIR)/, \
 		init_vec.c \
+		init_player.c \
 		init_map_utils.c
 	)
 endef

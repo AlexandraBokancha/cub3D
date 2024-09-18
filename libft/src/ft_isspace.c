@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 09:34:23 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 14:09:18 by dbaladro         ###   ########.fr       */
+/*   Created: 2024/09/18 13:55:44 by dbaladro          #+#    #+#             */
+/*   Updated: 2024/09/18 13:55:56 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes//libft.h"
 
-int	main(int ac, char **av)
+int	ft_isspace(char c)
 {
-	t_data	*data;
-
-	if (ac != 2)
-		return (write(2, "Error.\nProgram needs 2 arguments.\n", 34));
-	data = init_cub(av[1]);
-	if (!data)
+	if (c == ' ')
 		return (1);
-	mlx_loop(data->mlx);
-	mlx_do_sync(data->mlx);
-	free_cub(data);
 	return (0);
 }

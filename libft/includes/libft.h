@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:52:32 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/13 11:19:46 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:56:32 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char				**ft_split_str(const char *s, char *sep);
 void				ft_free_char_tab(char ***tab_p);
 size_t				ft_tab_size(char **tab);
 size_t				ft_nbrlen(const int nbr);
+int					ft_isspace(char c);
 
 // ft_printf
 int					ft_printf(const char *s, ...);

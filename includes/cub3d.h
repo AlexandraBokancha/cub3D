@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/10 15:23:37 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/18 13:58:00 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,7 +488,7 @@ typedef struct s_data
 	int			floor_color;
 	int			ceiling_color;
 	char		**map;
-	char		*texture_tab[4];
+	char		*texture_tab[5];
 	char		*sprites_tab[8];
 	t_ivec		tex;
 	//t_ivec		map_size;
@@ -516,9 +516,12 @@ int			exit_cub(t_data *data);
 t_ivec		init_ivec(int x, int y);
 t_dvec		init_dvec(double x, double y);
 
+// init_player.c
+void	init_player(t_data *data);
+
 // init_cub.c
 void		init_player(t_data *data);
-t_data		*init_cub(void);
+t_data		*init_cub(char *param);
 
 // mlx_hook
 int			key_hook(int keycode, void *param);
@@ -551,10 +554,8 @@ t_data	*init_map(t_data *data, char  *file_name);
 int		find_map_info(char **map, t_data *data);
 int		process_info_lines(t_data *data, char *line);
 void	copy_map(int map_pos, int height,  t_data *data);
-int		ft_isspace(char c);
 int		is_empty_line(char *line);
 int		map_h(char *file_name);
-void	init_tab_texture(t_data *data);
 
 
 // parsing.c
@@ -583,7 +584,7 @@ void    sort_sprites(t_data *data);
 void    update_sprite_frame(t_data *data, int i);
 int		get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice);
 void    process_sprite_y(t_data *data, int i, int stripe);
-void		draw_sprite(t_data *data);
+void	draw_sprite(t_data *data);
 void	free_sprite(t_data *data);
 
 
