@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 20:52:18 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/19 01:14:00 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,5 @@ int	render(void *param)
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
 	check_door(data);
 	free(data->zbuffer);
-	printf("player_pos = %5f ; %5f\n", data->player.x, data->player.y);
-	printf("direction = %5f ; %5f\n\n", data->direction.x, data->direction.y);
 	return (0);
 }

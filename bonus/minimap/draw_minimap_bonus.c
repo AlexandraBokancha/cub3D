@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:52:01 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/19 01:31:33 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static int	is_not_int_map(t_data *data, t_dvec map_pos)
 static void	put_minimap_pixel(t_data *data, t_minimap *minimap,
 	t_dvec map_pos, t_ivec draw_pos)
 {
-	if (is_not_int_map(data, map_pos))
+	if (is_not_int_map(data, map_pos)
+		|| data->map_info.map2d[(int)map_pos.x][(int)map_pos.y] == ' ')
 		ft_mlx_pixel_put(&data->img, draw_pos.x, draw_pos.y,
 			minimap->outbound_color);
 	else if (data->map_info.map2d[(int)map_pos.x][(int)map_pos.y] == '1')
