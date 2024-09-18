@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:31:45 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:57:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@
 # define R_DOOR_TEXTURE "./assets/right_door.xpm"
 # define L_DOOR_TEXTURE "./assets/left_door.xpm"
 # define PLAYER_TEXTURE "./assets/green_arrow.xpm"
+# define TEXTURE_NBR 7
 # define TEXTURE_WIDTH 64.0
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
@@ -552,7 +553,7 @@ typedef struct s_data
 	int			m_width;
 	int			sprites_nb;
 	t_img		img;
-	t_texture	texture[8];
+	t_texture	texture[7];
 	t_img		sprites[8];
 	int			floor_color;
 	int			ceiling_color;

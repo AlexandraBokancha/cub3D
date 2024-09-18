@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:50:31 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:56:41 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	free_cub(t_data *data)
 	{
 		free_sprite(data);
 		i = 0;
-		while (data->texture[i].img.img != NULL && i < 8)
+		while (data->texture[i].img.img != NULL && i < TEXTURE_NBR)
 		{
 			mlx_destroy_image(data->mlx, data->texture[i].img.img);
 			i++;

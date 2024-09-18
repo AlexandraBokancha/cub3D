@@ -190,6 +190,7 @@ endef
 
 define BONUS_MLX_FILE :=
 	$(addprefix $(BONUS_DIR)/$(MLX_DIR)/, \
+		move_bonus.c \
 		key_hook_bonus.c
 	)
 endef

@@ -6,26 +6,46 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:51:10 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:45:03 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
 /**
- * @brief The texture the game is going to load
+ * @brief Set all value of the cube3D data structure to default calues
+ *
+ * This function set all data value to NULL/0.
+ * It is needed for error && memory managment
+ * And for 42 Norm
+ *
+ * @param	data	The cub3D global data structure
  */
-static const char	*g_texture[9] = {
-	"./assets/tile065.xpm",
-	"./assets/tile068.xpm",
-	"./assets/tile073.xpm",
-	"./assets/tile085.xpm",
-	"./assets/green_arrow.xpm",
-	"./assets/right_door.xpm",
-	"./assets/left_door.xpm",
-	"./assets/door_side.xpm",
-	NULL
-};
+static void	set_default_value(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	data->mlx = NULL;
+	data->window = NULL;
+	data->img.img = NULL;
+	data->map = NULL;
+	data->w_width = DEFAULT_WIN_WIDTH;
+	data->w_height = DEFAULT_WIN_HEIGHT;
+	data->texture[0].img.img = NULL;
+	data->map_info.map2d = NULL;
+	while (++i < TEXTURE_NBR)
+		data->texture[i].path = NULL;
+	data->sprites[0].img = NULL;
+	data->colors.f_color = NULL;
+	data->colors.c_color = NULL;
+	data->map_info.map2d = NULL;
+	data->colors.f_color = NULL;
+	data->colors.c_color = NULL;
+	data->zbuffer = NULL;
+	data->sprites_nb = 0;
+	return ;
+}
 
 /**
  * @brief Initializes the screen for the cub3d program.
@@ -56,121 +76,77 @@ static t_data	*init_screen(t_data *data)
 }
 
 /**
- * @brief Set the player position, direction and camera plane
+ * @brief Set the necessary texture
  *
- * This function set the Player position, camera direction and camera_plane
- * according to the map information
+ * Set the correct path foor player and door sprite
+ * Then load all texture
  *
- * @param	data		The cub3D global data structure
- * @param	x			X position on the map
- * @param	y			Y position on the map
- * @param	orientation	Player orientation
+ * @param	data	The cub3D global data structure
+ * @return	1 on error, 0 on success
  */
-static void	set_player(t_data *data, int x, int y, char orientation)
+static int	set_texture(t_data *data)
 {
-	data->player.x = (double)x + 0.5;
-	data->player.y = (double)y + 0.5;
-	if (orientation == 'N')
-	{
-		data->direction.x = 0.0;
-		data->direction.y = 1.0;
-	}
-	if (orientation == 'S')
-	{
-		data->direction.x = 0.0;
-		data->direction.y = -1.0;
-	}
-	if (orientation == 'E')
-	{
-		data->direction.x = 1.0;
-		data->direction.y = 0.0;
-	}
-	if (orientation == 'W')
-	{
-		data->direction.x = -1.0;
-		data->direction.y = 0.0;
-	}
-	data->camera_plane.x = 0.66 * data->direction.y;
-	data->camera_plane.y = 0.66 * (-data->direction.x);
+	data->texture[4].path = PLAYER_TEXTURE;
+	data->texture[5].path = R_DOOR_TEXTURE;
+	data->texture[6].path = L_DOOR_TEXTURE;
+	return (load_texture(data, data->texture));
 }
 
 /**
- * @brief Init the player based on the map information
+ * @brief Set the mlx hook
  *
- * This function first find where the player is on the map
- * when it is found it will set all necessary data in the set_player function
+ * Set the the mouse to th center and hide it 
+ * Then set the key_hook / mouse_hook / ON_DESTROY hook
  *
  * @param	data	The cub3D global data structure
  */
-void	init_player(t_data *data)
+static void	set_hook(t_data *data)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	while (data->map_info.map2d[x])
-	{
-		y = 0;
-		while (data->map_info.map2d[x][y])
-		{
-			if (data->map_info.map2d[x][y] == 'N' || data->map_info.map2d[x][y] == 'S'
-					|| data->map_info.map2d[x][y] == 'E' || data->map_info.map2d[x][y] == 'W')
-			{
-				set_player(data, x, y, data->map_info.map2d[x][y]);
-				return ;
-			}
-			y++;
-		}
-		x++;
-	}
+	mlx_mouse_hide(data->mlx, data->window);
+	mlx_mouse_move(data->mlx, data->window, data->w_width / 2,
+		data->w_height / 2);
+	mlx_hook(data->window, ON_MOUSEMOVE, (1L<<6), &camera_move, data); // Mouse movment detection
+	mlx_key_hook(data->window, &key_hook, data);
+	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
+	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);
+	mlx_loop_hook(data->mlx, &render, data);
 	return ;
 }
 
-static t_data *init_info(t_data *data)
-{
-	data->map_info.map2d = NULL;
-	data->textures.S_path = NULL;
-	data->textures.N_path = NULL;
-	data->textures.E_path = NULL;
-	data->textures.W_path = NULL;
-	data->colors.f_color = NULL;
-	data->colors.c_color = NULL;
-	data->zbuffer = NULL;
-	data->sprites_nb = 0;
-	return (data);
-}
 /**
  * @brief Initializes the cub3d data structure.
  *
  * This function allocates and initializes a new cub3d data structure.
- * It sets the MLX instance, the MLX window, the image, and the map to NULL,
- * then it sets the window dimensions to the default values.
- * It then calls init_screen to initialize the screen.
- * If any of these operations fail, it returns NULL.
+ * It sets the MLX windows and all the program data
  *
+ * @param	param	The cub3D argument (av[1])
  * @return A pointer to the initialized cub3d data structure, or NULL on error
  */
-t_data	*init_cub(void)
+t_data	*init_cub(char *param)
 {
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(struct s_data));
 	if (!data)
 		return (print_error("malloc", errno), NULL);
-	data->mlx = NULL;
-	data->window = NULL;
-	data->img.img = NULL;
-	data->map = NULL;
-	data->w_width = DEFAULT_WIN_WIDTH;
-	data->w_height = DEFAULT_WIN_HEIGHT;
-	// data->texture[0].img = NULL;
-	data->sprites[0].img = NULL;
-	data = init_info(data);
-	data->texture[0].img.img = NULL;
+	set_default_value(data);
 	data = init_screen(data);
 	if (!data)
 		return (NULL);
-	if (load_texture(data, g_texture) != 0)
+	data = init_map_bonus(data, param);
+	if (!data)
+		return (NULL);
+	init_player(data);
+	data->minimap = init_minimap(data);
+	data->sprites_nb = count_sprites_nb(data);
+	if (data->sprites_nb)
+	{
+		data->sprites_arr = init_sprites(data);
+		init_tab_sprites(data);
+		load_sprite_image(data, data->sprites_tab);	
+	}
+	if (set_texture(data) != 0)
 		return (free_cub(data), NULL);
+	set_hook(data);
 	return (data);
 }

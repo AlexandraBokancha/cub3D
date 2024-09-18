@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:46:31 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/10 15:07:54 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/18 18:36:01 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int parsing_map_bonus(t_map_info *map_info)
 }
 int parsing_bonus(t_data *data)
 {
-	if (parsing_textures(&data->textures))
+	if (parsing_textures(data->texture))
         return (1);
     if (parsing_map_bonus(&data->map_info))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:52:18 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:41:12 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,8 @@ t_raycast	raycast(t_data	*data, int x)
 			ray.side_dist.y += ray.delta_dist.y;
 			ray.map.y += ray.step.y;
 		}
-<<<<<<< HEAD
-		hit = (data->map_info.map2d[(int)ray.map.x][(int)ray.map.y] == '1');
-=======
 		ray.side = (ray.side_dist.y >= ray.side_dist.x);
 		ray.hit = check_hit(data, &ray);
->>>>>>> door
 	}
 	ray.perp_wall_dist = ray.side_dist.y;
 	if (ray.side == 1)
