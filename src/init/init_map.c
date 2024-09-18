@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 13:54:46 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:32:41 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static int	search_map_info(char **map, t_data *data)
 		copy_map(data->map_info.map_pos, data->map_info.map2_height, data);
 	else
 		return (write(2, "Error. Map was not found\n", 26), 1);
+	if (!data->map_info.map2d)
+		return (1);
 	return (0);
 }
 

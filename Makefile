@@ -64,7 +64,7 @@ endef
  
 define INIT_FILE :=
 	$(addprefix $(SRC_DIR)/$(INIT_DIR)/, \
-		copy_map.c \
+		rotate_map.c \
 		init_vec.c \
 		init_player.c \
 		load_texture.c \

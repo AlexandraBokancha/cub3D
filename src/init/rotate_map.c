@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_map.c                                         :+:      :+:    :+:   */
+/*   rotate_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 12:38:32 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:45:31 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:43:27 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,16 @@ static char	**alloc_map(int size)
 	return (new_tab);
 }
 
-char	**get_map(char *map[])
+/**
+ * @brief Rotate the map passed as a parameter returning a new_allocated map
+ *
+ * This function is needed after the get_next_line to have
+ * a correct display of the map
+ *
+ * @param	map	The map that was read after get_net_line
+ * @return	The rotated_map NEWLY ALOCATED
+ */
+char	**rotate_map(char *map[])
 {
 	int		size;
 	int		x;

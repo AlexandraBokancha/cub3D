@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 15:30:15 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:46:49 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,27 @@ int	process_info_lines(t_data *data, char *line)
 
 void	copy_map(int map_pos, int height, t_data *data)
 {
-	int	i;
+	int		i;
+	char	**tmp_map;
 
 	i = 0;
-	data->map_info.map2d = (char **)malloc(sizeof(char *) * (height + 1));
-	if (!data->map_info.map2d)
+	tmp_map = (char **)malloc(sizeof(char *) * (height + 1));
+	if (!tmp_map)
 		return ((void)write(2, "Error. Malloc\n", 15));
 	while (i < height)
 	{
-		data->map_info.map2d[i] = ft_strdup(data->map[map_pos]);
-		if (!data->map_info.map2d[i])
+		tmp_map[i] = ft_strdup(data->map[map_pos]);
+		if (!tmp_map[i])
 			return ((void)write(2, "Error. Malloc\n", 15));
 		i++;
 		map_pos++;
 	}
-	data->map_info.map2d[i] = NULL;
+	tmp_map[i] = NULL;
+	data->map_info.map2d = rotate_map(tmp_map);
+	ft_free_char_tab(&tmp_map);
+	data->map_info.map2_height = ft_tab_size(data->map_info.map2d);
+	if (!data->map_info.map2d)
+		return ((void)write(2, "Error. Malloc\n", 15));
 }
 
 int	map_h(char *file_name)

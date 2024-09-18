@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 18:57:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:19:19 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@
 
 /*
  * MLX EVENTS
- */
-# define ON_MOUSEMOVE 6
+ */ # define ON_MOUSEMOVE 6
 # define ON_DESTROY 17
 
 /*
@@ -603,6 +602,8 @@ void		free_cub(t_data *data);
 int			exit_cub(t_data *data);
 // load_texure.c
 int			load_texture(t_data *data, t_texture *texture);
+// rotate_map.c
+char		**rotate_map(char *map[]);
 
 /*  _____  ______ _   _ _____  ______ _____   */
 /* |  __ \|  ____| \ | |  __ \|  ____|  __ \  */
