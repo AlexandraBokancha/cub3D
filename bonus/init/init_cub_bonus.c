@@ -6,12 +6,26 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/10 13:25:31 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/18 16:51:10 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+/**
+ * @brief The texture the game is going to load
+ */
+static const char	*g_texture[9] = {
+	"./assets/tile065.xpm",
+	"./assets/tile068.xpm",
+	"./assets/tile073.xpm",
+	"./assets/tile085.xpm",
+	"./assets/green_arrow.xpm",
+	"./assets/right_door.xpm",
+	"./assets/left_door.xpm",
+	"./assets/door_side.xpm",
+	NULL
+};
 
 /**
  * @brief Initializes the screen for the cub3d program.
@@ -149,11 +163,14 @@ t_data	*init_cub(void)
 	data->map = NULL;
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
-	data->texture[0].img = NULL;
+	// data->texture[0].img = NULL;
 	data->sprites[0].img = NULL;
 	data = init_info(data);
+	data->texture[0].img.img = NULL;
 	data = init_screen(data);
 	if (!data)
 		return (NULL);
+	if (load_texture(data, g_texture) != 0)
+		return (free_cub(data), NULL);
 	return (data);
 }

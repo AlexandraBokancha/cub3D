@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/10 15:39:18 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/18 16:50:31 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ void	free_sprite(t_data *data)
  * the cub3d data structure.
  * It frees the MLX instance, the window instance, the image, and the map.
  * If any of these resources are NULL, they are not freed.
- *
- * @param data A pointer to the cub3d data structure.
- */
+ * @param data A pointer to the cub3d data structure. */
 void	free_cub(t_data *data)
 {
 	int	i;
@@ -78,10 +76,9 @@ void	free_cub(t_data *data)
 	{
 		free_sprite(data);
 		i = 0;
-		while (i < 5)
+		while (data->texture[i].img.img != NULL && i < 8)
 		{
-			if (data->texture[0].img != NULL)
-				mlx_destroy_image(data->mlx, data->texture[i].img);
+			mlx_destroy_image(data->mlx, data->texture[i].img.img);
 			i++;
 		}
 		if (data->img.img)

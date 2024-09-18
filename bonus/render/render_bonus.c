@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/10 13:43:58 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/18 16:52:18 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
  *
  * @return A t_raycast object containing all data for further processing
  */
-static t_raycast	init_ray(t_data *data, int screen_x)
+t_raycast	init_ray(t_data *data, int screen_x)
 {
 	t_raycast	ray;
 
@@ -78,6 +78,7 @@ static t_raycast	init_ray(t_data *data, int screen_x)
 		ray.step.y = 1.0;
 	if (ray.dir.y >= 0)
 		ray.side_dist.y = (ray.map.y + 1.0 - data->player.y) * ray.delta_dist.y;
+	ray.side = (ray.side_dist.y >= ray.side_dist.x);
 	return (ray);
 }
 
@@ -89,32 +90,34 @@ static t_raycast	init_ray(t_data *data, int screen_x)
  * This object contain every parameter for the raycast
  * plus a flag indicating the type of wall it hit
  */
-static t_raycast	raycast(t_data	*data, int x)
+t_raycast	raycast(t_data	*data, int x)
 {
 	t_raycast	ray;
-	int			hit;
 
 	ray = init_ray(data, x);
-	hit = 0;
-	while (hit == 0)
+	ray.hit = check_hit(data, &ray);
+	while (ray.hit == 0)
 	{
 		if (ray.side_dist.x < ray.side_dist.y)
 		{
 			ray.side_dist.x += ray.delta_dist.x;
 			ray.map.x += ray.step.x;
-			ray.side = 0;
 		}
 		else
 		{
 			ray.side_dist.y += ray.delta_dist.y;
 			ray.map.y += ray.step.y;
-			ray.side = 1;
 		}
+<<<<<<< HEAD
 		hit = (data->map_info.map2d[(int)ray.map.x][(int)ray.map.y] == '1');
+=======
+		ray.side = (ray.side_dist.y >= ray.side_dist.x);
+		ray.hit = check_hit(data, &ray);
+>>>>>>> door
 	}
-	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
-	if (ray.side == 0)
-		ray.perp_wall_dist = ray.side_dist.x - ray.delta_dist.x;
+	ray.perp_wall_dist = ray.side_dist.y;
+	if (ray.side == 1)
+		ray.perp_wall_dist = ray.side_dist.x;
 	return (ray);
 }
 
@@ -150,11 +153,15 @@ int	render(void *param)
 		ray = raycast(data, x);
 		data->zbuffer[x] = ray.perp_wall_dist;
 		draw_column(data, ray);
+		printf("x = %d\n", x);
 		x++;
 	}
 	draw_sprite(data);
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
+	check_door(data);
 	free(data->zbuffer);
+	printf("player_pos = %5f ; %5f\n", data->player.x, data->player.y);
+	printf("direction = %5f ; %5f\n\n", data->direction.x, data->direction.y);
 	return (0);
 }

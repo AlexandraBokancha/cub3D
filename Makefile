@@ -17,11 +17,14 @@ ERROR_DIR := error
 INIT_DIR := init
 RENDER_DIR := render
 PARSER_DIR := parser
+MLX_DIR := mlx
 
 ### BONUS_DIR ###
 BONUS_DIR := bonus
 MINIMAP_DIR := minimap
 SPRITE_DIR	:= sprite
+ROTATE_DIR := rotate
+DOOR_DIR := door
 
 # *************************************************************************** #
 #                                 INCLUDES                                    #
@@ -53,13 +56,6 @@ FT_FLAG := -L$(FT_DIR) -l$(FT)
 #                       +------------------------------+                      #
 #                       +          GLOBAL              +                      #
 #                       +------------------------------+                      #
-define SRC_FILE :=
-	$(addprefix $(SRC_DIR)/, \
-		ft_mlx_pixel_put.c \
-		mlx_hook.c
-	)
-endef
-
 define ERROR_FILE :=
 	$(addprefix $(SRC_DIR)/$(ERROR_DIR)/, \
 		print_error.c
@@ -68,8 +64,10 @@ endef
  
 define INIT_FILE :=
 	$(addprefix $(SRC_DIR)/$(INIT_DIR)/, \
+		copy_map.c \
 		init_vec.c \
 		init_player.c \
+		load_texture.c \
 		init_map_utils.c
 	)
 endef
@@ -86,7 +84,14 @@ define PARSER_FILE :=
 		parsing.c \
 		parsing_utils.c \
 		parsing_map_utils.c \
-		parsing_map_utils2.c \
+		parsing_map_utils2.c
+	)
+endef
+
+define MLX_FILE :=
+	$(addprefix $(SRC_DIR)/$(MLX_DIR)/, \
+		ft_mlx_pixel_put.c \
+		rotate.c
 	)
 endef
  
@@ -113,6 +118,13 @@ define MANDATORY_RENDER_FILE :=
 	)
 endef
 
+define MANDATORY_MLX_FILE :=
+	$(addprefix $(SRC_DIR)/$(MLX_DIR)/, \
+		move.c \
+		key_hook.c
+	)
+endef
+ 
 #                       +------------------------------+                      #
 #                       +           BONUS              +                      #
 #                       +------------------------------+                      #
@@ -122,10 +134,26 @@ define BONUS_SRC_FILE :=
 	)
 endef
 
+define BONUS_ROTATE_FILE :=
+	$(addprefix $(BONUS_DIR)/$(ROTATE_DIR)/, \
+		rotate_bonus.c		
+	)
+endef
+
 define BONUS_MINIMAP_FILE :=
 	$(addprefix $(BONUS_DIR)/$(MINIMAP_DIR)/, \
 		init_minimap_bonus.c \
-		draw_minimap.c
+		draw_minimap_bonus.c
+	)
+endef
+
+define BONUS_DOOR_FILE :=
+	$(addprefix $(BONUS_DIR)/$(DOOR_DIR)/, \
+		is_door_bonus.c \
+		door_raycast_bonus.c \
+		player_can_open_door_bonus.c \
+		door_bonus.c \
+		open_door_bonus.c
 	)
 endef
 
@@ -147,6 +175,9 @@ endef
 
 define BONUS_RENDER_FILE :=
 	$(addprefix $(BONUS_DIR)/$(RENDER_DIR)/, \
+		get_hit_pos_bonus.c \
+		check_hit_bonus.c \
+		correct_perp_wall_dist_bonus.c \
 		render_bonus.c
 	)
 endef
@@ -157,12 +188,11 @@ define BONUS_PARSER_FILE :=
 	)
 endef
 
-# Minimap
-# define MINIMAP_FILE :=
-#
-# MINIMAP_DIR := minimap
-# MINIMAP_FILE := init_minimap.c \
-# 			   draw_minimap.c
+define BONUS_MLX_FILE :=
+	$(addprefix $(BONUS_DIR)/$(MLX_DIR)/, \
+		key_hook_bonus.c
+	)
+endef
 
 # *************************************************************************** #
 #                               OBJECT FILE                                   #
@@ -171,12 +201,12 @@ OBJ_DIR := .obj
 #                       +------------------------------+                      #
 #                       +          GLOBAL              +                      #
 #                       +------------------------------+                      #
-OBJ_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(SRC_FILE:.c=.o)))
 OBJ_ERROR := $(addprefix $(OBJ_DIR)/, $(notdir $(ERROR_FILE:.c=.o)))
 OBJ_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(INIT_FILE:.c=.o)))
 OBJ_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(RENDER_FILE:.c=.o)))
 OBJ_PARSER :=  $(addprefix $(OBJ_DIR)/, $(notdir $(PARSER_FILE:.c=.o)))
-OBJ := $(OBJ_SRC) $(OBJ_ERROR) $(OBJ_INIT) $(OBJ_RENDER) $(OBJ_PARSER)
+OBJ_MLX := $(addprefix $(OBJ_DIR)/, $(notdir $(MLX_FILE:.c=.o)))
+OBJ := $(OBJ_ERROR) $(OBJ_INIT) $(OBJ_RENDER) $(OBJ_MLX) $(OBJ_PARSER)
 
 #                       +------------------------------+                      #
 #                       +         MANDATORY            +                      #
@@ -189,8 +219,12 @@ OBJ_MANDATORY_RENDER := $(addprefix $(OBJ_DIR)/, \
 					$(notdir $(MANDATORY_RENDER_FILE:.c=.o)))
 OBJ_MANDATORY_PARSER := $(addprefix $(OBJ_DIR)/, \
 					$(notdir $(MANDATORY_PARSER_FILE:.c=.o)))
+OBJ_MANDATORY_MLX := $(addprefix $(OBJ_DIR)/, \
+					 $(notdir $(MANDATORY_MLX_FILE:.c=.o)))
+
 OBJ_MANDATORY := $(OBJ) $(OBJ_MANDATORY_SRC) $(OBJ_MANDATORY_INIT) \
-				$(OBJ_MANDATORY_RENDER) $(OBJ_MANDATORY_PARSER)
+				$(OBJ_MANDATORY_RENDER) $(OBJ_MANDATORY_MLX) \
+				$(OBJ_MANDATORY_PARSER )
 
 #                       +------------------------------+                      #
 #                       +           BONUS              +                      #
@@ -198,11 +232,16 @@ OBJ_MANDATORY := $(OBJ) $(OBJ_MANDATORY_SRC) $(OBJ_MANDATORY_INIT) \
 OBJ_BONUS_SRC := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SRC_FILE:.c=.o)))
 OBJ_BONUS_INIT := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_INIT_FILE:.c=.o)))
 OBJ_BONUS_RENDER := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_RENDER_FILE:.c=.o)))
+OBJ_BONUS_MLX := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MLX_FILE:.c=.o)))
 OBJ_BONUS_MINIMAP := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_MINIMAP_FILE:.c=.o)))
 OBJ_BONUS_SPRITE := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SPRITE_FILE:.c=.o)))
 OBJ_BONUS_PARSER :=  $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_PARSER_FILE:.c=.o)))
+OBJ_BONUS_ROTATE := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_ROTATE_FILE:.c=.o)))
+OBJ_BONUS_DOOR := $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_DOOR_FILE:.c=.o)))
+
 OBJ_BONUS := $(OBJ) $(OBJ_BONUS_SRC) $(OBJ_BONUS_INIT) $(OBJ_BONUS_RENDER) \
-			 $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_SPRITE) $(OBJ_BONUS_PARSER)
+			 $(OBJ_BONUS_MLX) $(OBJ_BONUS_MINIMAP) $(OBJ_BONUS_ROTATE) \
+			 $(OBJ_BONUS_DOOR) $(OBJ_BONUS_SPRITE) $(OBJ_BONUS_PARSER)
 
 
 # *************************************************************************** #
@@ -251,6 +290,11 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/$(PARSER_DIR)/%.c
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
 
+### Compiling MLX_FILE ###
+$(OBJ_DIR)/%.o : $(SRC_DIR)/$(MLX_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
 # *************************************************************************** #
 #                         MANDATORY COMPILE OBJECT                            #
 # *************************************************************************** #
@@ -273,6 +317,11 @@ $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(RENDER_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
+### Compiling BONUS_MLX_FILE ###
+$(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MLX_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
 ### Compiling BONUS_MINIMAP_FILE ###
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(MINIMAP_DIR)/%.c
 	@mkdir -p $(@D)
@@ -283,8 +332,18 @@ $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(SPRITE_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 
-### Compiling BONUS_RENDER_FILE ###
+### Compiling BONUS_PARSER_FILE ###
 $(OBJ_DIR)/%.o : $(BONUS_DIR)/$(PARSER_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling BONUS_DOOR ###
+$(OBJ_DIR)/%.o : $(BONUS_DIR)/$(DOOR_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
+
+### Compiling BONUS_ROTATE_FILE ###
+$(OBJ_DIR)/%.o : $(BONUS_DIR)/$(ROTATE_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I ./$(HEADER_DIR)  -c $< -o $@
 

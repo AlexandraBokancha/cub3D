@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 13:51:47 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:44:36 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ static void	set_default_value(t_data *data)
 	data->map = NULL;
 	data->w_width = DEFAULT_WIN_WIDTH;
 	data->w_height = DEFAULT_WIN_HEIGHT;
-	data->texture[0].img = NULL;
+	data->texture[0].img.img = NULL;
 	data->map_info.map2d = NULL;
-	data->textures.S_path = NULL;
-	data->textures.N_path = NULL;
-	data->textures.E_path = NULL;
-	data->textures.W_path = NULL;
+	data->texture[0].path = NULL;
+	data->texture[1].path = NULL;
+	data->texture[2].path = NULL;
+	data->texture[3].path = NULL;
+	data->texture[4].path = NULL;
 	data->colors.f_color = NULL;
 	data->colors.c_color = NULL;
 	return ;
@@ -69,50 +70,6 @@ static t_data	*init_screen(t_data *data)
 }
 
 /**
- * @brief Load the texture for cub3D
- *
- * This function loads the textures in the cubd3D program
- * IT DO NOT CHECK ERRORS right now
- *
- * @param	data			The cub3D global data structure
- * @param	texture_name	The array_with all textures path
- * @return	0 if no errors happened
- */
-static int	load_texture(t_data *data, char **texture_name)
-{
-	int	x;
-	int	y;
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		data->texture[i].img = mlx_xpm_file_to_image(data->mlx,
-				texture_name[i], &x, &y);
-		data->texture[i].addr = mlx_get_data_addr(data->texture[i].img,
-				&data->texture[i].bits_per_pixel, &data->texture[i].line_length,
-				&data->texture[i].endian);
-		i++;
-	}
-	return (0);
-}
-
-/**
- * @brief Init the data->texture_tab with all texture path
- *
- * 
- * @param	The cub3D global data structure
- */
-static void	init_tab_texture(t_data *data)
-{
-	data->texture_tab[0] = data->textures.N_path;
-	data->texture_tab[1] = data->textures.S_path;
-	data->texture_tab[2] = data->textures.W_path;
-	data->texture_tab[3] = data->textures.E_path;
-	data->texture_tab[4] = NULL;
-}
-
-/**
  * @brief Initializes the cub3d data structure.
  *
  * This function allocates and initializes a new cub3d data structure.
@@ -138,8 +95,7 @@ t_data	*init_cub(char *param)
 	data->floor_color = rgb_to_hex(data->colors.f_color);
 	data->ceiling_color = rgb_to_hex(data->colors.c_color);
 	init_player(data);
-	init_tab_texture(data);
-	load_texture(data, data->texture_tab);
+	load_texture(data, data->texture);
 	mlx_key_hook(data->window, &key_hook, data);
 	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
 	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);

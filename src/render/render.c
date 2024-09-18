@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 14:02:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/27 16:30:31 by alexandra        ###   ########.fr       */
+/*   Created: 2024/09/18 16:47:13 by dbaladro          #+#    #+#             */
+/*   Updated: 2024/09/18 16:47:15 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
  * Then it draw the image
  */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 /**
  * @brief Init a t_raycast variable
@@ -53,7 +53,7 @@
  *
  * @return A t_raycast object containing all data for further processing
  */
-static t_raycast	init_ray(t_data *data, int screen_x)
+t_raycast	init_ray(t_data *data, int screen_x)
 {
 	t_raycast	ray;
 
@@ -89,14 +89,13 @@ static t_raycast	init_ray(t_data *data, int screen_x)
  * This object contain every parameter for the raycast
  * plus a flag indicating the type of wall it hit
  */
-static t_raycast	raycast(t_data	*data, int x)
+t_raycast	raycast(t_data	*data, int x)
 {
 	t_raycast	ray;
-	int			hit;
 
 	ray = init_ray(data, x);
-	hit = 0;
-	while (hit == 0)
+	ray.hit = 0;
+	while (ray.hit == 0)
 	{
 		if (ray.side_dist.x < ray.side_dist.y)
 		{
@@ -110,7 +109,7 @@ static t_raycast	raycast(t_data	*data, int x)
 			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		hit = (data->map_info.map2d[(int)ray.map.x][(int)ray.map.y] == '1');
+		ray.hit = (data->map_info.map2d[(int)ray.map.x][(int)ray.map.y] == '1');
 	}
 	ray.perp_wall_dist = ray.side_dist.y - ray.delta_dist.y;
 	if (ray.side == 0)

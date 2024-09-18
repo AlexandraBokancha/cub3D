@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:36:13 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 13:58:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:30:15 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	is_empty_line(char *line)
 
 int	process_info_lines(t_data *data, char *line)
 {
-	if (!ft_strncmp(line, "NO ", 3) && !data->textures.N_path)
-		data->textures.N_path = line + 3;
-	else if (!ft_strncmp(line, "SO ", 3) && !data->textures.S_path)
-		data->textures.S_path = line + 3;
-	else if (!ft_strncmp(line, "WE ", 3) && !data->textures.W_path)
-		data->textures.W_path = line + 3;
-	else if (!ft_strncmp(line, "EA ", 3) && !data->textures.E_path)
-		data->textures.E_path = line + 3;
+	if (!ft_strncmp(line, "NO ", 3) && !data->texture[0].path)
+		data->texture[0].path = line + 3;
+	else if (!ft_strncmp(line, "SO ", 3) && !data->texture[2].path)
+		data->texture[2].path = line + 3;
+	else if (!ft_strncmp(line, "WE ", 3) && !data->texture[1].path)
+		data->texture[1].path = line + 3;
+	else if (!ft_strncmp(line, "EA ", 3) && !data->texture[3].path)
+		data->texture[3].path = line + 3;
 	else if (!ft_strncmp(line, "F ", 2) && !data->colors.f_color)
 		data->colors.f_color = line + 2;
 	else if (!ft_strncmp(line, "C ", 2) && !data->colors.c_color)

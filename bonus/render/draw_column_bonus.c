@@ -3,10 +3,9 @@
 /*                                                        :::      ::::::::   */
 /*   draw_column.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 16:46:18 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:46:53 by dbaladro         ###   ########.fr       */
+/*   Created: 2024/08/14 19:01:52 by dbaladro          #+#    #+#             */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +26,7 @@ static int	get_wall_orientation(t_raycast ray)
 		return (7);
 	if (ray.hit != 1)
 		return (DOOR);
-	if (ray.side == 0)
+	if (ray.side == 1)
 	{
 		if (ray.dir.x < 0)
 			return (WEST);
@@ -60,17 +59,16 @@ static t_draw	init_draw(t_data *data, const t_raycast *ray)
 		draw.end = data->w_height - 1;
 	draw.wall_orientation = get_wall_orientation(*ray) - 1;
 	draw.wall_x = data->player.x + ray->perp_wall_dist * ray->dir.x;
-	if (ray->side == 0)
+	if (ray->side == 1)
 		draw.wall_x = data->player.y + ray->perp_wall_dist * ray->dir.y;
 	draw.wall_x -= floorf(draw.wall_x);
 	draw.tex_x = (int)(draw.wall_x
 			* data->texture[draw.wall_orientation].size.x);
-	if ((ray->side == 0 && ray->dir.x > 0)
-		|| (ray->side == 1 && ray->dir.y < 0))
+	if ((ray->side == 1 && ray->dir.x > 0)
+		|| (ray->side == 0 && ray->dir.y < 0))
 		draw.tex_x = data->texture[draw.wall_orientation].size.x
 			- draw.tex_x - 1;
-	draw.step = 1.0 * data->texture[draw.wall_orientation].size.y
-		/ draw.column_size;
+	draw.step = 1.0 * data->texture[draw.wall_orientation].size.y / draw.column_size;
 	draw.tex_start = (draw.start - (double)data->w_height / 2
 			+ (double)draw.column_size / 2) * draw.step;
 	return (draw);

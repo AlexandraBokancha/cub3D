@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 14:03:18 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:47:33 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ static int	is_path(char **path)
 	return (1);
 }
 
-int	parsing_textures(t_texture *textures)
+int	parsing_textures(const t_texture *textures)
 {
-	if (!is_path(&textures->N_path) || !is_path(&textures->E_path) \
-		|| !is_path(&textures->S_path) || !is_path(&textures->W_path))
+	if (!is_path((char **)&textures[0].path)
+		|| !is_path((char **)&textures[1].path)
+		|| !is_path((char **)&textures[2].path)
+		|| !is_path((char **)&textures[3].path))
 		return (1);
 	return (0);
 }
@@ -124,7 +126,7 @@ static int	parsing_map(t_map_info *map_info)
  */
 int	parsing(t_data *data)
 {
-	if (parsing_textures(&data->textures))
+	if (parsing_textures(data->texture))
 		return (1);
 	if (parsing_map(&data->map_info))
 		return (1);

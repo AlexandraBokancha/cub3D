@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 13:58:00 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:31:45 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define EAST 2
 # define SOUTH 3
 # define WEST 4
+# define DOOR 6
 
 /*
  * KEYMAPPING
@@ -59,6 +60,7 @@
 # define D 0x0064
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
+# define F 0x0066
 
 /*
  * MINIMAP
@@ -71,13 +73,16 @@
 /*
  * DEFAULT CONFIGURATION
  */
+# define R_DOOR_TEXTURE "./assets/right_door.xpm"
+# define L_DOOR_TEXTURE "./assets/left_door.xpm"
 # define PLAYER_TEXTURE "./assets/green_arrow.xpm"
 # define TEXTURE_WIDTH 64.0
 # define TEXTURE_HEIGHT 64.0
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.06
-# define DELTA 1.9
 # define TRANSPARENT -16777216
+# define DELTA 2.2
+# define PLAYER_DOOR_REACH 0.4
 
 /**
  * @struct s_ivec
@@ -238,7 +243,7 @@ typedef struct s_minimap
  * @var s_raycast::delta_dist
  * A vector describing the distance between two walls (given a certain ray)
  *
- * @var s_raycast::map_pos
+ * @var s_raycast::map
  * A pair containing the actual ray position in the map (map = int player_pos)
  *
  * @var s_raycast::step
@@ -253,6 +258,16 @@ typedef struct s_minimap
  * @var s_raycast::side
  * 1 if the ray hit a EAST/WEST facing wall
  * 0 if the ray hit a NORTH/SOUTH facing wall
+ *
+ * @var s_raycast::hit
+ * Take the value of the hitten tile needed to render wall or door
+ *
+ * @var s_raycast::h_pos
+ * A pair of double containing the exact position of the ray hit
+ * needed to render door
+ *
+ * @var s_raycast::h_side
+ * Raycast vector, needed for door rendering
  */
 typedef struct s_raycast
 {
@@ -265,6 +280,9 @@ typedef struct s_raycast
 	t_ivec	map;
 	double	perp_wall_dist;
 	int		side;
+	int		hit;
+	t_dvec	h_pos;
+	t_dvec	h_side;
 }				t_raycast;
 
 /**
@@ -341,6 +359,7 @@ typedef struct s_img
 }				t_img;
 
 /**
+<<<<<<< HEAD
  * @struct t_map_info
  * @brief Structure holding map2d data
  * 
@@ -378,13 +397,13 @@ typedef	struct	s_map_info
  * @var t_texture::@_path
  * Path to the texture file
  */
-typedef struct s_texture
-{
-	char	*N_path;
-	char	*E_path;
-	char	*W_path;
-	char	*S_path;
-}				t_texture;
+// typedef struct s_texture
+// {
+// 	char	*N_path;
+// 	char	*E_path;
+// 	char	*W_path;
+// 	char	*S_path;
+// }				t_texture;
 
 /**
  * @struct t_colors
@@ -406,6 +425,31 @@ typedef	struct	s_colors
 }				t_colors;
 
 /**
+=======
+ * @struct s_texture
+ * @brief Structure to store texture path and image data
+ *
+ * This structure store the structure path and necessary data like
+ * size of it and MLX img
+ *
+ * @var s_texture::path
+ * Path to texture file
+ *
+ * @var s_texture::size
+ * Texture size in pixel, needed for rendering
+ *
+ * @var s_texture::img
+ * Texture MLX image
+ */
+typedef struct s_texture
+{
+	char	*path;
+	t_ivec	size;
+	t_img	img;
+}				t_texture;
+
+/**
+>>>>>>> door
  * @struct s_data
  * @brief cub3D holding all program data
  * 
@@ -436,6 +480,15 @@ typedef	struct	s_colors
  *
  * @var s_data::texture
  * The buffer containing pointer to the different textures
+ *	*	texture[0] = NORTH texture
+ *	*	texture[1] = EAST texture
+ *	*	texture[2] = SOUTH texture
+ *	*	texture[3] = WEST texture
+ *	*	texture[4] = PLAYER texture
+ *	*	texture[5] =  texture
+ *	*	texture[6] =  texture
+ *	*	texture[7] =  texture
+ *	*	texture[8] =  texture
  *
  * @var s_data::floor_color
  * TRGB floor color
@@ -460,6 +513,7 @@ typedef	struct	s_colors
  *
  * @var s_data::camera_plane
  * Camera Y plane
+<<<<<<< HEAD
  * 
  * @var s_data::textures
  * A structure holding the paths for the textures used in the game.
@@ -471,6 +525,21 @@ typedef	struct	s_colors
  * @var s_data::colors
  * A structure holding the color information for various elements in the game, including the
  * floor and ceiling.
+=======
+ *
+ * @var s_data::minimap
+ * minimap data structure for minimap rendering
+ *
+ * @var s_data::mouse_visibility
+ * Boolean indicating if the value mouse is visible or not
+ * Needed for mouse rotation bonus
+ *
+ * @var s_data::door
+ * pointer on door player is aiming at, easier for door opening
+ *
+ * @var s_data::door_status
+ * Int indicating if the door can be opened or closed
+>>>>>>> door
  * */
 typedef struct s_data
 {
@@ -483,7 +552,7 @@ typedef struct s_data
 	int			m_width;
 	int			sprites_nb;
 	t_img		img;
-	t_img		texture[5];
+	t_texture	texture[8];
 	t_img		sprites[8];
 	int			floor_color;
 	int			ceiling_color;
@@ -491,65 +560,120 @@ typedef struct s_data
 	char		*texture_tab[5];
 	char		*sprites_tab[8];
 	t_ivec		tex;
-	//t_ivec		map_size;
 	t_dvec		player;
 	t_dvec		direction;
 	t_dvec		camera_plane;
 	t_minimap	minimap;
-	t_texture	textures;
+	// t_texture	textures;
 	t_map_info	map_info;
 	t_colors	colors;
 	t_sprite	*sprites_arr;
+	int			mouse_visibility;
+	char		*door;
+	int			door_status;
 }				t_data;
 
-// ft_mlx_pixel_put.c
-void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
-
+/*  ______ _____  _____   ____  _____   */
+/* |  ____|  __ \|  __ \ / __ \|  __ \  */
+/* | |__  | |__) | |__) | |  | | |__) | */
+/* |  __| |  _  /|  _  /| |  | |  _  /  */
+/* | |____| | \ \| | \ \| |__| | | \ \  */
+/* |______|_|  \_\_|  \_\\____/|_|  \_\ */
+/*                                      */
 // Print error.c
 void		print_error(const char *func, int error_nbr);
 
-// free_cub.c
-void		free_cub(t_data *data);
-int			exit_cub(t_data *data);
-
+/*  _____ _   _ _____ _______  */
+/* |_   _| \ | |_   _|__   __| */
+/*   | | |  \| | | |    | |    */
+/*   | | | . ` | | |    | |    */
+/*  _| |_| |\  |_| |_   | |    */
+/* |_____|_| \_|_____|  |_|    */
+/*                             */
 // init_vec.c
 t_ivec		init_ivec(int x, int y);
 t_dvec		init_dvec(double x, double y);
-
 // init_player.c
-void	init_player(t_data *data);
-
-// init_cub.c
 void		init_player(t_data *data);
+// init_cub.c
 t_data		*init_cub(char *param);
+// free_cub.c
+void		free_cub(t_data *data);
+int			exit_cub(t_data *data);
+// load_texure.c
+int			load_texture(t_data *data, t_texture *texture);
 
-// mlx_hook
-int			key_hook(int keycode, void *param);
-int			camera_move(int x, int y, void *param);
-
-// draw_column.c
-void		draw_column(t_data *data, t_raycast ray);
-
+/*  _____  ______ _   _ _____  ______ _____   */
+/* |  __ \|  ____| \ | |  __ \|  ____|  __ \  */
+/* | |__) | |__  |  \| | |  | | |__  | |__) | */
+/* |  _  /|  __| | . ` | |  | |  __| |  _  /  */
+/* | | \ \| |____| |\  | |__| | |____| | \ \  */
+/* |_|  \_\______|_| \_|_____/|______|_|  \_\ */
+/*                                            */
 // draw_floor_and_ceiling
 void		draw_floor_and_ceiling(t_data *data);
-
+// draw_column.c
+void		draw_column(t_data *data, t_raycast ray);
 //render.c
+t_raycast	init_ray(t_data *data, int screen_x);
+t_raycast	raycast(t_data	*data, int x);
 int			render(void *param);
 
-t_data *init_map_bonus(t_data *data, char  *file_name);
 
+/*  __  __ _     __   __ */
+/* |  \/  | |    \ \ / / */
+/* | \  / | |     \ V /  */
+/* | |\/| | |      > <   */
+/* | |  | | |____ / . \  */
+/* |_|  |_|______/_/ \_\ */
+/*                       */
+// ft_mlx_pixel_put.c
+void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+// mlx_hook
+void		rotate(int keycode, t_data *data, double rotation_speed);
+int			key_hook(int keycode, void *param);
+// move.c
+void		move(t_data *data, int key);
+
+/* ************************************************************************** */
+/*                      ____   ____  _   _ _    _  _____                      */
+/*                     |  _ \ / __ \| \ | | |  | |/ ____|                     */
+/*                     | |_) | |  | |  \| | |  | | (___                       */
+/*                     |  _ <| |  | | . ` | |  | |\___ \                      */
+/*                     | |_) | |__| | |\  | |__| |____) |                     */
+/*                     |____/ \____/|_| \_|\____/|_____/                      */
+/*                                                                            */
+/* ************************************************************************** */
+t_data *init_map_bonus(t_data *data, char  *file_name);
+// init_sprite_bonus.c
+t_sprite	*init_sprites(t_data *data);
+/*  _____  ______ _   _ _____  ______ _____   */
+/* |  __ \|  ____| \ | |  __ \|  ____|  __ \  */
+/* | |__) | |__  |  \| | |  | | |__  | |__) | */
+/* |  _  /|  __| | . ` | |  | |  __| |  _  /  */
+/* | | \ \| |____| |\  | |__| | |____| | \ \  */
+/* |_|  \_\______|_| \_|_____/|______|_|  \_\ */
+/*                                            */
+// get_hit_pos_bonus.c
+void		get_hit_pos(t_data *data, t_raycast *ray);
+// check_hit_bonus.c
+int			check_hit(t_data *data, t_raycast *ray);
+// correct_perp_wall_dist_bonus.c
+void		correct_perp_wall_dist(t_raycast *ray, double diff);
+
+/*  __  __ _____ _   _ _____ __  __          _____   */
+/* |  \/  |_   _| \ | |_   _|  \/  |   /\   |  __ \  */
+/* | \  / | | | |  \| | | | | \  / |  /  \  | |__) | */
+/* | |\/| | | | | . ` | | | | |\/| | / /\ \ |  ___/  */
+/* | |  | |_| |_| |\  |_| |_| |  | |/ ____ \| |      */
+/* |_|  |_|_____|_| \_|_____|_|  |_/_/    \_\_|      */
+/*                                                   */
 // init_minimap.c
 t_minimap	init_minimap(t_data *data);
-
-// init_sprite_bonus.c
-
-t_sprite	*init_sprites(t_data *data);
-
 // draw_minimap.c
 void		draw_minimap(t_data *data);
 
 // init_map.c
-
 t_data	*init_map(t_data *data, char  *file_name);
 int		find_map_info(char **map, t_data *data);
 int		process_info_lines(t_data *data, char *line);
@@ -571,7 +695,7 @@ int		has_start_pos(char **map, int height);
 int		validate_value(char *color, int start, int end);
 int		rgb_to_hex(char *color);
 int		parsing_bonus(t_data *data);
-int		parsing_textures(t_texture *textures);
+int		parsing_textures(const t_texture *textures);
 int		parsing_colors(char *color);
 
 
@@ -588,5 +712,38 @@ void	draw_sprite(t_data *data);
 void	free_sprite(t_data *data);
 
 
+/*  _____   ____ _______    _______ ______  */
+/* |  __ \ / __ \__   __|/\|__   __|  ____| */
+/* | |__) | |  | | | |  /  \  | |  | |__    */
+/* |  _  /| |  | | | | / /\ \ | |  |  __|   */
+/* | | \ \| |__| | | |/ ____ \| |  | |____  */
+/* |_|  \_\\____/  |_/_/    \_\_|  |______| */
+/*                                          */
+// rotate_bonus.c
+int			camera_move(int x, int y, void *param);
+
+/*  _____   ____   ____  _____   _____  */
+/* |  __ \ / __ \ / __ \|  __ \ / ____| */
+/* | |  | | |  | | |  | | |__) | (___   */
+/* | |  | | |  | | |  | |  _  / \___ \  */
+/* | |__| | |__| | |__| | | \ \ ____) | */
+/* |_____/ \____/ \____/|_|  \_\_____/  */
+/*                                      */
+// is_door_bonus.c
+int			is_side_door(int tile);
+int			is_not_side_door(int tile);
+int			is_door(int tile);
+// door_raycast_bonus.c
+t_raycast	door_raycast(t_data	*data);
+// player_can_open_door_bonus.c
+int			player_can_open_door(t_data *data, t_raycast *ray);
+// int			is_aiming_at_door(t_data *data, t_raycast *ray);
+void		check_door(t_data *data);
+// open_door_bonus.c
+void		open_door(t_data *data);
+
+// TESTING ????
+// COPY_MAP
+char		**get_map(char *map[]);
 
 #endif // !CUB3D_H

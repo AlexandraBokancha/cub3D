@@ -1,47 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_minimap.c                                     :+:      :+:    :+:   */
+/*   draw_minimap_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:10:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/03 16:24:34 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/18 16:52:01 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-#include <math.h>
-
-/**
- * @brief Set the t_minimap.map_pos vector
- *
- * bin/This function set the map_pos vector that indicate which part of the map
- * we are rendering onj the minimap
- *
- * @param	data	the cub3D global data structure
- * @param	minimap	the t_minimap object we're working on
- * @return  The same t_minimap object with updated map_pos param 
- */
-// static t_minimap	set_minimap_val(t_data *data, t_minimap minimap)
-// {
-// 	minimap.map_pos = init_dvec(data->player.x, data->player.y);
-// 	// if (fabs(data->map_size.x - data->player.x) < minimap.block.x / 2.0)
-// 	// {
-// 	// 	if (minimap.map_pos.x < minimap.block.x / 2.0)
-// 	// 		minimap.map_pos.x = minimap.block.x / 2.0;
-// 	// 	else
-// 	// 		minimap.map_pos.x = data->map_size.x - minimap.block.x / 2.0;
-// 	// }
-// 	// if (fabs(data->map_size.y - data->player.y) < minimap.block.y / 2.0)
-// 	// {
-// 	// 	if (minimap.map_pos.y < minimap.block.y / 2.0)
-// 	// 		minimap.map_pos.y = minimap.block.y / 2.0;
-// 	// 	else
-// 	// 		minimap.map_pos.y = data->map_size.y - minimap.block.y / 2.0;
-// 	// }
-// 	return (minimap);
-// }
 
 /**
  * @brief Check if the map_position is inside the map
@@ -125,9 +94,9 @@ static int	get_color(t_data *data, t_dvec tex_pos, double cos_dir,
 	rotate_tex_pos.y = floorf(rotate_tex_pos.y) + 28.0;
 	if (rotate_tex_pos.y < 0)
 		rotate_tex_pos.y = 0;
-	color = (unsigned int)*(data->texture[4].addr
-			+ (int)rotate_tex_pos.x * data->texture[4].bits_per_pixel / 8
-			+ (int)rotate_tex_pos.y * data->texture[4].line_length);
+	color = (unsigned int)*(data->texture[4].img.addr
+			+ (int)rotate_tex_pos.x * data->texture[4].img.bits_per_pixel / 8
+			+ (int)rotate_tex_pos.y * data->texture[4].img.line_length);
 	return (color);
 }
 
