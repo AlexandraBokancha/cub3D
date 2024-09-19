@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:18:04 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/10 15:34:38 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/19 20:24:26 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,62 +15,66 @@
 /**
  * @brief Calculates the distance between each sprite and the player.
  *
- * This function computes the Euclidean distance between each sprite and the player's position on the map.
- * If a sprite is too close to the player (less than 0.8 units away), it is marked as inactive.
+ * This function computes the Euclidean distance between each sprite and
+ * the player's position on the map.
+ * If a sprite is too close to the player (less than 0.8 units away),
+ * it is marked as inactive.
  *
  * J'ai choisi 0.8 mais c'etait un peu aleatoire, j'ai suivi mon feeling
  */
-void    calculate_sprite_distances(t_data *data)
+void	calculate_sprite_distances(t_data *data)
 {
-    t_dvec  diff;
-    int i;
-    
-    i = 0;
-    while (i < data->sprites_nb)
-    {
-        if (!data->sprites_arr[i].is_active)
-        {
-            i++;
-            continue;
-        }
-        diff.x = data->sprites_arr[i].sprite_pos.x - data->player.x;
-        diff.y = data->sprites_arr[i].sprite_pos.y - data->player.y;
-        data->sprites_arr[i].distance = sqrt(diff.x * diff.x + diff.y * diff.y);
-        if (data->sprites_arr[i].distance < 0.8)
-            data->sprites_arr[i].is_active = 0;
-        i++;
-    }
+	t_dvec	diff;
+	int		i;
+
+	i = 0;
+	while (i < data ->sprites_nb)
+	{
+		if (!data->sprites_arr[i].is_active)
+		{
+			i++;
+			continue ;
+		}
+		diff.x = data->sprites_arr[i].sprite_pos.x - data->player.x;
+		diff.y = data->sprites_arr[i].sprite_pos.y - data->player.y;
+		data->sprites_arr[i].distance = sqrt(diff.x * diff.x + diff.y * diff.y);
+		if (data->sprites_arr[i].distance < 0.8)
+			data->sprites_arr[i].is_active = 0;
+		i++;
+	}
 }
+
 /**
  * @brief Sorts the sprites based on their distance from the player.
  */
-void    sort_sprites(t_data *data)
+void	sort_sprites(t_data *data)
 {
-    int i;
-    int j;
-    int max;
-    t_sprite temp;
+	t_sprite	temp;
+	int			i;
+	int			j;
+	int			max;
 
-    i = 0;
-    while (i < data->sprites_nb)
-    {
-        max = i;
-        j = i + 1;
-        while (j < data->sprites_nb)
-        {
-            if (data->sprites_arr[j].distance > data->sprites_arr[max].distance)
-                max = j;
-            j++;
-        }
-        if (max != i)
-        {
-            temp = data->sprites_arr[i];
-            data->sprites_arr[i] = data->sprites_arr[max];
-            data->sprites_arr[max] = temp;
-        }
-        i++;
-    }
+	i = 0;
+	while (i < data->sprites_nb)
+	{
+		max = i;
+		j = i + 1;
+		while (j < data->sprites_nb)
+		{
+			if (data->sprites_arr[j].distance > data->sprites_arr[max].distance)
+				max = j;
+			j++;
+		}
+		if (max != i)
+		{
+			temp = data->sprites_arr[i];
+			data->sprites_arr[i] = data->sprites_arr[max];
+			data->sprites_arr[max] = temp;
+		}
+		i++;
+	}
 }
+
 /**
  * @brief Updates the sprite's animation frame.
  *
@@ -83,15 +87,17 @@ void    sort_sprites(t_data *data)
  * sprite (a changer pour d'autres sprite sheet)
  * 
  */
-void    update_sprite_frame(t_data *data, int i)
+void	update_sprite_frame(t_data *data, int i)
 {
-    data->sprites_arr[i].frame_counter++;
-    if (data->sprites_arr[i].frame_counter >= 8)
-    {
-        data->sprites_arr[i].frame_counter = 0;
-        data->sprites_arr[i].current_slice = (data->sprites_arr[i].current_slice + 1) % 8;
-    }
+	data->sprites_arr[i].frame_counter++;
+	if (data->sprites_arr[i].frame_counter >= 8)
+	{
+		data->sprites_arr[i].frame_counter = 0;
+		data->sprites_arr[i].current_slice = \
+			(data->sprites_arr[i].current_slice + 1) % 8;
+	}
 }
+
 /**
  * @brief Retrieves the color of a pixel from an XPM sprite texture.
  *
@@ -102,15 +108,15 @@ void    update_sprite_frame(t_data *data, int i)
  *
  * @return The color value of the pixel at (x, y).
  */
-int get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice)
+int	get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice)
 {
-    int pixel_offset;
-    int color;
-    
-    pixel_offset = (y * data->sprites[current_slice].line_length) + (x * \
-        (data->sprites[current_slice].bits_per_pixel / 8));
-    color = *(int *)(data->sprites[current_slice].addr + pixel_offset);
-    return (color);
+	int	pixel_offset;
+	int	color;
+
+	pixel_offset = (y * data->sprites[current_slice].line_length) + (x * \
+		(data->sprites[current_slice].bits_per_pixel / 8));
+	color = *(int *)(data->sprites[current_slice].addr + pixel_offset);
+	return (color);
 }
 
 /**
@@ -123,24 +129,27 @@ int get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice)
  *
  * Sacree norminette
  */
-void    process_sprite_y(t_data *data, int i, int stripe)
+void	process_sprite_y(t_data *data, int i, int stripe)
 {
-    int y;
-    int d;
-    
-    y = data->sprites_arr[i].draw_start.y;
-    while (y < data->sprites_arr[i].draw_end.y)
-    {
-        d = (y - data->sprites_arr[i].draw_start.y) * 256 - data->w_height * 128 + \
-            data->sprites_arr[i].sprite_size.y * 128;
-        data->tex.y = ((d * 32) / data->sprites_arr[i].sprite_size.y) / 256;
-		if (data->tex.x >= 0 && data->tex.x < 32 && data->tex.y >= 0 && data->tex.y < 32)
-        {
-            data->sprites_arr[i].color = get_pixel_color_from_xpm(data->tex.x, data->tex.y, \
-                data, data->sprites_arr[i].current_slice);
-            if ((data->sprites_arr[i].color & 0x00FFFFFF) != 0x000000)
-                ft_mlx_pixel_put(&data->img, stripe, y, data->sprites_arr[i].color);
-        }
-        y++;
-    }
+	int	y;
+	int	d;
+
+	y = data->sprites_arr[i].draw_start.y;
+	while (y < data->sprites_arr[i].draw_end.y)
+	{
+		d = (y - data->sprites_arr[i].draw_start.y) * 256 \
+			- data->w_height * 128 + \
+			data->sprites_arr[i].sprite_size.y * 128;
+		data->tex.y = ((d * 32) / data->sprites_arr[i].sprite_size.y) / 256;
+		if (data->tex.x >= 0 && data->tex.x < 32 && \
+			data->tex.y >= 0 && data->tex.y < 32)
+		{
+			data->sprites_arr[i].color = get_pixel_color_from_xpm(data->tex.x, \
+				data->tex.y, data, data->sprites_arr[i].current_slice);
+			if ((data->sprites_arr[i].color & 0x00FFFFFF) != 0x000000)
+				ft_mlx_pixel_put(&data->img, stripe, y, \
+					data->sprites_arr[i].color);
+		}
+		y++;
+	}
 }
