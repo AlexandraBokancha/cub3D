@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 20:44:54 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 21:17:54 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:34:30 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_tab_sprites(t_data *data)
 	data->sprites_tab[5] = "sprites/tile005.xpm";
 	data->sprites_tab[6] = "sprites/tile006.xpm";
 	data->sprites_tab[7] = "sprites/tile007.xpm";
-	data->sprites_tab[8] = NULL;
+	//data->sprites_tab[8] = NULL;
 }
 /**
  * @brief Counts the number of sprites on the map.

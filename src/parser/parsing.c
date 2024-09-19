@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 16:47:33 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:47:27 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	is_path(char **path)
 	fd = open(*path, O_RDONLY || O_WRONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("Error. Path texture is not valid: ", 2);
+		ft_putstr_fd("Error\n. Path texture is not valid: ", 2);
 		ft_putstr_fd(*path, 2);
 		return (ft_putstr_fd("\n", 2), 0);
 	}
