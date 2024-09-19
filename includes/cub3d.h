@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 20:19:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:14:54 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,27 +119,19 @@ typedef struct s_dvec
 	double	y;
 }				t_dvec;
 
-
 typedef	struct	s_sprite
 {
-	t_ivec		sprite_pos; // sprite pos on the map, eq = 'A'
-	double		distance; // the distance of sprite to the player
-	t_ivec		screen_pos; // position of sprite in camera space
-	double		perp_dist;			
-	t_ivec		sprite_size; // sprite's height and width on the screen
+	t_ivec		sprite_pos;
+	double		distance;
+	t_ivec		screen_pos;
+	double		perp_dist;		
+	t_ivec		sprite_size;
 	t_ivec		draw_start;
 	t_ivec		draw_end;
 	int			color;
 	int			current_slice;
 	int			frame_counter;
 	int			is_active;
-	//int			count;
-	//t_dvec		map_pos;
-	// int				frames; //  = 8 
-	// int				speed;
-	// int	time;
-	
-	
 }				t_sprite;
 
 /**
@@ -359,7 +351,6 @@ typedef struct s_img
 }				t_img;
 
 /**
-<<<<<<< HEAD
  * @struct t_map_info
  * @brief Structure holding map2d data
  * 
@@ -425,7 +416,6 @@ typedef	struct	s_colors
 }				t_colors;
 
 /**
-=======
  * @struct s_texture
  * @brief Structure to store texture path and image data
  *
@@ -449,7 +439,6 @@ typedef struct s_texture
 }				t_texture;
 
 /**
->>>>>>> door
  * @struct s_data
  * @brief cub3D holding all program data
  * 
@@ -513,7 +502,6 @@ typedef struct s_texture
  *
  * @var s_data::camera_plane
  * Camera Y plane
-<<<<<<< HEAD
  * 
  * @var s_data::textures
  * A structure holding the paths for the textures used in the game.
@@ -525,7 +513,6 @@ typedef struct s_texture
  * @var s_data::colors
  * A structure holding the color information for various elements in the game, including the
  * floor and ceiling.
-=======
  *
  * @var s_data::minimap
  * minimap data structure for minimap rendering
@@ -539,13 +526,12 @@ typedef struct s_texture
  *
  * @var s_data::door_status
  * Int indicating if the door can be opened or closed
->>>>>>> door
  * */
 typedef struct s_data
 {
 	void		*mlx;
 	void		*window;
-	double		*zbuffer; // to store the perpendicular distance of each stripe
+	double		*zbuffer;
 	int			w_height;
 	int			w_width;
 	int			m_height;
@@ -564,7 +550,6 @@ typedef struct s_data
 	t_dvec		direction;
 	t_dvec		camera_plane;
 	t_minimap	minimap;
-	// t_texture	textures;
 	t_map_info	map_info;
 	t_colors	colors;
 	t_sprite	*sprites_arr;

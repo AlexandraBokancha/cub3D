@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:44:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:43:42 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:10:30 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	ft_free_tab(char **tab, int height)
  *
  * This function is responsible for freeing the resources associated with
  * the cub3d data structure.
- * It frees the MLX instance, the window instance, the image, and the map.
- * If any of these resources are NULL, they are not freed.
+ * It frees the file content and the map itself.
  *
  * @param data A pointer to the cub3d data structure.
  */
