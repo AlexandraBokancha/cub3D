@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/19 19:14:54 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/20 12:13:29 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <sys/stat.h>
 # include <sys/time.h>
 # include <errno.h>
-#include <stdbool.h>
+# include <X11/keysym.h>
+
 
 
 # include "../libft/includes/libft.h"
@@ -37,7 +38,8 @@
 
 /*
  * MLX EVENTS
- */ # define ON_MOUSEMOVE 6
+ */
+# define ON_MOUSEMOVE 6
 # define ON_DESTROY 17
 
 /*
@@ -53,13 +55,18 @@
  * KEYMAPPING
  */
 # define ESC 0xFF1B
-# define W 0x0077
-# define A 0x0061
-# define S 0x0073
-# define D 0x0064
+# define W XK_w
+# define A XK_a
+# define S XK_s
+# define D XK_d
+# define F XK_F
+// # define W 0x0077
+// # define A 0x0061
+// # define S 0x0073
+// # define D 0x0064
+// # define F 0x0066
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
-# define F 0x0066
 
 /*
  * MINIMAP
