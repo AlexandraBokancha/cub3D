@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:52:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/10/03 14:56:56 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:09:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	key_hook(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == ESC)
 		exit_cub(data);
-	if (keycode == W || keycode == S || keycode == A || keycode == D)
+	if (keycode == W || keycode == S || keycode == A || keycode == D
+		|| keycode == ALT_W || keycode == ALT_D || keycode == ALT_S
+		|| keycode == ALT_A)
 		move(data, keycode);
 	if (keycode == ARROW_LEFT || keycode == ARROW_RIGHT)
 		rotate(keycode, data, ROTATION_SPEED);

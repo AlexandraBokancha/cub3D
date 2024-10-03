@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:46:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:46:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:11:21 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,18 @@ t_dvec	set_move(int key, t_dvec direction)
 
 	move = init_dvec(direction.x * MOVE_SPEED,
 			direction.y * MOVE_SPEED);
-	if (key == S)
+	if (key == S || key == ALT_S)
 	{
 		move.x = -move.x;
 		move.y = -move.y;
 	}
-	if (key == A)
+	if (key == A || key == ALT_A)
 	{
 		tmp = move.x;
 		move.x = -move.y;
 		move.y = tmp;
 	}
-	if (key == D)
+	if (key == D || key == ALT_D)
 	{
 		tmp = move.x;
 		move.x = move.y;
