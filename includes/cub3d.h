@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/10/03 14:02:28 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:52:57 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include <sys/time.h>
 # include <errno.h>
 # include <X11/keysym.h>
-
-
 
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
@@ -55,11 +53,16 @@
  * KEYMAPPING
  */
 # define ESC 0xFF1B
-# define W XK_w
-# define A XK_a
-# define S XK_s
-# define D XK_d
-# define F XK_F
+// # define W XK_w
+// # define A XK_a
+// # define S XK_s
+// # define D XK_d
+// # define F XK_F
+# define W 1731
+# define A 1734
+# define S 1753
+# define D 1751
+# define F XK_F // to open a door
 // # define W 0x0077
 // # define A 0x0061
 // # define S 0x0073
