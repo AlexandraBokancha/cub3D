@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/10/03 16:13:10 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:06:41 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@
 # define A 1734
 # define S 1753
 # define D 1751
+# define ALT_W 119
+# define ALT_D 100
+# define ALT_S 115
+# define ALT_A 97
 # define F XK_F // to open a door
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
