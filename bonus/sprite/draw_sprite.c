@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:57:45 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/19 20:43:25 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/10/03 17:36:13 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	sprite_to_camera(t_data *data, int i)
 	t_dvec	transform;
 	double	inv;
 
-	relative_pos.x = data->sprites_arr[i].sprite_pos.x - data->player.x;
-	relative_pos.y = data->sprites_arr[i].sprite_pos.y - data->player.y;
+	relative_pos.x = data->sprites_arr[i].sprite_pos.x + 0.5 - data->player.x;
+	relative_pos.y = data->sprites_arr[i].sprite_pos.y + 0.5 - data->player.y;
 	inv = 1.0 / (data->camera_plane.x * data->direction.y - \
 		data->direction.x * data->camera_plane.y);
 	transform.x = inv * (data->direction.y * relative_pos.x - \
@@ -84,9 +84,7 @@ void	init_draw(t_data *data, int i)
 	if (data->sprites_arr[i].draw_start.y < 0)
 		data->sprites_arr[i].draw_start.y = 0;
 	data->sprites_arr[i].draw_end.y = data->sprites_arr[i].sprite_size.y \
-		/ 2 + data->w_height / 2;
-	if (data->sprites_arr[i].draw_end.y >= data->w_height)
-		data->sprites_arr[i].draw_end.y = data->w_height - 1;
+		/ 2 + data->w_height / 2 ;
 	data->sprites_arr[i].draw_start.x = data->sprites_arr[i].sprite_size.x \
 		/ 2 + data->sprites_arr[i].screen_pos.x \
 		- (int)(data->sprites_arr[i].perp_dist \
@@ -118,14 +116,14 @@ void	put_sprite_pxl(t_data *data, int i)
 	stripe = data->sprites_arr[i].draw_start.x;
 	while (stripe < data->sprites_arr[i].draw_end.x)
 	{
-		if (data->sprites_arr[i].perp_dist > 0 && stripe >= 0 \
+		data->tex.x = (int)( 256 * (stripe - \
+			(-data->sprites_arr[i].sprite_size.x / \
+			2 + data->sprites_arr[i].screen_pos.x)) * 32 \
+			/ data->sprites_arr[i].sprite_size.x) / 256;
+		if (data->sprites_arr[i].perp_dist > 0 && stripe > 0 \
 			&& stripe < data->w_width && \
-			data->sprites_arr[i].perp_dist <= data->zbuffer[stripe] + 0.8)
+			data->sprites_arr[i].perp_dist < data->zbuffer[stripe])
 		{
-			data->tex.x = (int)((stripe - \
-				(-data->sprites_arr[i].sprite_size.x / \
-				2 + data->sprites_arr[i].screen_pos.x)) * 32 \
-				/ data->sprites_arr[i].sprite_size.x);
 			process_sprite_y(data, i, stripe);
 		}
 		stripe++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:18:04 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/19 20:24:26 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/10/03 17:41:06 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	calculate_sprite_distances(t_data *data)
 			i++;
 			continue ;
 		}
-		diff.x = data->sprites_arr[i].sprite_pos.x - data->player.x;
-		diff.y = data->sprites_arr[i].sprite_pos.y - data->player.y;
+		diff.x = data->sprites_arr[i].sprite_pos.x + 0.5 - data->player.x;
+		diff.y = data->sprites_arr[i].sprite_pos.y + 0.5 - data->player.y;
 		data->sprites_arr[i].distance = sqrt(diff.x * diff.x + diff.y * diff.y);
 		if (data->sprites_arr[i].distance < 0.8)
 			data->sprites_arr[i].is_active = 0;
@@ -137,9 +137,10 @@ void	process_sprite_y(t_data *data, int i, int stripe)
 	y = data->sprites_arr[i].draw_start.y;
 	while (y < data->sprites_arr[i].draw_end.y)
 	{
-		d = (y - data->sprites_arr[i].draw_start.y) * 256 \
-			- data->w_height * 128 + \
-			data->sprites_arr[i].sprite_size.y * 128;
+		// d = (y - data->sprites_arr[i].draw_start.y) * 256 \
+		// 	- data->w_height * 128 + \
+		// 	data->sprites_arr[i].sprite_size.y * 128;
+		d = (y * 256) - (data->w_height * 128) + (data->sprites_arr[i].sprite_size.y * 128);
 		data->tex.y = ((d * 32) / data->sprites_arr[i].sprite_size.y) / 256;
 		if (data->tex.x >= 0 && data->tex.x < 32 && \
 			data->tex.y >= 0 && data->tex.y < 32)
