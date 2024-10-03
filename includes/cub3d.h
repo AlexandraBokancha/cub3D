@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/19 16:02:12 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:02:28 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <sys/stat.h>
 # include <sys/time.h>
 # include <errno.h>
-#include <stdbool.h>
+# include <X11/keysym.h>
+
 
 
 # include "../libft/includes/libft.h"
@@ -37,7 +38,8 @@
 
 /*
  * MLX EVENTS
- */ # define ON_MOUSEMOVE 6
+ */
+# define ON_MOUSEMOVE 6
 # define ON_DESTROY 17
 
 /*
@@ -53,13 +55,18 @@
  * KEYMAPPING
  */
 # define ESC 0xFF1B
-# define W 0x0077
-# define A 0x0061
-# define S 0x0073
-# define D 0x0064
+# define W XK_w
+# define A XK_a
+# define S XK_s
+# define D XK_d
+# define F XK_F
+// # define W 0x0077
+// # define A 0x0061
+// # define S 0x0073
+// # define D 0x0064
+// # define F 0x0066
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
-# define F 0x0066
 
 /*
  * MINIMAP
@@ -119,14 +126,13 @@ typedef struct s_dvec
 	double	y;
 }				t_dvec;
 
-
 typedef	struct	s_sprite
 {
-	t_ivec		sprite_pos; // sprite pos on the map, eq = 'A'
-	double		distance; // the distance of sprite to the player
-	t_ivec		screen_pos; // position of sprite in camera space
-	double		perp_dist;			
-	t_ivec		sprite_size; // sprite's height and width on the screen
+	t_ivec		sprite_pos;
+	double		distance;
+	t_ivec		screen_pos;
+	double		perp_dist;		
+	t_ivec		sprite_size;
 	t_ivec		draw_start;
 	t_ivec		draw_end;
 	int			color;
@@ -353,7 +359,6 @@ typedef struct s_img
 }				t_img;
 
 /**
-<<<<<<< HEAD
  * @struct t_map_info
  * @brief Structure holding map2d data
  * 
@@ -419,7 +424,6 @@ typedef	struct	s_colors
 }				t_colors;
 
 /**
-=======
  * @struct s_texture
  * @brief Structure to store texture path and image data
  *
@@ -443,7 +447,6 @@ typedef struct s_texture
 }				t_texture;
 
 /**
->>>>>>> door
  * @struct s_data
  * @brief cub3D holding all program data
  * 
@@ -507,7 +510,6 @@ typedef struct s_texture
  *
  * @var s_data::camera_plane
  * Camera Y plane
-<<<<<<< HEAD
  * 
  * @var s_data::textures
  * A structure holding the paths for the textures used in the game.
@@ -519,7 +521,6 @@ typedef struct s_texture
  * @var s_data::colors
  * A structure holding the color information for various elements in the game, including the
  * floor and ceiling.
-=======
  *
  * @var s_data::minimap
  * minimap data structure for minimap rendering
@@ -533,13 +534,12 @@ typedef struct s_texture
  *
  * @var s_data::door_status
  * Int indicating if the door can be opened or closed
->>>>>>> door
  * */
 typedef struct s_data
 {
 	void		*mlx;
 	void		*window;
-	double		*zbuffer; // to store the perpendicular distance of each stripe
+	double		*zbuffer;
 	int			w_height;
 	int			w_width;
 	int			m_height;
@@ -558,7 +558,6 @@ typedef struct s_data
 	t_dvec		direction;
 	t_dvec		camera_plane;
 	t_minimap	minimap;
-	// t_texture	textures;
 	t_map_info	map_info;
 	t_colors	colors;
 	t_sprite	*sprites_arr;

@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 09:49:43 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/27 15:35:21 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/09/19 20:44:44 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s)
 	if (!dup)
 		return (NULL);
 	while (s[i])
-	{	
+	{
 		dup[i] = s[i];
 		i++;
 	}
