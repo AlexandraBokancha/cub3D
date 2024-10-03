@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:46:31 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 22:32:45 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:54:13 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int	parsing_bonus(t_data *data)
 		return (1);
 	if (parsing_colors(data->colors.f_color) != 3
 		|| parsing_colors(data->colors.c_color) != 3)
-		return (1);
+		return (write(1, "Error. Color value is missing\n", 33), 1);
 	return (0);
 }

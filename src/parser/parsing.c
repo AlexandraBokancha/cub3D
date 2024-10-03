@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:15:51 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/19 15:47:27 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:53:09 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	is_path(char **path)
 	fd = open(*path, O_RDONLY || O_WRONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("Error\n. Path texture is not valid: ", 2);
+		ft_putstr_fd("Error. Path texture is not valid: ", 2);
 		ft_putstr_fd(*path, 2);
 		return (ft_putstr_fd("\n", 2), 0);
 	}
@@ -132,6 +132,6 @@ int	parsing(t_data *data)
 		return (1);
 	if (parsing_colors(data->colors.f_color) != 3
 		|| parsing_colors(data->colors.c_color) != 3)
-		return (1);
+		return (write(1, "Error. Color value is missing\n", 33), 1);
 	return (0);
 }
