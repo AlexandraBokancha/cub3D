@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:49:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/10/03 22:34:14 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:39:11 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	key_hook(int keycode, void *param)
 			mlx_mouse_show(data->mlx, data->window);
 		data->mouse_visibility = (data->mouse_visibility ^ 1);
 	}
-	if (keycode == F)
+	if (keycode == F || keycode == ALT_F)
 		open_door(data);
 	if (keycode == ARROW_LEFT || keycode == ARROW_RIGHT)
 		rotate(keycode, data, ROTATION_SPEED);

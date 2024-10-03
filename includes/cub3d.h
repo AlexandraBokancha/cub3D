@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/10/03 19:28:11 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:38:50 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@
 # define ALT_D 100
 # define ALT_S 115
 # define ALT_A 97
-# define F 102 // to open a door
+# define ALT_F 102 // to open a door
 # define L 108 // To lock or unlock mouse in screen center
+# define F 1729 // to open a door
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
 
