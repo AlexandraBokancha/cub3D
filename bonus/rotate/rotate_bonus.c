@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:17:31 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/08/18 12:01:33 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:54:53 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	camera_move(int x, int y, void *param)
 
 	(void) y;
 	data = (t_data *)param;
+	if (data->mouse_visibility == 1)
+		return (0);
 	center = init_ivec(data->w_width / 2, data->w_height / 2);
 	rotate_speed = fabs((double)(x - center.x) / 100.0) * ROTATION_SPEED;
 	if (x < center.x)
@@ -40,6 +42,7 @@ int	camera_move(int x, int y, void *param)
 		direction = 0;
 	if (direction != 0)
 		rotate(direction, data, rotate_speed);
-	mlx_mouse_move(data->mlx, data->window, center.x, center.y);
+	if (!data->mouse_visibility)
+		mlx_mouse_move(data->mlx, data->window, center.x, center.y);
 	return (0);
 }

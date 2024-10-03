@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:57:45 by alexandra         #+#    #+#             */
-/*   Updated: 2024/10/03 17:36:13 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:35:30 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ void	put_sprite_pxl(t_data *data, int i)
 	stripe = data->sprites_arr[i].draw_start.x;
 	while (stripe < data->sprites_arr[i].draw_end.x)
 	{
-		data->tex.x = (int)( 256 * (stripe - \
-			(-data->sprites_arr[i].sprite_size.x / \
-			2 + data->sprites_arr[i].screen_pos.x)) * 32 \
-			/ data->sprites_arr[i].sprite_size.x) / 256;
+		data->tex.x = (int)(256 * (stripe - \
+		(-data->sprites_arr[i].sprite_size.x / \
+		2 + data->sprites_arr[i].screen_pos.x)) * 32 \
+		/ data->sprites_arr[i].sprite_size.x) / 256;
 		if (data->sprites_arr[i].perp_dist > 0 && stripe > 0 \
 			&& stripe < data->w_width && \
 			data->sprites_arr[i].perp_dist < data->zbuffer[stripe])

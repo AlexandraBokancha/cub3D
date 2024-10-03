@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:18:04 by alexandra         #+#    #+#             */
-/*   Updated: 2024/10/03 17:41:06 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:35:56 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,10 +137,8 @@ void	process_sprite_y(t_data *data, int i, int stripe)
 	y = data->sprites_arr[i].draw_start.y;
 	while (y < data->sprites_arr[i].draw_end.y)
 	{
-		// d = (y - data->sprites_arr[i].draw_start.y) * 256 \
-		// 	- data->w_height * 128 + \
-		// 	data->sprites_arr[i].sprite_size.y * 128;
-		d = (y * 256) - (data->w_height * 128) + (data->sprites_arr[i].sprite_size.y * 128);
+		d = (y * 256) - (data->w_height * 128)
+			+ (data->sprites_arr[i].sprite_size.y * 128);
 		data->tex.y = ((d * 32) / data->sprites_arr[i].sprite_size.y) / 256;
 		if (data->tex.x >= 0 && data->tex.x < 32 && \
 			data->tex.y >= 0 && data->tex.y < 32)

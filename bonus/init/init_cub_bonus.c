@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 22:30:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:23:35 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	set_default_value(t_data *data)
 	data->colors.f_color = NULL;
 	data->colors.c_color = NULL;
 	data->zbuffer = NULL;
+	data->mouse_visibility = 0;
 	data->sprites_nb = 0;
 	return ;
 }
@@ -107,6 +108,7 @@ static void	set_hook(t_data *data)
 		data->w_height / 2);
 	mlx_hook(data->window, ON_MOUSEMOVE, (1L << 6), &camera_move, data);
 	mlx_hook(data->window, 2, (1L << 0), &key_hook, data);
+	mlx_hook(data->window, 4, (1L << 2), &mouse_hook, data);
 	mlx_hook(data->window, ON_DESTROY, 0, &exit_cub, data);
 	mlx_loop_hook(data->mlx, &render, data);
 	return ;

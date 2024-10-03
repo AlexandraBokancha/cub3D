@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:49:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 21:20:12 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:34:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,18 @@ int	key_hook(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == ESC)
 		exit_cub(data);
-	if (keycode == W || keycode == S || keycode == A || keycode == D)
+	if (keycode == W || keycode == S || keycode == A || keycode == D
+		|| keycode == ALT_W || keycode == ALT_S || keycode == ALT_A
+		|| keycode == ALT_D)
 		move(data, keycode);
+	if (keycode == L)
+	{
+		if (data->mouse_visibility)
+			mlx_mouse_hide(data->mlx, data->window);
+		else
+			mlx_mouse_show(data->mlx, data->window);
+		data->mouse_visibility = (data->mouse_visibility ^ 1);
+	}
 	if (keycode == F)
 		open_door(data);
 	if (keycode == ARROW_LEFT || keycode == ARROW_RIGHT)

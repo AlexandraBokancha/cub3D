@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:46:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 23:10:59 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:34:46 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ static void	set_param(t_data *data, int key, t_dvec *dir, t_dvec *cam_plane)
 {
 	*dir = init_dvec(data->direction.x, data->direction.y);
 	*cam_plane = init_dvec(data->camera_plane.x, data->camera_plane.y);
-	if (key == A)
+	if (key == A || key == ALT_A)
 	{
 		data->direction = init_dvec(-dir->y, dir->x);
 		data->camera_plane = init_dvec(-cam_plane->y, cam_plane->x);
 	}
-	if (key == S)
+	if (key == S || key == ALT_S)
 	{
 		data->direction = init_dvec(-dir->x, -dir->y);
 		data->camera_plane = init_dvec(-cam_plane->x, -cam_plane->y);
 	}
-	if (key == D)
+	if (key == D || key == ALT_D)
 	{
 		data->direction = init_dvec(dir->y, -dir->x);
 		data->camera_plane = init_dvec(cam_plane->y, -cam_plane->x);

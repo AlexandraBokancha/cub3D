@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/10/03 17:06:41 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:28:11 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@
 # define ALT_D 100
 # define ALT_S 115
 # define ALT_A 97
-# define F XK_F // to open a door
+# define F 102 // to open a door
+# define L 108 // To lock or unlock mouse in screen center
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
 
@@ -670,6 +671,8 @@ void		move(t_data *data, int key);
 t_data		*init_map_bonus(t_data *data, char *file_name);
 // init_sprite_bonus.c
 t_sprite	*init_sprites(t_data *data);
+// mouse_hook_bonus.c
+int			mouse_hook(int button, int x, int y, void *param);
 /*  _____  ______ _   _ _____  ______ _____   */
 /* |  __ \|  ____| \ | |  __ \|  ____|  __ \  */
 /* | |__) | |__  |  \| | |  | | |__  | |__) | */
