@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:55:44 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 13:55:56 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:56:07 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes//libft.h"
+#include "../includes/libft.h"
 
 int	ft_isspace(char c)
 {

@@ -6,7 +6,7 @@
 /*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/10/03 14:52:57 by albokanc         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:13:10 by albokanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <sys/time.h>
 # include <errno.h>
 # include <X11/keysym.h>
-
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
 
@@ -53,21 +52,11 @@
  * KEYMAPPING
  */
 # define ESC 0xFF1B
-// # define W XK_w
-// # define A XK_a
-// # define S XK_s
-// # define D XK_d
-// # define F XK_F
 # define W 1731
 # define A 1734
 # define S 1753
 # define D 1751
 # define F XK_F // to open a door
-// # define W 0x0077
-// # define A 0x0061
-// # define S 0x0073
-// # define D 0x0064
-// # define F 0x0066
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
 
@@ -111,6 +100,7 @@ typedef struct s_ivec
 	int	x;
 	int	y;
 }				t_ivec;
+
 /**
  * @struct s_dvec
  * @brief 2D (double) vector structure
@@ -129,7 +119,48 @@ typedef struct s_dvec
 	double	y;
 }				t_dvec;
 
-typedef	struct	s_sprite
+/**
+ * @struct s_sprite
+ * @brief The structure holding all necessary data for animated sprites
+ * 
+ * This structure stores essential information
+ * for rendering and animating sprites in a 3D environment,
+ * including position, size, distance, and animation frames.
+ * 
+ * @var s_sprite::sprite_pos
+ * The 2D position of the sprite on the map.
+ * 
+ * @var s_sprite::distance
+ * The distance between the player and the sprite.
+ * 
+ * @var s_sprite::screen_pos
+ * The position of the sprite on the screen.
+ * 
+ * @var s_sprite::perp_dist
+ * The perpendicular distance from the player to the sprite.
+ * 
+ * @var s_sprite::sprite_size
+ * The size of the sprite on the screen.
+ * 
+ * @var s_sprite::draw_start
+ * The starting coordinates (X and Y) for drawing the sprite on the screen.
+ * 
+ * @var s_sprite::draw_end
+ * The ending coordinates (X and Y) for drawing the sprite on the screen.
+ * 
+ * @var s_sprite::color
+ * The color of the sprite.
+ * 
+ * @var s_sprite::current_slice
+ * The current slice of the sprite being rendered.
+ * 
+ * @var s_sprite::frame_counter
+ * The current frame counter for sprite animation.
+ * 
+ * @var s_sprite::is_active
+ * A flag indicating whether the sprite is currently active (1) or inactive (0).
+ */
+typedef struct s_sprite
 {
 	t_ivec		sprite_pos;
 	double		distance;
@@ -142,7 +173,6 @@ typedef	struct	s_sprite
 	int			current_slice;
 	int			frame_counter;
 	int			is_active;
-	
 }				t_sprite;
 
 /**
@@ -381,12 +411,12 @@ typedef struct s_img
  * Map index
  * 
  */
-typedef	struct	s_map_info
+typedef struct s_map_info
 {
-	char 	**map2d;
-	int	map2_height;
-	int	start_map;
-	int	map_pos;
+	char	**map2d;
+	int		map2_height;
+	int		start_map;
+	int		map_pos;
 }				t_map_info;
 
 /**
@@ -420,10 +450,10 @@ typedef	struct	s_map_info
  * @var t_colors::c_color
  * Ceiling color
  */
-typedef	struct	s_colors
+typedef struct s_colors
 {
-	char *f_color;
-	char *c_color;
+	char	*f_color;
+	char	*c_color;
 }				t_colors;
 
 /**
@@ -453,9 +483,9 @@ typedef struct s_texture
  * @struct s_data
  * @brief cub3D holding all program data
  * 
- * This structure contain all necessary program data such as:
- * MLX, window instance, window dimensions, the map, player info
- * camera info ...
+ * This structure contain all necessary program data
+ * such as: MLX, window instance, window dimensions,
+ * the map, player info camera info ...
  *
  * @var s_data::mlx
  * mlx connection 
@@ -480,15 +510,6 @@ typedef struct s_texture
  *
  * @var s_data::texture
  * The buffer containing pointer to the different textures
- *	*	texture[0] = NORTH texture
- *	*	texture[1] = EAST texture
- *	*	texture[2] = SOUTH texture
- *	*	texture[3] = WEST texture
- *	*	texture[4] = PLAYER texture
- *	*	texture[5] =  texture
- *	*	texture[6] =  texture
- *	*	texture[7] =  texture
- *	*	texture[8] =  texture
  *
  * @var s_data::floor_color
  * TRGB floor color
@@ -500,7 +521,8 @@ typedef struct s_texture
  * Game map
  * 
  * @var s_data::texture_tab
- * An array of strings representing the file paths to the textures used in the game.
+ * An array of strings representing the file paths to the
+ * textures used in the game.
  *
  * @var s_data::map_size
  * The vector represent the map size (in block)
@@ -518,12 +540,12 @@ typedef struct s_texture
  * A structure holding the paths for the textures used in the game.
  *
  * @var s_data::map_info
- * A structure containing additional information about the map, such as its starting position
- * and validation status.
+ * A structure containing additional information about the map,
+ * such as its starting position and validation status.
  *
  * @var s_data::colors
- * A structure holding the color information for various elements in the game, including the
- * floor and ceiling.
+ * A structure holding the color information for various elements in the game,
+ * including the floor and ceiling.
  *
  * @var s_data::minimap
  * minimap data structure for minimap rendering
@@ -617,7 +639,6 @@ t_raycast	init_ray(t_data *data, int screen_x);
 t_raycast	raycast(t_data	*data, int x);
 int			render(void *param);
 
-
 /*  __  __ _     __   __ */
 /* |  \/  | |    \ \ / / */
 /* | \  / | |     \ V /  */
@@ -642,7 +663,7 @@ void		move(t_data *data, int key);
 /*                     |____/ \____/|_| \_|\____/|_____/                      */
 /*                                                                            */
 /* ************************************************************************** */
-t_data *init_map_bonus(t_data *data, char  *file_name);
+t_data		*init_map_bonus(t_data *data, char *file_name);
 // init_sprite_bonus.c
 t_sprite	*init_sprites(t_data *data);
 /*  _____  ______ _   _ _____  ______ _____   */
@@ -672,43 +693,41 @@ t_minimap	init_minimap(t_data *data);
 void		draw_minimap(t_data *data);
 
 // init_map.c
-t_data	*init_map(t_data *data, char  *file_name);
-int		find_map_info(char **map, t_data *data);
-int		process_info_lines(t_data *data, char *line);
-void	copy_map(int map_pos, int height,  t_data *data);
-int		is_empty_line(char *line);
-int		map_h(char *file_name);
-
+t_data		*init_map(t_data *data, char *file_name);
+int			find_map_info(char **map, t_data *data);
+int			process_info_lines(t_data *data, char *line);
+void		copy_map(int map_pos, int height, t_data *data);
+int			is_empty_line(char *line);
+int			map_h(char *file_name);
 
 // parsing.c
-int		parsing(t_data *data);
-void	strip_newline(char *str);
-int		is_closed(char **map, int height);
-int		is_valid_chars(char **map, int height);
-int		check_inside(char **map, int height);
-int		is_closed_inside(int x_dep, int y_dep, char **map, int height);
-int		check_borders(char *line);
-int		check_first_last(char *line);
-int		has_start_pos(char **map, int height);
-int		validate_value(char *color, int start, int end);
-int		rgb_to_hex(char *color);
-int		parsing_bonus(t_data *data);
-int		parsing_textures(const t_texture *textures);
-int		parsing_colors(char *color);
-
+int			parsing(t_data *data);
+void		strip_newline(char *str);
+int			is_closed(char **map, int height);
+int			is_valid_chars(char **map, int height);
+int			check_inside(char **map, int height);
+int			is_closed_inside(int x_dep, int y_dep, char **map, int height);
+int			check_borders(char *line);
+int			check_first_last(char *line);
+int			has_start_pos(char **map, int height);
+int			validate_value(char *color, int start, int end);
+int			rgb_to_hex(char *color);
+int			parsing_bonus(t_data *data);
+int			parsing_textures(const t_texture *textures);
+int			parsing_colors(char *color);
 
 // sprite
-void	init_tab_sprites(t_data *data);
-void    load_sprite_image(t_data *data, char **sprites_tab);
-int		count_sprites_nb(t_data *data);
-void    calculate_sprite_distances(t_data *data);
-void    sort_sprites(t_data *data);
-void    update_sprite_frame(t_data *data, int i);
-int		get_pixel_color_from_xpm(int x, int y, t_data *data, int current_slice);
-void    process_sprite_y(t_data *data, int i, int stripe);
-void	draw_sprite(t_data *data);
-void	free_sprite(t_data *data);
-
+void		init_tab_sprites(t_data *data);
+void		load_sprite_image(t_data *data, char **sprites_tab);
+int			count_sprites_nb(t_data *data);
+void		calculate_sprite_distances(t_data *data);
+void		sort_sprites(t_data *data);
+void		update_sprite_frame(t_data *data, int i);
+int			get_pixel_color_from_xpm(int x, int y, t_data *data, \
+			int current_slice);
+void		process_sprite_y(t_data *data, int i, int stripe);
+void		draw_sprite(t_data *data);
+void		free_sprite(t_data *data);
 
 /*  _____   ____ _______    _______ ______  */
 /* |  __ \ / __ \__   __|/\|__   __|  ____| */
