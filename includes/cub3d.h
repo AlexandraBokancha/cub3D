@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:40:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/10/03 22:38:50 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/05 19:19:10 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@
 # define A 1734
 # define S 1753
 # define D 1751
+# define F 1729 // to open a door
+# define L 108 // To lock or unlock mouse in screen center
 # define ALT_W 119
 # define ALT_D 100
 # define ALT_S 115
 # define ALT_A 97
 # define ALT_F 102 // to open a door
-# define L 108 // To lock or unlock mouse in screen center
-# define F 1729 // to open a door
 # define ARROW_LEFT 0xFF51
 # define ARROW_RIGHT 0xFF53
 
@@ -702,6 +702,7 @@ void		draw_minimap(t_data *data);
 
 // init_map.c
 t_data		*init_map(t_data *data, char *file_name);
+int			check_cub_path(char *path);
 int			find_map_info(char **map, t_data *data);
 int			process_info_lines(t_data *data, char *line);
 void		copy_map(int map_pos, int height, t_data *data);

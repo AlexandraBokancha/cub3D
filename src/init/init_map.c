@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 20:32:41 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/05 19:21:52 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ char	**open_map(char *file_name, int lines)
  * 
  * @return Returns 0 if the path is valid, 1 if the path is invalid.
  */
-static int	check_cub_path(char *path)
+int	check_cub_path(char *path)
 {
 	if (!ft_strnstr(path, ".cub", ft_strlen(path)))
 		return (write(2, "Error. Not a correct map path\n", 31), 1);
@@ -158,8 +158,6 @@ static int	check_cub_path(char *path)
  */
 t_data	*init_map(t_data *data, char *file_name)
 {
-	if (check_cub_path(file_name))
-		exit_cub(data);
 	data->m_height = map_h(file_name);
 	if (!data->m_height)
 		exit_cub(data);

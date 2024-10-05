@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:20:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:44:36 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/05 19:22:16 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ t_data	*init_cub(char *param)
 	data = (t_data *)malloc(sizeof(struct s_data));
 	if (!data)
 		return (print_error("malloc", errno), NULL);
+	if (check_cub_path(param))
+		return (free(data), NULL);
 	set_default_value(data);
 	data = init_screen(data);
 	if (!data)
