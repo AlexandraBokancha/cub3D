@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albokanc <albokanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:18:04 by alexandra         #+#    #+#             */
-/*   Updated: 2024/10/03 22:35:56 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:47:58 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	calculate_sprite_distances(t_data *data)
 		diff.x = data->sprites_arr[i].sprite_pos.x + 0.5 - data->player.x;
 		diff.y = data->sprites_arr[i].sprite_pos.y + 0.5 - data->player.y;
 		data->sprites_arr[i].distance = sqrt(diff.x * diff.x + diff.y * diff.y);
-		if (data->sprites_arr[i].distance < 0.8)
+		if (data->sprites_arr[i].distance < 1)
 			data->sprites_arr[i].is_active = 0;
 		i++;
 	}

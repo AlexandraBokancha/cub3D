@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:16:18 by alexandra         #+#    #+#             */
-/*   Updated: 2024/10/05 19:21:52 by alexandra        ###   ########.fr       */
+/*   Updated: 2024/10/08 16:45:33 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char	**open_map(char *file_name, int lines)
  */
 int	check_cub_path(char *path)
 {
-	if (!ft_strnstr(path, ".cub", ft_strlen(path)))
+	if (((ft_strncmp(".cub", path + (ft_strlen(path) - 4), 4))))
 		return (write(2, "Error. Not a correct map path\n", 31), 1);
 	return (0);
 }

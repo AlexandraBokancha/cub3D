@@ -6,7 +6,7 @@
 /*   By: alexandra <alexandra@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:06:49 by alexandra         #+#    #+#             */
-/*   Updated: 2024/09/18 21:30:51 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:49:07 by alexandra        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ char	**open_map(char *file_name, int lines)
  * @brief Checks if the given file path has the correct .cub extension.
  * @return 0 if the path is valid, 1 if the path does not end with `.cub`.
  */
-static int	check_cub_path(char *path)
+int	check_cub_path(char *path)
 {
-	if (!ft_strnstr(path, ".cub", ft_strlen(path)))
+	if (((ft_strncmp(".cub", path + (ft_strlen(path) - 4), 4))))
 		return (write(2, "Error. Not a correct map path\n", 31), 1);
 	return (0);
 }
